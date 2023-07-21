@@ -1,0 +1,46 @@
+<!-- ERIJROIE -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Home Page</title>
+
+  <meta charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <script defer src="/scripts/app.js"></script>
+</head>
+
+<body>
+  <%- include('partials/_header') %>
+  <main class="listing_container">
+    <form action="/login" method="post" class="registration-form">
+      <div class="registration-wrapper">
+        <label for="email">email</label>
+        <input placeholder="user@example.com" name="email" type="email"></input>
+      </div>
+
+      <div class="registration-wrapper">
+        <label for="password">Password</label>
+        <input placeholder="password" type="password" name="password">
+      </div>
+
+      <div>
+        <!-- this button will submit the form data to the server-->
+        <button type="submit" >Submit</button>
+      </div>
+    </form>
+  </main>
+</body>
+
+</html>

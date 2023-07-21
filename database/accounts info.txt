@@ -1,0 +1,10 @@
+*google account used for google sheets
+final.project.lhl@gmail.com
+#Finalprojectlhl
+
+*outlook account used for downloading email
+final.project.lhl@outlook.com
+#Finalprojectlhl
+
+-microsoft graph:
+https://developer.microsoft.com/en-us/graph/graph-explorer 
