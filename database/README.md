@@ -4,13 +4,21 @@
 ## Setup
 1. Install server dependencies using the `npm install` command from scheduler-api-server directory.
 2. Create the database by following instructions below under "Create the DB" section 
-3. Start the web server using the `npm start` command. The app will be served at <http://localhost:8000/>.
-4. In the main server's package.json at the very end place the following: "proxy": `"http://localhost:8000"`. this will enable you to make API requests to the db server without exposing the entire url (hiding the location of your db). In this construction your database is a bit hidden but not fully protected from attacks, the correct way of protecting it would be to add an authentication barrier for every API request.
+3. Start the web server using the `npm start` command. The app will be served at <http://localhost:8000/>. To run using nodemon use: `npm run local`
 
 ## Create the DB
 1. start postgres with the command `startpostgres`
 2. Create a database with the command `CREATE DATABASE budget;`.
 3. run the command `npm run db:reset` to create the tables and insert data. This command is also used to reset the database
+
+## Access the DB through API requests
+1. A suggestion for what module to use when getting and putting data to and from the db is the axios module. Install: `npm i axios@0.2.0`, require: `const axios = require('axios');`
+2. In the main server's .env file, place the following: `DB_PROXY_URL=ws://localhost:8000`. 
+  Then in the file where you are going to set up an API request, require the DB_PROXY_URL from .env file as such: `require('dotenv').config()`, then save it to a variable: `const dbProxy = process.env.REACT_APP_WEBSOCKET_URL`. Now you can reference the url like so: `dbProxy/<whateverRoutYouDesire>`
+  This will enable you to make API requests to the db server without exposing the entire url (hiding the location of your db). In this construction your database is a bit hidden but not fully protected from attacks, the correct way of protecting it would be to add an authentication barrier for every API request.
+3. Axios get request:
+4. Axios put request:
+4. Axios delete request:
 
 ##############below is not edited yet########
 ## routs with data

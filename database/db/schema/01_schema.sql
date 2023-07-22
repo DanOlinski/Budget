@@ -11,7 +11,7 @@ CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
   email VARCHAR(255) NOT NULL,
   password VARCHAR(400) NOT NULL,
-  created_at TIMESTAMP DEFAULT Now()
+  created_at TIMESTAMP DEFAULT NOW()
 );
 
 CREATE TABLE spending (

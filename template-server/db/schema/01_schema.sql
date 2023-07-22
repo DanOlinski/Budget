@@ -3,33 +3,52 @@
 
 --Before running npm run db:reset you need to manually create the database(CREATE DATABASE budget), this can't be done automatically(not that I know of) for safety reasons(avoid a user from using DROP DATABASE from within a code)
 DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS spending CASCADE;
-DROP TABLE IF EXISTS accounts CASCADE;
+DROP TABLE IF EXISTS listings CASCADE;
+DROP TABLE IF EXISTS messages CASCADE;
+DROP TABLE IF EXISTS favorites CASCADE;
+DROP TABLE IF EXISTS photos CASCADE;
 
--- create all tables
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   password VARCHAR(400) NOT NULL,
-  created_at TIMESTAMP DEFAULT Now()
+  phone VARCHAR(20) NOT NULL,
+  city VARCHAR(50) NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE
 );
 
-CREATE TABLE spending (
+CREATE TABLE listings (
   id SERIAL PRIMARY KEY NOT NULL,
-  user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  bank VARCHAR(100),
-  account_number VARCHAR(255),
-  subject VARCHAR(100),
-  monetary_value VARCHAR(255),
-  store_name VARCHAR(255),
-  received_date TIMESTAMP DEFAULT Now()
+  title VARCHAR(50) NOT NULL,
+  long_description TEXT NOT NULL,
+  condition VARCHAR(50),
+  thumbnail_url VARCHAR(255),
+  owner_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  asking_price INT,
+  featured BOOLEAN DEFAULT FALSE,
+  sold BOOLEAN DEFAULT FALSE,
+  deleted BOOLEAN DEFAULT FALSE,
+  date_created TIMESTAMP WITH TIME ZONE DEFAULT Now()
 );
 
-CREATE TABLE accounts (
+CREATE TABLE favorites (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  bank VARCHAR(100),
-  account_number VARCHAR(255),
-  holdings VARCHAR(255),
-  received_date TIMESTAMP DEFAULT Now()
+  listing_id INT NOT NULL REFERENCES listings(id) ON DELETE CASCADE
+);
+
+CREATE TABLE photos (
+  id SERIAL PRIMARY KEY NOT NULL,
+  listing_id INT NOT NULL REFERENCES listings(id) ON DELETE CASCADE,
+  url VARCHAR(600)
+);
+
+CREATE TABLE messages (
+  id SERIAL PRIMARY KEY NOT NULL,
+  message TEXT NOT NULL,
+  listing_id INT NOT NULL REFERENCES listings(id) ON DELETE CASCADE,
+  seller_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  client_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT Now()
 );
