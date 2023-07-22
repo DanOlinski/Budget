@@ -5,6 +5,7 @@
 1. Install server dependencies using the `npm install` command from scheduler-api-server directory.
 2. Create the database by following instructions below under "Create the DB" section 
 3. Start the web server using the `npm start` command. The app will be served at <http://localhost:8000/>.
+4. In the main server's package.json at the very end place the following: "proxy": `"http://localhost:8000"`. this will enable you to make API requests to the db server without exposing the entire url (hiding the location of your db). In this construction your database is a bit hidden but not fully protected from attacks, the correct way of protecting it would be to add an authentication barrier for every API request.
 
 ## Create the DB
 1. start postgres with the command `startpostgres`
