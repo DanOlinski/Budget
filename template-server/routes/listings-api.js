@@ -12,6 +12,7 @@ const generalQueries = require('../db/queries/general');
 //this function searches and appends filtered listings to the listings owned by a user
 router.post('/', (req, res) => {
   let email = req.session['userInfo']
+  
   generalQueries
     .getUserByEmail(email)
     .then((user) => {

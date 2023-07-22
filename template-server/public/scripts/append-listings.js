@@ -1,5 +1,6 @@
 //this function searches and appends filtered listings to the /search rout. however this function is handled in the /api/search rout
 $(document).ready(function () {
+
   if($('#manage_listings_container').length > 0)
   {
   const idSelector = '#manage_listings_container'
