@@ -4,7 +4,7 @@
 ## Setup
 1. Install server dependencies using the `npm install` command from scheduler-api-server directory.
 2. Create the database by following instructions below under "Create the DB" section 
-3. Start the web server using the `npm start` command. The app will be served at <http://localhost:8080/>.
+3. Start the web server using the `npm start` command. The app will be served at <http://localhost:8000/>.
 
 ## Create the DB
 1. start postgres with the command `startpostgres`

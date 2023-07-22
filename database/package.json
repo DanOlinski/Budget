@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "local": "./node_modules/.bin/nodemon -L --ignore public/",
-    "sass-watch": "sass sass:public/styles --watch --poll --no-source-map",
+    "local": "nodemon -L server.js",
     "db:reset": "node bin/resetdb.js"
   },
   "author": "Daniel O. G. and Eliza Galea",
@@ -18,10 +17,11 @@
     "ejs": "^3.1.9",
     "express": "^4.17.1",
     "morgan": "^1.9.1",
+    "node-fetch": "^2.6.12",
     "pg": "^8.5.0",
-    "sass": "^1.64.0"
+    "sass": "^1.64.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.10"
+    "nodemon": "^3.0.1"
   }
 }
