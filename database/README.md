@@ -13,12 +13,36 @@
 
 ## Access the DB through API requests
 1. A suggestion for what module to use when getting and putting data to and from the db is the axios module. Install: `npm i axios@0.2.0`, require: `const axios = require('axios');`
-2. In the main server's .env file, place the following: `DB_PROXY_URL=ws://localhost:8000`. 
-  Then in the file where you are going to set up an API request, require the DB_PROXY_URL from .env file as such: `require('dotenv').config()`, then save it to a variable: `const dbProxy = process.env.REACT_APP_WEBSOCKET_URL`. Now you can reference the url like so: `dbProxy/<whateverRoutYouDesire>`
+2. In the main server's .env file, place the following: `DB_PROXY_URL=http://localhost:8000`(if you are using react or a web socket the proxy method as a bit different). 
+  Then in the file where you are going to set up an API request, require the DB_PROXY_URL from .env file as such: `require('dotenv').config()`, then save it to a variable: `const dbProxy = process.env.DB_PROXY_URL`. Now you can reference the url like so: `${dbProxy}/<whateverRoutYouDesire>`
   This will enable you to make API requests to the db server without exposing the entire url (hiding the location of your db). In this construction your database is a bit hidden but not fully protected from attacks, the correct way of protecting it would be to add an authentication barrier for every API request.
 3. Axios get request:
+  //constructors
+  const proxy = process.env.DB_PROXY_URL
+  const url = `${proxy}/debug/queryRequest`
+
+  //create the axios request
+  const axiosGetRequest = () => {return axios.get(url)}
+
+  //call the axios get request
+  axiosGetRequest()
+  .then((resp) => {
+    console.log(resp.data)//for debugging
+    return resp.data
+  })
+
 4. Axios put request:
-4. Axios delete request:
+  //create the axios put request
+  const axiosPutRequest = () => {
+  //to save a new user: object = {email: "...", hashedPassword: "..."}
+  return axios.put(url, object)
+  }
+
+  //call the axios request
+  axiosPutRequest()
+    .then((resp) => {
+    res.json(resp.data)
+  })
 
 ##############below is not edited yet########
 ## routs with data
