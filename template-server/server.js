@@ -35,31 +35,16 @@ app.use(
 app.use(express.static('public'));
 
 // Separated Routes for each Resource
-const userApiRoutes = require('./routes/users-api');
-const searchApiRoutes = require('./routes/search-api');
-const userListingsApiRoutes = require('./routes/listings-api');
-const listingButtonsApiRoutes = require('./routes/listing-buttons-api');
-const widgetApiRoutes = require('./routes/widgets-api');
 const usersRoutes = require('./routes/users');
-const loginRouts = require('./routes/login');
-const registerRouts = require('./routes/register');
-const listingsRouts = require('./routes/listings');
-const mailboxRouts = require('./routes/mailbox');
-const mailboxApiRoutes = require('./routes/mailbox-api');
+const loginRoutes = require('./routes/login');
+const registerRoutes = require('./routes/register');
 
 // Mount all resource routes
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
-app.use('/api/users', userApiRoutes);
-app.use('/api/search', searchApiRoutes);
-app.use('/api/listings', userListingsApiRoutes);
-app.use('/api/listing/buttons', listingButtonsApiRoutes);
-app.use('/api/widgets', widgetApiRoutes);
-app.use('/api/mailbox', mailboxApiRoutes);
 app.use('/users', usersRoutes);
-app.use('/login', loginRouts);
-app.use('/register', registerRouts);
-app.use('/listings', listingsRouts);
-app.use('/mailbox', mailboxRouts);
+app.use('/login', loginRoutes);
+app.use('/register', registerRoutes);
+
 
 // Note: mount other resources here, using the same pattern above
 // Home page
