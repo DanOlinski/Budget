@@ -31,7 +31,6 @@ const getUserByEmail = (email) => {
   //protect db from SQL injections
   const values = [email];
 
-  //selecting all columns from users
   const sqlQuery = `
   SELECT *
   FROM users
@@ -59,9 +58,8 @@ const getPasswordByEmail = (email) => {
   //protect db from SQL injections
   const values = [email];
 
-  //selecting all columns from users
   const sqlQuery = `
-  SELECT *
+  SELECT password
   FROM users
   WHERE email = $1;
   `;
@@ -78,21 +76,20 @@ const getPasswordByEmail = (email) => {
     .catch((err) => console.log(err.message))//debug in terminal
 };
 
-//store names if store name exists
-const getStoreByUserId = (email, time) => {
+const getStoresByUserId = (user_id) => {
   //return null if no id is passed in
-  if (!email) {
+  if (!user_id) {
     return null;
   }
 
   //protect db from SQL injections
-  const values = [email];
+  const values = [user_id];
 
-  //selecting all columns from users
   const sqlQuery = `
-  SELECT *
-  FROM users
-  WHERE email = $1;
+  SELECT spending.store_name
+  FROM spending
+  JOIN accounts ON account_id = accounts.id
+  WHERE accounts.user_id = $1;
   `;
 
   return db.query(sqlQuery, values)
@@ -107,20 +104,20 @@ const getStoreByUserId = (email, time) => {
     .catch((err) => console.log(err.message))//debug in terminal
 };
 
-const getEmailSubjectByUserId = (email, time) => {
+const getSpendingByUserId = (user_id) => {
   //return null if no id is passed in
-  if (!email) {
+  if (!user_id) {
     return null;
   }
 
   //protect db from SQL injections
-  const values = [email];
+  const values = [user_id];
 
-  //selecting all columns from users
   const sqlQuery = `
-  SELECT *
-  FROM users
-  WHERE email = $1;
+  SELECT spending.*
+  FROM spending
+  JOIN accounts ON account_id = accounts.id
+  WHERE accounts.user_id = $1;
   `;
 
   return db.query(sqlQuery, values)
@@ -135,77 +132,20 @@ const getEmailSubjectByUserId = (email, time) => {
     .catch((err) => console.log(err.message))//debug in terminal
 };
 
-const getMonetaryValueByUserId = (email, time) => {
+const getAccountInfoByUserId = (user_id, account_number) => {
   //return null if no id is passed in
-  if (!email) {
+  if (!user_id || !account_number) {
     return null;
   }
 
   //protect db from SQL injections
-  const values = [email];
+  const values = [user_id, account_number];
 
-  //selecting all columns from users
   const sqlQuery = `
   SELECT *
-  FROM users
-  WHERE email = $1;
-  `;
-
-  return db.query(sqlQuery, values)
-    .then(res => {
-      //if sql does not find anything return a message
-      //console.log(res.rows)
-      if(res.rows.length === 0){
-        return ("not found")
-      }
-      return res.rows[0]
-    })
-    .catch((err) => console.log(err.message))//debug in terminal
-};
-
-const getAccountNumberByUserId = (email, time) => {
-  //return null if no id is passed in
-  if (!email) {
-    return null;
-  }
-
-  //protect db from SQL injections
-  const values = [email];
-
-  //selecting all columns from users
-  const sqlQuery = `
-  SELECT *
-  FROM users
-  WHERE email = $1;
-  `;
-
-  return db.query(sqlQuery, values)
-    .then(res => {
-      //if sql does not find anything return a message
-      //console.log(res.rows)
-      if(res.rows.length === 0){
-        return ("not found")
-      }
-      return res.rows[0]
-    })
-    .catch((err) => console.log(err.message))//debug in terminal
-};
-
-///by account number+used id
-const getAccountHoldings = (email, time) => {
-  //return null if no id is passed in
-  if (!email) {
-    return null;
-  }
-
-  //protect db from SQL injections
-  const values = [email];
-
-  //selecting all columns from users
-  const sqlQuery = `
-  SELECT *
-  FROM users
-  WHERE email = $1;
+      FROM accounts
+      WHERE user_id = $1
+      AND account_number = $2;
   `;
 
   return db.query(sqlQuery, values)
@@ -223,5 +163,8 @@ const getAccountHoldings = (email, time) => {
 module.exports = {
   debugQuery,
   getUserByEmail,
-  getPasswordByEmail
+  getPasswordByEmail,
+  getStoresByUserId,
+  getSpendingByUserId,
+  getAccountInfoByUserId
 };

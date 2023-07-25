@@ -5,6 +5,7 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS spending CASCADE;
 DROP TABLE IF EXISTS accounts CASCADE;
+DROP TABLE IF EXISTS categories CASCADE;
 
 -- create all tables
 CREATE TABLE users (
@@ -14,22 +15,29 @@ CREATE TABLE users (
   created_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE spending (
-  id SERIAL PRIMARY KEY NOT NULL,
-  user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  bank VARCHAR(100),
-  account_number VARCHAR(255),
-  subject VARCHAR(100),
-  monetary_value VARCHAR(255),
-  store_name VARCHAR(255),
-  received_date TIMESTAMP DEFAULT Now()
-);
-
 CREATE TABLE accounts (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   bank VARCHAR(100),
   account_number VARCHAR(255),
   holdings VARCHAR(255),
-  received_date TIMESTAMP DEFAULT Now()
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE categories (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  category VARCHAR(100),
+  budget VARCHAR(255),
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE spending (
+  id SERIAL PRIMARY KEY NOT NULL,
+  category_id VARCHAR(100),
+  account_id INT NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,
+  subject VARCHAR(100),
+  amount_spent VARCHAR(255),
+  store_name VARCHAR(255),
+  created_at TIMESTAMP DEFAULT NOW()
 );

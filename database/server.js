@@ -27,10 +27,14 @@ app.use(express.static('public'));
 
 // Separated Routes for each Resource
 const debug = require('./routes/debug.js');
+const user = require('./routes/user.js');
+const getters = require('./routes/getters.js');
 
 
 // Mount all resource routes
 app.use('/debug', debug);
+app.use('/user', user);
+app.use('/getters', getters);
 
 app.get('/', (req, res) => {
   res.render('index');
