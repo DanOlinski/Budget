@@ -27,7 +27,7 @@
   //call the axios get request
   axiosGetRequest()
   .then((resp) => {
-    console.log(resp.data)//for debugging
+    console.log(resp.data)//to check response status
     return resp.data
   })
 
@@ -41,88 +41,39 @@
   //call the axios request
   axiosPutRequest()
     .then((resp) => {
-    res.json(resp.data)
+    console.log(resp.data)//to check response status
+    return resp.data
   })
 
-##############below is not edited yet########
 ## routs with data
-- Days
 
-`GET /api/days`
+  # Save new user to database
+  - rout: `/user/create`
+  - API method: put
+  - expected object from API request: {email: "...", hashedPassword: "..."}
+  - response from bd server: user id and user email (to be saved as cookies)
 
-Response
+  # Get a user's password(hashed), send user's email as a parameter
+  - rout: `/user/password/:email`
+  - API method: get
+  - expected parameter in url: user's email
+  - response from bd server: user's password
 
-```json
-[
-  {
-    "id": 1,
-    "name": "Monday",
-    "appointments": [1, 2],
-    "interviewers": [1, 2],
-    "spots": 0
-  }
-]
-```
+  # Get stores visited by a user
+  - rout: `/stores-by-user-id/:id`
+  - API method: get
+  - expected parameter in url: user id
+  - response from bd server: all stores visited by user
 
-- Appointments
+  # Get spending
+  - rout: `/spending-by-user-id/:id`
+  - API method: get
+  - expected parameter in url: user id
+  - response from bd server: all spending from user
 
-`GET /api/appointments`
+  # Get account info
+  - rout: `/account-info-by-user-id-&-account/:id/:account_number`
+  - API method: get
+  - expected parameter in url: user id and account number(same as what is in email coming from the bank)
+  - response from bd server: account info
 
-Response:
-
-```json
-{
-  "1": {
-    "id": 1,
-    "time": "12pm",
-    "interview": {
-      "student": "Lydia Miller-Jones",
-      "interviewer": 1
-    }
-  },
-  "2": {
-    "id": 2,
-    "time": "1pm",
-    "interview": {
-      "student": "Archie Cohen",
-      "interviewer": 2
-    }
-  }
-}
-```
-
-`PUT /api/appointments/:id`
-
-Body:
-
-```json
-{
-  "interview": {
-    "student": String,
-    "interviewer": Number
-  }
-}
-```
-
-`DELETE /api/appointments/:id`
-
-- Interviewers
-
-`GET /api/interviewers`
-
-Response:
-
-```json
-{
-  "1": {
-    "id": 1,
-    "name": "Sylvia Palmer",
-    "avatar": "https://i.imgur.com/LpaY82x.png"
-  },
-  "2": {
-    "id": 2,
-    "name": "Tori Malcolm",
-    "avatar": "https://i.imgur.com/Nmx0Qxo.png"
-  }
-}
-```
