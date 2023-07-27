@@ -1,13 +1,48 @@
 import React, {useState} from 'react';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
  
 const Login = (props) => {
+
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
 
-    const handleSubmit = (e) => {
+    const testAuthData = {
+        email: 'test@gmail.com',
+        pass: 'test',
+      }; 
+      const authenticateUser = (email, pass) => {
+        if (email === testAuthData.email && pass === testAuthData.pass) { 
+          const userData = {
+            email,
+            pass,
+          };
+          const expirationTime = new Date(new Date().getTime() + 60000);
+          Cookies.set('auth', JSON.stringify(userData), { expires: expirationTime });
+          return true;
+        }
+        return false;
+      };
+
+      const navigate = useNavigate(); // Get the navigate function from the useNavigate hook
+
+      const handleSubmit = (e) => {
         e.preventDefault();
         console.log(email);
-    }
+      
+        try {
+          const isAuthenticated = authenticateUser(email, pass);
+      
+          if (isAuthenticated) {
+            navigate('/dashboard');
+          } else {
+            console.log("Authentication failed.");
+          }
+        } catch (error) {
+          console.log("An error occurred:", error.message);
+          // You can handle the error here or show an error message to the user
+        }
+      };
 
     return (
         <div className="authentication-form-container">
@@ -23,6 +58,8 @@ const Login = (props) => {
             <button className="link-btn" onClick={() => props.onFormSwitch("signup")}>Don't have an account? Register here.</button>
             </div>
     );
+
+
 };
  
 export default Login;
