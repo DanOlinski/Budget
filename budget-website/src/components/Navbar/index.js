@@ -23,7 +23,7 @@ const pages = [
 ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({ onFormSwitch }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -128,7 +128,6 @@ function ResponsiveAppBar() {
               <Link key={page.label} to={page.link} style={{ textDecoration: 'none' }}>
               <Button
                 key={page.label}
-                onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}>
                 <Typography>{page.label}</Typography>
               </Button>

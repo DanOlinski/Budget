@@ -10,17 +10,25 @@ import Category from './pages/category';
 import ResponsiveAppBar from './components/Navbar';
  
 function App() {
+
     return (
+        
         <Router>
            <ResponsiveAppBar />
+           <div className="App">
             <Routes>
+            
+                    (<Route path='/login' element={<Login onFormSwitch={() => {}}/>} />) : 
+                    (<Route path='/signup' element={<SignUp onFormSwitch={() => {}}/>} />
+                )
                 <Route exact path='/' element={<Home />} />
-                <Route path='/signup' element={<SignUp />} />
-                <Route path='/login' element={<Login />} />
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/category' element={<Category />} />
+                
             </Routes>
+            </div>
         </Router>
+        
     );
 }
  
