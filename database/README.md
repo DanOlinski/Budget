@@ -54,26 +54,45 @@
   - response from bd server: user id and user email (to be saved as cookies)
 
   # Get a user's password(hashed), send user's email as a parameter
-  - rout: `/user/password/:email`
+  - rout: `/user/:password/:email`
   - API method: get
   - expected parameter in url: user's email
   - response from bd server: user's password
 
-  # Get stores visited by a user
-  - rout: `/stores-by-user-id/:id`
+  # Get stores visited by user id
+  - rout: `/getters/stores_by_user_id/:id`
   - API method: get
   - expected parameter in url: user id
   - response from bd server: all stores visited by user
 
-  # Get spending
-  - rout: `/spending-by-user-id/:id`
+  # Get categories by user id
+  - rout: `/getters/categories/:id`
   - API method: get
   - expected parameter in url: user id
-  - response from bd server: all spending from user
+  - response from bd server: all categories belonging to a user
+  
+  # Get spending
+  - rout: `getters/spending`
+  - API method: post
+  - expected object: {user_id, start_date, end_date} dates must be in ISO format
+  - response from bd server: {id, category_id, account_id, subject, amount_spent, store_name,
+created_at_parsed, created_at, bank, card_number}
 
   # Get account info
-  - rout: `/account-info-by-user-id-&-account/:id/:account_number`
+  - rout: `getters/account_info_by_user_id_&_bank/:id/:bank`
   - API method: get
-  - expected parameter in url: user id and account number(same as what is in email coming from the bank)
+  - expected parameter in url: user id and bank name
   - response from bd server: account info
 
+  # Save Token
+  - rout: `inserts/save_token`
+  - API method: put
+  - expected object: {user_id: "..", bank: '...', token: "..."}
+  token comes from microsoft graphs
+  - response from bd server: account info
+
+  # Set Default New Category
+  - rout: `inserts/set_default_category`
+  - API method: put
+  - expected object: {user_id, category, start_date, end_date}
+  - response from bd server: all spending with updated default category

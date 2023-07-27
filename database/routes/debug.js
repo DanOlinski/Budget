@@ -2,37 +2,52 @@ const express = require('express');
 const router  = express.Router();
 const generalQueries = require('../db/queries/generalQueries');
 const sql_inserts = require('../db/inserts/sql_inserts');
+const fetch = require('node-fetch')
+const axios = require('axios');
+const qs = require('qs')
 
 //api request to microsoft outlook
 router.get('/emailApiRequest', (req, res) => {
-  const token = {
-    token: "EwCQA8l6BAAUAOyDv0l6PcCVu89kmzvqZmkWABkAAdUp169dAJE9PdLSjXHsJ5C0sWp4uA6Fdy9r7SXbum55lLaZ6Hi0cl2lOv27S15pStAVh/6K0bgjyA+CUjzobgwPtJ/qsboKht2xSIXFWv+x9iWs2JxJ/9lLc5GSzgGhDZPTgtbIRpofB1/6qWHK2GT41XZnp8A29Ihm3bzs0ccfpAG/k+BLBWhKjTkEsZsQEkkrjJR8MUY/ZTbMEPWcnCTITrQMeMYh/h9lCgX7gxa63fLoB9Zrpo6l1hVzC+GhmWG6jc43CLkZYxT970A3yuHDWG/FI9CICi/Ed+JGKn/VxqpCHfCu+3h/dLmQ7HzMtMiO+05lojQuPmy3lj3BMp4DZgAACPZx/fr+2oxBYAILhhMiitK2Y1eSmqA87mE0SVvTkBvX5V5pRGW+ZSuJeNfwavYf/Asm7KxE1d4lfaPc6vuLGmHbLyUH5PatS9yLlztk7EfWaYkVfH1sj47VHsapKWeRGD2dWAZE7DbfS5VzSrZDedpildHzhI1gCIE855v30y4khKQXdtTmh1+gO+vSSuzhZRRUFj4oP/ZkSUxL/cVSfY/jbNKcs+qFfKrDUDwGI7Z7Q374rd1iOHO8ChqDRiwM0aP7OjFQ5A2qMsP+yHOjOkrvFHN2m42LhmVDgaAb9QgPBsofNCVRzK0NmAJfp1c0zDzjvru7bakjTcutvsKiAHx1rKgbmJQTi8xs6Jc8NXiyazLlzMvDRHpznep8UhUZx1tWVWDpN/h5Ka6NNTwQQpmIiR4YNt/t1om9oGfUJedxDRDnj9bssz6fat3q1IzE/CBZ/GTtZR1xn2v99j3hecnG6/yoz42TVqfLmH4AJpSViFQjn6XW4eSHCrpNV2G8R9eZVYRUEQxukZ0cErCcjK6ikmQpCyZX/saALJCtwiLbuM/YOjW4SizCBgRr5KkuuRxJ3qiHg7QEoxeSv5iU7jpuk94IcIXKyOxuvG0Q1XGqmzWlA2y0oW3U3GbcR72fOxIVCT0+npzZq040y8Sa7QKg/xJwdKeIJVNI843MBjFN00HQHFhaYR3RWpenlikB71I0gAGjKIu45dzZ9TZJWNNLz+pCw+Bde3EffIpJaGgkbeao5VAgcDkNWLkG0SdNqPJYIc2Lb860kYk/mJsPCb5Bqclu93FpadtHZNmKB59YBZhB2+GEREXaAKMC"
-}
-const url = 'https://graph.microsoft.com/v1.0/users/daniel.guterres@hotmail.com'
-const fetchAPI = () => {
-    return fetch(
-      url,
-      {
-        headers: {
-          //this is the authentication
-          "Authorization": `Bearer ${token.token}`,
-          //this determains the tipe of info I want to fetch
-          "Content-Type": "application/json"
-        } 
+  
+  const getTokenUrl = 'https://login.microsoft.com/f8cdef31-a31e-4b4a-93e4-5f571e91255a/oauth2/token'
+  const getDataUrl = 'https://graph.microsoft.com/v1.0/users/final.project.lhl@outlook.com'
+  const headersForTokenRequest = {
+  grant_type: 'client_credentials',
+  client_id: 'e99c23e3-e715-4f4a-aed5-a2019586b873',
+  client_secret: 'wJf8Q~sxP23L.9AV2iscxju~UCGRNZRlffbOQdcr',
+  scope: 'https://graph.microsoft.com/.default'
+  }
+ 
+  axios.post(
+    getTokenUrl,
+    qs.stringify(headersForTokenRequest)
+  )
+  .then((r)=>{
+    //console.log(r.data) //this is the object with the token
+    const token = r.data.access_token//this token doesn't work for the requested url
+    const graphToken = {
+    graphToken: 'EwCAA8l6BAAUAOyDv0l6PcCVu89kmzvqZmkWABkAAeEafhb3+xA4jqi0wq7LZvyPhI52uRdUpSMWxnAb6NL7Kh6RcSZAsPbV75qLL19TwFRhEQwZ3hTz8qmbAaF70mo3FcE/igl+yIJeAENgas7UbV6NjyVdO0XLFPtD8vVSZgeLqIt4+/7KjgQcpJgq3hXI2eeJZ938nhOTQr1f27KMsB5uHunmRcUzVEN/nBT5M8c2wERnT/zsxB4PuCyXl5SnKLFkXzxCHr9Npw/r0S99pN8fnircEf3mC7qL+2TUux7qlW5uhWefvr8x0c2YDwMwL4+fGJ/h57BcpKwwkYRDITq5RWQHHXNUXGEK1yCodZPc5/9Vz4Q0VEiXI5gCNlQDZgAACFE78zRw960vUAJjrYUGJGukBEO4wIXRq0U89l6hUrBqoNLmIG8I8kaJtCqMH+6jAV1HB962QzYTYVFw1S+Q/1TiLts3IODmGyUUu3Lsseh4g/8a5CLSYwynic5EgdJjLAa7l5l6+cDWW8Fmrsy7j/KHsxir9iXfv5TrobvX0JIaUsOi/j8mFZWjK6mRIMbD3bwGFDJbqzfWEzY4wDJcjzzKq/Sixuw9acl4J7LMrPG3+xabP9/0J+Mw4om5fVzwgkseH5QyTfu/W8MVmb+4Idc646D85VGYPWSro+XSP2SAOw8trzDYYz16z1sOahuyO9cniMaDo0pnwT7bdH/Wt2wDaiwbb3tq79mqRlREIHRxT8JKGRmO8MqTcIUzM9jHCnusv6SJbvxEL7DygeklriRa5t4cmgzwKuzrOfZtA6m6cd8W5D2UB1SHtGYg7+b0P55O/MScO/l+M+55c7i0m8Xy8Gc99C7HNEmON9HcMdGY131c9uUvpbrkAuWCYiW7+2Nj8c2eeCFxSmYkJGMYsxX/GnDcP6XBQp83wEkUmaR8B9NdJ9KAMj6dPU7GsZIPhUkHQYbqIYxXa2Q7XkphWaz1Dw6FX1DrpzE5n4zQnQ+e2iKjJ9eN/8bh04iyJtB+CXOx8XNrrZ6gqApmg+6d3xhAUXvsiCxZUegrwiB1nW1oCYJPv/3GzeQS6s5O8DPS53ZGeoXZ9Wb2cuUgpr+Zjvl0lZHPfhbacOv3IKjpsUYDiXqwnRE5odQfAjkMqtyb9GCQRKnWaDwrid+nqLuNeTqkgJ+sAYF6SJgimAI=',
+    }
+    const headersForDataRequest = {
+      headers: {
+        "Authorization": `Bearer ${graphToken.graphToken}`,
+        "Content-Type": "application/json"
       }
+    }
+    axios.get(
+      getDataUrl,
+      headersForDataRequest
     )
-}
-
-  fetchAPI()
-    .then((resp) => {
-      //the API response is a messy object, so you need to use .json to pull useful data only.
-      resp.json()
-      .then(
-        (response) => {
-          //here where the info is rendered to the page
-          res.json(response)
-      })
+    .catch((e)=>{
+      //console.log("error not desireble")
+      return
     })
+    .then((r)=>{
+      console.log(r.data)
+    })
+  })
+  
+  res.json("t")
 });
 
 //find user by id; http://localhost:8000/debug/queryGetRequest/1
