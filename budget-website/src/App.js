@@ -1,56 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import { useNavigate, BrowserRouter as Router, Routes, Route }
+import { BrowserRouter as Router, Routes, Route }
     from 'react-router-dom';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 import Home from './pages';
 import SignUp from './pages/signup';
 import Login from './pages/login';
 import Dashboard from './pages/dashboard';
 import Category from './pages/category';
 import ResponsiveAppBar from './components/Navbar';
-
-const ProtectedPage = ({ ...rest }) => {
-    const isAuthenticated = !!Cookies.get('auth');
-    const navigate = useNavigate();
-    const handleLogout = () => { 
-      Cookies.remove('auth');
-      navigate('/login'); 
-    };
-  
-    if (!isAuthenticated) {
-      navigate('/login'); 
-      return null; // Return null to prevent rendering anything else
-    }
-  
-    return (
-      <div>
-        <h1 style={{ fontSize: '24px', color: 'blue' }}>Hello, World!</h1>
-        <button style={{ marginTop: '10px' }} onClick={handleLogout}>
-          Logout
-        </button>
-
-        <Dashboard />
-      <Category />
-      </div>
-    );
-  };
  
 function App() {
+
+    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('auth'));
+
+    const handleLogout = () => {
+      localStorage.removeItem('auth');
+      setIsAuthenticated(false);
+    };
+  
+    const handleLogin = () => {  
+      setIsAuthenticated(true);
+    };
+
+    // useEffect(() => {
+    //     const cookieSet = Cookies.get('auth');
+    //     cookieSet ? setIsAuthenticated(true) : setIsAuthenticated(false);
+    // }, [])
 
     return (
         
         <Router>
-           <ResponsiveAppBar />
+           <ResponsiveAppBar isAuthenticated={isAuthenticated} onLogout={handleLogout} />
            <div className="App">
             <Routes>
-            
-                    (<Route path='/login' element={<Login onFormSwitch={() => {}}/>} />) : 
-                    (<Route path='/signup' element={<SignUp onFormSwitch={() => {}}/>} />
-                )
-                <Route exact path='/' element={<Home />} />
-                <Route path='/dashboard' element={<ProtectedPage />} />
-                <Route path='/category' element={<ProtectedPage />} />
+            <Route path="/login" element={<Login onFormSwitch={handleLogin} />} />
+            <Route path="/signup" element={<SignUp onFormSwitch={() => {}} />} />
+            <Route path="/" element={<Home />} />
+
+                {isAuthenticated ? (
+            <>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/category" element={<Category />} />
+            </>
+                ) :null }
                 
             </Routes>
             </div>

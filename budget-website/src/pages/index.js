@@ -3,7 +3,7 @@ import React from 'react';
 const Home = () => {
     return (
         <div>
-            <h1>Welcome to Budget</h1>
+            <h1>Hello this is a Budget App!!</h1>
         </div>
     );
 };

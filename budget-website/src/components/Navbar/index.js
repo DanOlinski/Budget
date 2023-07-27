@@ -14,16 +14,58 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 
-const pages = [
-  { label: 'Login', link: '/login'},
-  { label: 'Sign Up', link: '/signup'},
-  { label: 'Dashboard', link: '/dashboard' },
-  { label: 'Manage categories', link: '/category' },
-  
-];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+function AuthenticatedMenu({ handleCloseNavMenu, onLogout }) {
+  return (
+    <>
+      <MenuItem onClick={handleCloseNavMenu}>
+        <Link to="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Typography textAlign="center">Dashboard</Typography>
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleCloseNavMenu}>
+        <Link to="/category" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Typography textAlign="center">Manage categories</Typography>
+        </Link>
+      </MenuItem>
+      
+    </>
+  );
+}
 
-function ResponsiveAppBar({ onFormSwitch }) {
+function NonAuthenticatedMenu({ handleCloseNavMenu }) {
+  return (
+    <>
+      <MenuItem onClick={handleCloseNavMenu}>
+        <Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Typography textAlign="center">Login</Typography>
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleCloseNavMenu}>
+        <Link to="/signup" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Typography textAlign="center">Sign Up</Typography>
+        </Link>
+      </MenuItem>
+    </>
+  );
+}
+
+function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
+
+   // Retrieve the email from localStorage
+   const userEmail = isAuthenticated ? localStorage.getItem('auth') : null;
+
+  const userAvatar = isAuthenticated ? userEmail?.charAt(11).toUpperCase() : null;
+
+  const pages = !isAuthenticated
+  ? [
+    { label: 'Login', link: '/login' },
+    { label: 'Sign Up', link: '/signup' },
+  ]
+  :  [
+          { label: 'Dashboard', link: '/dashboard' },
+          { label: 'Manage categories', link: '/category' },
+        ]
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -62,7 +104,7 @@ function ResponsiveAppBar({ onFormSwitch }) {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            BUDGET
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -94,14 +136,11 @@ function ResponsiveAppBar({ onFormSwitch }) {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page.label} onClick={handleCloseNavMenu}>
-                  <Link to={page.link} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <Typography textAlign="center">{page.label}</Typography>
-                  </Link>
-                  
-                </MenuItem>
-              ))}
+                   {isAuthenticated ? (
+           <AuthenticatedMenu handleCloseNavMenu={handleCloseNavMenu} />
+           ) : (
+             <NonAuthenticatedMenu handleCloseNavMenu={handleCloseNavMenu} />
+           )}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -121,7 +160,7 @@ function ResponsiveAppBar({ onFormSwitch }) {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            BUDGET
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -135,10 +174,13 @@ function ResponsiveAppBar({ onFormSwitch }) {
             ))}
           </Box>
 
+          {isAuthenticated ? (
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg">
+                {userAvatar}
+                </Avatar>
               </IconButton>
             </Tooltip>
             <Menu
@@ -157,13 +199,12 @@ function ResponsiveAppBar({ onFormSwitch }) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={onLogout}>
+              <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
+          ) : null }
         </Toolbar>
       </Container>
     </AppBar>

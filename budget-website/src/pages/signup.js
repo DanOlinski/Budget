@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
  
 const SignUp = (props) => {
         const [email, setEmail] = useState("");
         const [pass, setPass] = useState("");
         const [name, setName] = useState("");
+
+        const navigate = useNavigate(); // Get the navigate function from the useNavigate hook
     
         const handleSubmit = (e) => {
             e.preventDefault();
@@ -23,7 +26,7 @@ const SignUp = (props) => {
                 <button type="submit">Login</button>
                 </form>
     
-                <button className="link-btn" onClick={() => props.onFormSwitch("login")}>Already have an account? Login here.</button>
+                <button className="link-btn" onClick={() => navigate('/login')}>Already have an account? Login here.</button>
                 </div>
         );
 };

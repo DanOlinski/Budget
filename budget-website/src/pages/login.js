@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
  
-const Login = (props) => {
+const Login = ({onFormSwitch}) => {
 
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
@@ -17,8 +17,9 @@ const Login = (props) => {
             email,
             pass,
           };
-          const expirationTime = new Date(new Date().getTime() + 60000);
-          Cookies.set('auth', JSON.stringify(userData), { expires: expirationTime });
+          // const expirationTime = new Date(new Date().getTime() + 60000);
+          // Cookies.set('auth', JSON.stringify(userData), { expires: expirationTime });
+          localStorage.setItem('auth', JSON.stringify(userData));
           return true;
         }
         return false;
@@ -32,8 +33,10 @@ const Login = (props) => {
       
         try {
           const isAuthenticated = authenticateUser(email, pass);
+          // axios request to login post
       
           if (isAuthenticated) {
+            onFormSwitch();
             navigate('/dashboard');
           } else {
             console.log("Authentication failed.");
@@ -55,7 +58,7 @@ const Login = (props) => {
             <button type="submit">Login</button>
             </form>
 
-            <button className="link-btn" onClick={() => props.onFormSwitch("signup")}>Don't have an account? Register here.</button>
+            <button className="link-btn" onClick={() => navigate('/signup')}>Don't have an account? Register here.</button>
             </div>
     );
 
