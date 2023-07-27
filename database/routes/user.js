@@ -33,8 +33,6 @@ router.put("/create", (req, res) => {
       sql_inserts.saveUserToDb(newUser);
       generalQueries.getUserByEmail(newUser.email)
       .then((response) => {
-        console.log(response.id)
-        console.log(response.email)
         const message = 'user successfully saved to db'
         const sendBack = {reassuringMessage: message, userId: response.id, userEmail: response.email}
         return (res.send(sendBack));

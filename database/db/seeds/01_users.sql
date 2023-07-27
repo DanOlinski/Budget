@@ -7,4 +7,5 @@ INSERT INTO users (
 VALUES (
   'user1@host.com', 
   '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe'
-)
+);
+
