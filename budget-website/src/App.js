@@ -9,6 +9,19 @@ import Login from './pages/login';
 import Dashboard from './pages/dashboard';
 import Category from './pages/category';
 import ResponsiveAppBar from './components/Navbar';
+import axios from 'axios';
+
+// axios.get('https://localhost:8000/debug/queryGetRequest/1')
+// .then((res) => {
+//   console.log(res)});
+  
+  try {
+await axios.get('https://localhost:8000/debug/queryGetRequest/1');
+  } catch(error) {
+    console.log(error);
+  }
+
+
  
 function App() {
 
@@ -22,11 +35,6 @@ function App() {
     const handleLogin = () => {  
       setIsAuthenticated(true);
     };
-
-    // useEffect(() => {
-    //     const cookieSet = Cookies.get('auth');
-    //     cookieSet ? setIsAuthenticated(true) : setIsAuthenticated(false);
-    // }, [])
 
     return (
         
