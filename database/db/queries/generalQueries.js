@@ -19,7 +19,7 @@ const debugQuery = function(id) {
   `;
 
   return db.query(sqlQuery, values)
-    .then(res => {return res.rows[0]})
+    .then(res => {return res.rows})
     .catch((err) => console.log(err.message))//debug in terminal
 };
 
@@ -45,7 +45,7 @@ const getUserByEmail = (email) => {
       if(res.rows.length === 0){
         return ("not found")
       }
-      return res.rows[0]
+      return res.rows
     })
     .catch((err) => console.log(err.message))//debug in terminal
 };
@@ -72,7 +72,7 @@ const getPasswordByEmail = (email) => {
       if(res.rows.length === 0){
         return ("not found")
       }
-      return res.rows[0]
+      return res.rows
     })
     .catch((err) => console.log(err.message))//debug in terminal
 };
@@ -100,14 +100,14 @@ const getStoresByUserId = (user_id) => {
       if(res.rows.length === 0){
         return ("not found")
       }
-      return res.rows[0]
+      return res.rows
     })
     .catch((err) => console.log(err.message))//debug in terminal
 };
 
-//returns all spending within a time frame.
+//returns all spending(that have an assigned category) within a time frame.
 //expected obj: user_id, start_date, end_date
-const getSpendingByUserIdTimeStamp = (obj) => {
+const getSpendingWithSetCategory = (obj) => {
   //return null if no id is passed in
   if (!obj.user_id || !obj.start_date || !obj.end_date) {
     return null;
@@ -126,7 +126,8 @@ const getSpendingByUserIdTimeStamp = (obj) => {
   JOIN cards ON accounts.id = cards.account_id
   WHERE accounts.user_id = $1
   AND created_at_parsed >= $2
-  AND created_at_parsed <= $3;
+  AND created_at_parsed <= $3
+  AND selected_category IS NOT NULL;
   `;
 
   return db.query(sqlQuery, values)
@@ -136,7 +137,44 @@ const getSpendingByUserIdTimeStamp = (obj) => {
       if(res.rows.length === 0){
         return ("not found")
       }
-      return res.rows[0]
+      return res.rows
+    })
+    .catch((err) => console.log(err.message))//debug in terminal
+};
+
+//returns all spending(that don't have an assigned category) within a time frame.
+//expected obj: user_id, start_date, end_date
+const getSpendingWithDefaultCategory = (obj) => {
+  //return null if no id is passed in
+  if (!obj.user_id || !obj.start_date || !obj.end_date) {
+    return null;
+  }
+
+  const parsedStartDate = helpers.parseIsoDate(obj.start_date)
+  const parsedEndDate = helpers.parseIsoDate(obj.end_date)
+
+  //protect db from SQL injections
+  const values = [obj.user_id, parsedStartDate, parsedEndDate];
+
+  const sqlQuery = `
+  SELECT spending.*, accounts.bank, cards.card_number
+  FROM spending
+  JOIN accounts ON spending.account_id = accounts.id
+  JOIN cards ON accounts.id = cards.account_id
+  WHERE accounts.user_id = $1
+  AND created_at_parsed >= $2
+  AND created_at_parsed <= $3
+  AND selected_category IS NULL;
+  `;
+
+  return db.query(sqlQuery, values)
+    .then(res => {
+      //if sql does not find anything return a message
+      //console.log(res.rows)
+      if(res.rows.length === 0){
+        return ("not found")
+      }
+      return res.rows
     })
     .catch((err) => console.log(err.message))//debug in terminal
 };
@@ -151,9 +189,8 @@ const getAccountInfoByUserId = (user_id, bank) => {
   const values = [user_id, bank];
   
   const sqlQuery = `
-  SELECT cards.id as cards_id, cards.card_number, accounts.*
-  FROM cards
-  JOIN accounts ON account_id = accounts.id
+  SELECT accounts.*
+  FROM accounts
   WHERE accounts.user_id = $1
   AND accounts.bank = $2;
   `;
@@ -165,7 +202,7 @@ const getAccountInfoByUserId = (user_id, bank) => {
       if(res.rows.length === 0){
         return ("not found")
       }
-      return res.rows[0]
+      return res.rows
     })
     .catch((err) => console.log(err.message))//debug in terminal
 };
@@ -193,7 +230,7 @@ const getTokenFolderByBankUserId = (user_id, bank) => {
       if(res.rows.length === 0){
         return ("not found")
       }
-      return res.rows[0]
+      return res.rows
     })
     .catch((err) => console.log(err.message))//debug in terminal
 };
@@ -221,24 +258,25 @@ const getCategoriesByUserId = (user_id) => {
       if(res.rows.length === 0){
         return ("not found")
       }
-      return res.rows[0]
+      return res.rows
     })
     .catch((err) => console.log(err.message))//debug in terminal
 };
 
-const getCategoryIdByCategoryName = (category) => {
+const getCategoryByName = (category, user_id) => {
   //return null if no id is passed in
-  if (!category) {
+  if (!category || !user_id) {
     return null;
   }
 
   //protect db from SQL injections
-  const values = [category];
+  const values = [category, user_id];
 
   const sqlQuery = `
-  SELECT id
+  SELECT *
   FROM categories
-  WHERE category = $1;
+  WHERE category = $1
+  AND user_id = $2;
   `;
 
   return db.query(sqlQuery, values)
@@ -248,16 +286,25 @@ const getCategoryIdByCategoryName = (category) => {
       if(res.rows.length === 0){
         return ("not found")
       }
-      return res.rows[0]
+      return res.rows
     })
     .catch((err) => console.log(err.message))//debug in terminal
 };
 
-const getDefaultCategoryId = () => {
+const getDefaultCategoryId = (user_id) => {
+  //return null if no id is passed in
+  if (!user_id) {
+    return null;
+  }
+
+  //protect db from SQL injections
+  const values = [user_id];
+
   const sqlQuery = `
   SELECT id
   FROM categories
-  WHERE is_default = TRUE;
+  WHERE is_default = TRUE
+  AND user_id = $1;
   `;
 
   return db.query(sqlQuery, values)
@@ -267,7 +314,32 @@ const getDefaultCategoryId = () => {
       if(res.rows.length === 0){
         return ("not found")
       }
-      return res.rows[0]
+      return res.rows
+    })
+    .catch((err) => console.log(err.message))//debug in terminal
+};
+
+const getBudgetById = (user_id) => {
+  //return null if no id is passed in
+  if (!user_id) {
+    return null;
+  }
+
+  const values = [user_id];
+  const sqlQuery = `
+  SELECT budget, category
+  FROM categories
+  WHERE user_id = $1;
+  `;
+
+  return db.query(sqlQuery, values)
+    .then(res => {
+      //if sql does not find anything return a message
+      //console.log(res.rows)
+      if(res.rows.length === 0){
+        return ("not found")
+      }
+      return res.rows
     })
     .catch((err) => console.log(err.message))//debug in terminal
 };
@@ -277,10 +349,12 @@ module.exports = {
   getUserByEmail,
   getPasswordByEmail,
   getStoresByUserId,
-  getSpendingByUserIdTimeStamp,
   getAccountInfoByUserId,
   getTokenFolderByBankUserId,
   getCategoriesByUserId,
-  getCategoryIdByCategoryName,
-  getDefaultCategoryId
+  getCategoryByName,
+  getDefaultCategoryId,
+  getBudgetById,
+  getSpendingWithDefaultCategory,
+  getSpendingWithSetCategory,
 };

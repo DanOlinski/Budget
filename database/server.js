@@ -30,6 +30,7 @@ const debug = require('./routes/debug.js');
 const user = require('./routes/user.js');
 const getters = require('./routes/getters.js');
 const inserts = require('./routes/inserts');
+const deletions = require('./routes/deletions');
 
 
 // Mount all resource routes
@@ -37,6 +38,7 @@ app.use('/debug', debug);
 app.use('/user', user);
 app.use('/getters', getters);
 app.use('/inserts', inserts);
+app.use('/delete', deletions);
 
 app.get('/', (req, res) => {
   res.render('index');
