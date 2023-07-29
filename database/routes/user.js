@@ -5,7 +5,7 @@ const sql_inserts = require('../db/inserts/sql_inserts');
 
 //find user by id; http://localhost:8000/debug/queryGetRequest/1
 router.get('/password/:email', (req, res) => {
-  
+
   generalQueries.getPasswordByEmail(req.params.email)
   .then(
     (resp) => {

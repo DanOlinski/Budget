@@ -9,19 +9,10 @@ import Login from './pages/login';
 import Dashboard from './pages/dashboard';
 import Category from './pages/category';
 import ResponsiveAppBar from './components/Navbar';
-import axios from 'axios';
 
-// axios.get('https://localhost:8000/debug/queryGetRequest/1')
-// .then((res) => {
-//   console.log(res)});
-  
-  try {
-await axios.get('https://localhost:8000/debug/queryGetRequest/1');
-  } catch(error) {
-    console.log(error);
-  }
-
-
+// // Use the relative URL
+// await axios.get('/debug/queryGetRequest/1')
+// .then((res) => {console.log(res)});
  
 function App() {
 
@@ -30,11 +21,17 @@ function App() {
     const handleLogout = () => {
       localStorage.removeItem('auth');
       setIsAuthenticated(false);
+      // navigate('/login');
+      // check how to redirect to /login - navigate doesn't work
     };
   
     const handleLogin = () => {  
       setIsAuthenticated(true);
     };
+
+    const handleSignUp = () => {
+      setIsAuthenticated(true);
+    }
 
     return (
         
@@ -43,7 +40,7 @@ function App() {
            <div className="App">
             <Routes>
             <Route path="/login" element={<Login onFormSwitch={handleLogin} />} />
-            <Route path="/signup" element={<SignUp onFormSwitch={() => {}} />} />
+            <Route path="/signup" element={<SignUp onFormSwitch={handleSignUp} />} />
             <Route path="/" element={<Home />} />
 
                 {isAuthenticated ? (
@@ -51,7 +48,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/category" element={<Category />} />
             </>
-                ) :null }
+                ) : null}
                 
             </Routes>
             </div>

@@ -42,7 +42,7 @@ const Login = ({onFormSwitch}) => {
             console.log("Authentication failed.");
           }
         } catch (error) {
-          console.log("An error occurred:", error.message);
+          console.log("An error occurred while trying to log you in:", error.message);
           // You can handle the error here or show an error message to the user
         }
       };
