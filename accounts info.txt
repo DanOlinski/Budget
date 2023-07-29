@@ -8,3 +8,23 @@ pw: #Finalprojectlhl
 
 -microsoft graph:
 https://developer.microsoft.com/en-us/graph/graph-explorer 
+
+-azure;
+app registration: finalprojectlhl
+Application (client) ID: e99c23e3-e715-4f4a-aed5-a2019586b873
+Directory (tenant) ID: f8cdef31-a31e-4b4a-93e4-5f571e91255a
+secret: {
+  name: finalprojectlhl
+  expiry date: 24 months from jul 2023
+  value(secret): wJf8Q~sxP23L.9AV2iscxju~UCGRNZRlffbOQdcr
+  secretId: e33738d3-705b-4b5e-9e67-dc7e990cc261
+}
+
+requestUrl: https://login.microsoft.com/f8cdef31-a31e-4b4a-93e4-5f571e91255a/oauth2/token
+Request Object:
+headers: {
+        grant_type: 'client_credentials',
+        client_id: 'e99c23e3-e715-4f4a-aed5-a2019586b873',
+        client_secret: 'wJf8Q~sxP23L.9AV2iscxju~UCGRNZRlffbOQdcr',
+        resource: 'https://graph.microsoft.com'
+      } 
