@@ -14,13 +14,12 @@ import { history } from '../src/helpers/history'
  
 function App() {
 
-    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('auth'));
+    const [isAuthenticated, setIsAuthenticated] = useState(!localStorage.getItem('auth'));
 
     const handleLogout = () => {
       localStorage.removeItem('auth');
       setIsAuthenticated(false);
-      // navigate('/login');
-      // check how to redirect to /login - navigate doesn't work
+      window.location.href = "/login"
     };
   
     const handleLogin = () => {  
@@ -34,7 +33,8 @@ function App() {
     return (
         
         <Router history={history}>
-           <ResponsiveAppBar isAuthenticated={isAuthenticated} onLogout={handleLogout} />
+           <ResponsiveAppBar isAuthenticated={isAuthenticated} 
+           onLogout={handleLogout} />
            <div className="App">
             <Routes>
             <Route path="/login" element={<Login onFormSwitch={handleLogin} />} />
