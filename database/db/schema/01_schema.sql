@@ -21,8 +21,8 @@ CREATE TABLE accounts (
   user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   bank VARCHAR(100),
   holdings VARCHAR(255),
-  token VARCHAR(255),
-  folder_url VARCHAR(255),
+  token VARCHAR(10000),
+  folder_url VARCHAR(5000),
   created_at TIMESTAMP DEFAULT NOW()
 );
 

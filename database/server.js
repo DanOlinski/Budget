@@ -26,7 +26,7 @@ app.use(
 app.use(express.static('public'));
 
 // Separated Routes for each Resource
-const debug = require('./routes/debug.js');
+const debug = require('./routes/debug');
 const user = require('./routes/user.js');
 const getters = require('./routes/getters.js');
 const inserts = require('./routes/inserts');

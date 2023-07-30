@@ -2,52 +2,49 @@ const express = require('express');
 const router  = express.Router();
 const generalQueries = require('../db/queries/generalQueries');
 const sql_inserts = require('../db/inserts/sql_inserts');
-const fetch = require('node-fetch')
 const axios = require('axios');
+const helpers = require('../routes/helpers')
 const qs = require('qs')
 
 //api request to microsoft outlook
 router.get('/emailApiRequest', (req, res) => {
-  
-  const getTokenUrl = 'https://login.microsoft.com/f8cdef31-a31e-4b4a-93e4-5f571e91255a/oauth2/token'
-  const getDataUrl = 'https://graph.microsoft.com/v1.0/users/final.project.lhl@outlook.com'
-  const headersForTokenRequest = {
-  grant_type: 'client_credentials',
-  client_id: 'e99c23e3-e715-4f4a-aed5-a2019586b873',
-  client_secret: 'wJf8Q~sxP23L.9AV2iscxju~UCGRNZRlffbOQdcr',
-  scope: 'https://graph.microsoft.com/.default'
-  }
- 
-  axios.post(
-    getTokenUrl,
-    qs.stringify(headersForTokenRequest)
-  )
-  .then((r)=>{
-    //console.log(r.data) //this is the object with the token
-    const token = r.data.access_token//this token doesn't work for the requested url
-    const graphToken = {
-    graphToken: 'EwCAA8l6BAAUAOyDv0l6PcCVu89kmzvqZmkWABkAAeEafhb3+xA4jqi0wq7LZvyPhI52uRdUpSMWxnAb6NL7Kh6RcSZAsPbV75qLL19TwFRhEQwZ3hTz8qmbAaF70mo3FcE/igl+yIJeAENgas7UbV6NjyVdO0XLFPtD8vVSZgeLqIt4+/7KjgQcpJgq3hXI2eeJZ938nhOTQr1f27KMsB5uHunmRcUzVEN/nBT5M8c2wERnT/zsxB4PuCyXl5SnKLFkXzxCHr9Npw/r0S99pN8fnircEf3mC7qL+2TUux7qlW5uhWefvr8x0c2YDwMwL4+fGJ/h57BcpKwwkYRDITq5RWQHHXNUXGEK1yCodZPc5/9Vz4Q0VEiXI5gCNlQDZgAACFE78zRw960vUAJjrYUGJGukBEO4wIXRq0U89l6hUrBqoNLmIG8I8kaJtCqMH+6jAV1HB962QzYTYVFw1S+Q/1TiLts3IODmGyUUu3Lsseh4g/8a5CLSYwynic5EgdJjLAa7l5l6+cDWW8Fmrsy7j/KHsxir9iXfv5TrobvX0JIaUsOi/j8mFZWjK6mRIMbD3bwGFDJbqzfWEzY4wDJcjzzKq/Sixuw9acl4J7LMrPG3+xabP9/0J+Mw4om5fVzwgkseH5QyTfu/W8MVmb+4Idc646D85VGYPWSro+XSP2SAOw8trzDYYz16z1sOahuyO9cniMaDo0pnwT7bdH/Wt2wDaiwbb3tq79mqRlREIHRxT8JKGRmO8MqTcIUzM9jHCnusv6SJbvxEL7DygeklriRa5t4cmgzwKuzrOfZtA6m6cd8W5D2UB1SHtGYg7+b0P55O/MScO/l+M+55c7i0m8Xy8Gc99C7HNEmON9HcMdGY131c9uUvpbrkAuWCYiW7+2Nj8c2eeCFxSmYkJGMYsxX/GnDcP6XBQp83wEkUmaR8B9NdJ9KAMj6dPU7GsZIPhUkHQYbqIYxXa2Q7XkphWaz1Dw6FX1DrpzE5n4zQnQ+e2iKjJ9eN/8bh04iyJtB+CXOx8XNrrZ6gqApmg+6d3xhAUXvsiCxZUegrwiB1nW1oCYJPv/3GzeQS6s5O8DPS53ZGeoXZ9Wb2cuUgpr+Zjvl0lZHPfhbacOv3IKjpsUYDiXqwnRE5odQfAjkMqtyb9GCQRKnWaDwrid+nqLuNeTqkgJ+sAYF6SJgimAI=',
-    }
-    const headersForDataRequest = {
+
+  const objForEmailAPIRequest = {
+    initialUrl: 'https://graph.microsoft.com/v1.0/users/final.project.lhl@outlook.com/mailFolders',
+    folderId: '/AQMkADAwATMwMAItNjJkOC0xMzJiLTAwAi0wMAoALgAAAy3KWEvbj4tIvxN9uTIgazUBAMVxau0anYpLoRd2HmPfL1sAAAAEH75WAAAA',
+    endUrlForFolderLength: '/totalItemCount',
+    endUrlForDataRequest: '/messages?%24top=', //after the '=' sign place the folder length(numeric)
+    urlRequestFlderLength: `${this.initialUrl}${this.folderId}${this.endUrlForFolderLength}`,
+
+    urlComingFromFrontEndExample: `${this.initialUrl}${this.folderId}`,
+
+    urlRequestForDataExample: `${this.initialUrl}${this.folderId}${this.urlRequestForData}${'<folder length>'}`,
+    headersForDataRequest: {
       headers: {
-        "Authorization": `Bearer ${graphToken.graphToken}`,
-        "Content-Type": "application/json"
+        "Authorization": `Bearer EwCIA8l6BAAUAOyDv0l6PcCVu89kmzvqZmkWABkAAaAyozQb14yXs/XZ5E7AU21Tohc9OVZtFiKZLY/B1QjiRTLaZsgL+VRWHn5XqrCUaRNOdRrOK3nvZ1lmDHebnr9dDWgQn17FALJhLxhaeDZ6OzQRI/3qHZdi5v2OynwD2Lbaavl0sxUoItrr+k+bkVUwx0a65g3LN1FYnFhUgVQhoZ731Lp0KjlSDwmtoff8hFNmcPlTOSLJtpO/b9SxAexNBqaGqTm/OKK1mGnG/M0DLsV4axPqF2kLfjSNWm014ZGKfAVudX1c4m4eOr/HhUFcuvRIwqVc8fIkyxLZk87SA5HVT73V0UOuaL35mVGKMCJxmaRm3Z4g+LG7z9yYeAEDZgAACI5HgLIRt/WtWAJ/ClJCyTNuJzfdG7NDGkStVmw4bALR6S3ozXXGVw7CgWMU3r2FaubbDmbaYmbyAtlm6/K+JnxFuaYOg0AOyTMEfgmuXtK8U9m7QVP/wc/H2PW0t36s4uwAam29AlI5xzJ+DdEJWHVkkuqlMqt09uhaAXg0CRqOS+dK9T96hAX4xKoaofGLxH/lXf13kZZOU2U3C0Yg2qQjtiZgzToB3MIN0r5T/+3cgReuJDSXDUVN/5PVLdtHFRYDPWSBPxvnCkz+0m2FRdCsDmFhulksokBq/0nMlBSKQHVXw7pi09ct+PK/zu0ob750Yhnwo8c/8IDCSrnQy/I22ZVe/HFcc6hywYg2bGcxOvZH90oblE3SOKR6zj8kv+FFRH2Zix/5xGRw6hy6XLsRrTanpVSXbOOdXs960Y7JJwWa14TF47QlMFCKPhQ0ynlf+EfFkZJCvptkbd0FykFxH0FdIMX/5cwrA3cLuhuvpF9OxezibuwCqxh71rTBoyMzJAV+GrR0PF4E9XlQrczrPp175nYAk7bcQedjl+eeuMe6YLObz2kGOYnT8sI5jSZ1Z25H841ZEkGCI5VkH24u/ZFo5h+djQUEJ7sHIi+XuAVNBigO3KcrPjsVuqeBvifGVVa7RU9ZDhAGqMYJC07il7YPYtmDLQmjjTSRVVxJfINK6Vwnx/+5ArGU6g38cO5tPmqVmhjakOVM9fCSKnA5QK8gUSTlIDr3unMK7ewFgmZWNpjKOLpmGlZ6KS+aiqxQKKApLXOagacR4Xvqeb7iClVoYnl7jA2uWvrW1zkFPKuoAg==`,
       }
     }
-    axios.get(
-      getDataUrl,
-      headersForDataRequest
-    )
-    .catch((e)=>{
-      //console.log("error not desireble")
-      return
+  }
+  const emailMessagesRequest = (obj) => {
+    //request for the folder length
+    const getFolderLengthUrl = `${obj.initialUrl}${obj.folderId}${obj.endUrlForFolderLength}`
+    axios.get(getFolderLengthUrl, obj.headersForDataRequest)
+    .then((resp)=>{
+      const folderLength = resp.data.value
+      const url = `${obj.initialUrl}${obj.folderId}${obj.endUrlForDataRequest}${folderLength}`
+      axios.get(url, obj.headersForDataRequest)
+      .then((r)=>{
+        return console.log(r.data.value)
+      })
+      .catch((e)=>{
+        return console.log(e.message)
+      })
     })
-    .then((r)=>{
-      console.log(r.data)
-    })
-  })
-  
+  }
+  emailMessagesRequest(objForEmailAPIRequest)
+
   res.json("t")
+
 });
 
 //find user by id; http://localhost:8000/debug/queryGetRequest/1
@@ -87,7 +84,75 @@ router.put("/queryPutRequest", (req, res) => {
     });
 })
 
+//   http://localhost:8000/debug/save_info_from_email
+router.get("/save_info_from_email", (req, res) => {
+  res.json("test")
+
+  const obj = {
+    bank: 'Scotiabank', //comes from front end
+    user_id: 1, //get from session
+    token: 'ttt',
+    subject: 'Authorization on your credit account', //email
+    amount_spent: 12.00, //email
+    store_name: "SAFEWAY", //email
+    created_at_parsed: '1688169600000', //email
+    card_number: '123' //email
+  }
+
+  //this function uses many functions from queries folder to save a new spending
+  //expected obj {user_id, bank, subject, amount_spent, store_name, created_at_parsed}
+  const saveNewSpending = (obj) => {
+  //add info from db to obj (this obj will be used to save the spending)
+  generalQueries.getDefaultCategoryByUserId(obj.user_id)
+  .then((resp) => {
+    obj.default_category = resp[0].category
+    
+    generalQueries.getSelectedCategoryByStore(obj)
+    .then((resp) => {
+      obj.selected_category = resp[0].selected_category
+      
+      generalQueries.getAccountInfoByUserIdAndBank(obj.user_id, obj.bank)
+      .then((resp) => {
+        obj.account_id = resp[0].id
+      
+        sql_inserts.saveSpending(obj)
+        .then((resp) => {
+            //return resp
+            return console.log(resp)
+        })
+      })
+    })
+  })
+  }
+  //saveNewSpending(obj)
+
+  const saveCardFromEmail = (obj) => {
+    generalQueries.getAccountInfoByUserIdAndBank(obj.user_id, obj.bank)
+    .then((resp) => {
+      obj.account_id = resp[0].id
+      generalQueries.getCardByNumber(obj)
+      .then((resp) => {
+        if(resp === "not found"){
+          sql_inserts.saveCard(obj)
+          .then((resp) => {
+            return console.log(resp)
+          })
+        }else{return console.log("Card already exists")}
+      })
+    })
+  }
+  //saveCardFromEmail(obj)
+
+})
+
+//   http://localhost:8000/debug/get_tester
+router.get("/get_tester", (req, res) => {
+  res.json("test")
+  
+
+
+
+})
+
 module.exports = router;
-
-
 

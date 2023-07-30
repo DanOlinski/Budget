@@ -18,7 +18,7 @@ router.get('/password/:email', (req, res) => {
 router.put("/create", (req, res) => {
   let newUser = req.body
   //check for empty fields
-  if (!newUser.email || !newUser.hashedPassword) {
+  if (!newUser.email || !newUser.password) {
     return res.send({error: 'empty field(s)'})
   }
 
@@ -34,7 +34,7 @@ router.put("/create", (req, res) => {
       generalQueries.getUserByEmail(newUser.email)
       .then((response) => {
         const message = 'user successfully saved to db'
-        const sendBack = {reassuringMessage: message, userId: response.id, userEmail: response.email}
+        const sendBack = {reassuringMessage: message, userId: response[0].id, userEmail: response[0].email}
         return (res.send(sendBack));
       })
     })

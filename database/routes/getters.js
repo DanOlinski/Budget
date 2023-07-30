@@ -13,7 +13,7 @@ router.get('/stores_by_user_id/:id', (req, res) => {
 
 //http://localhost:8000/getters/account_info_by_user_id_&_bank/1/Scotiabank
 router.get('/account_info_by_user_id_&_bank/:id/:bank', (req, res) => {
-  generalQueries.getAccountInfoByUserId(req.params.id, req.params.bank)
+  generalQueries.getAccountInfoByUserIdAndBank(req.params.id, req.params.bank)
   .then(
     (resp) => {
       res.json(resp)
@@ -51,6 +51,14 @@ router.get('/budget_limits/:id', (req, res) => {
       res.json(resp)
   })
 
+});
+
+router.get('/accounts_by_user/:id', (req, res) => {
+  generalQueries.getAccountsInfoByUserId(req.params.id)
+  .then(
+    (resp) => {
+      res.json(resp)
+  })
 });
 
 module.exports = router;

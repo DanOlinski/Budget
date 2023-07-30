@@ -179,7 +179,7 @@ const getSpendingWithDefaultCategory = (obj) => {
     .catch((err) => console.log(err.message))//debug in terminal
 };
 
-const getAccountInfoByUserId = (user_id, bank) => {
+const getAccountInfoByUserIdAndBank = (user_id, bank) => {
   //return null if no id is passed in
   if (!user_id || !bank) {
     return null;
@@ -193,6 +193,33 @@ const getAccountInfoByUserId = (user_id, bank) => {
   FROM accounts
   WHERE accounts.user_id = $1
   AND accounts.bank = $2;
+  `;
+
+  return db.query(sqlQuery, values)
+    .then(res => {
+      //if sql does not find anything return a message
+      //console.log(res.rows)
+      if(res.rows.length === 0){
+        return ("not found")
+      }
+      return res.rows
+    })
+    .catch((err) => console.log(err.message))//debug in terminal
+};
+
+const getAccountsInfoByUserId = (user_id) => {
+  //return null if no id is passed in
+  if (!user_id) {
+    return null;
+  }
+
+  //protect db from SQL injections
+  const values = [user_id];
+  
+  const sqlQuery = `
+  SELECT accounts.*
+  FROM accounts
+  WHERE accounts.user_id = $1;
   `;
 
   return db.query(sqlQuery, values)
@@ -291,17 +318,16 @@ const getCategoryByName = (category, user_id) => {
     .catch((err) => console.log(err.message))//debug in terminal
 };
 
-const getDefaultCategoryId = (user_id) => {
+const getDefaultCategoryByUserId = (user_id) => {
   //return null if no id is passed in
   if (!user_id) {
     return null;
   }
-
   //protect db from SQL injections
   const values = [user_id];
 
   const sqlQuery = `
-  SELECT id
+  SELECT category
   FROM categories
   WHERE is_default = TRUE
   AND user_id = $1;
@@ -312,7 +338,7 @@ const getDefaultCategoryId = (user_id) => {
       //if sql does not find anything return a message
       //console.log(res.rows)
       if(res.rows.length === 0){
-        return ("not found")
+        return ([{category: "not found"}])
       }
       return res.rows
     })
@@ -344,17 +370,105 @@ const getBudgetById = (user_id) => {
     .catch((err) => console.log(err.message))//debug in terminal
 };
 
+const getSelectedCategoryByStore = (obj) => {
+  //return null if no id is passed in
+  if (!obj.user_id || !obj.store_name) {
+    return null;
+  }
+  //protect db from SQL injections
+  const values = [obj.user_id, obj.store_name];
+
+  const sqlQuery = `
+  SELECT selected_category
+  FROM spending
+  WHERE user_id = $1
+  AND store_name = $2;
+  `;
+
+  return db.query(sqlQuery, values)
+    .then(res => {
+      //if sql does not find anything return a message
+      //console.log(res.rows)
+      if(res.rows.length === 0){
+        return ([{selected_category: null}])
+      }
+      return res.rows
+    })
+    .catch((err) => console.log(err.message))//debug in terminal
+};
+
+const getCardByNumber = (obj) => {
+  //return null if no id is passed in
+  if (!obj.card_number || !obj.user_id) {
+    return null;
+  }
+
+  //protect db from SQL injections
+  const values = [obj.card_number, obj.user_id];
+
+  const sqlQuery = `
+  SELECT *
+  FROM cards
+  JOIN accounts ON accounts.id = account_id
+  WHERE card_number = $1
+  AND user_id = $2;
+  `;
+
+  return db.query(sqlQuery, values)
+    .then(res => {
+      //if sql does not find anything return a message
+      //console.log(res.rows)
+      if(res.rows.length === 0){
+        return ("not found")
+      }
+      return res.rows
+    })
+    .catch((err) => console.log(err.message))//debug in terminal
+};
+
+const getLastSpendingAddedToDbByDate = (user_id) => {
+  //return null if no id is passed in
+  if (!user_id) {
+    return null;
+  }
+  //protect db from SQL injections
+  const values = [user_id];
+
+  const sqlQuery = `
+  SELECT created_at_parsed
+  FROM spending
+  WHERE user_id = $1
+  ORDER BY created_at_parsed DESC LIMIT 1;
+  `;
+
+  return db.query(sqlQuery, values)
+    .then(res => {
+      //if sql does not find anything return a message
+      //console.log(res.rows)
+      if(res.rows.length === 0){
+        return ([{category: "not found"}])
+      }
+      return res.rows
+    })
+    .catch((err) => console.log(err.message))//debug in terminal
+}
+
 module.exports = {
   debugQuery,
   getUserByEmail,
   getPasswordByEmail,
   getStoresByUserId,
-  getAccountInfoByUserId,
+  getAccountInfoByUserIdAndBank,
+  getAccountsInfoByUserId,
   getTokenFolderByBankUserId,
   getCategoriesByUserId,
   getCategoryByName,
-  getDefaultCategoryId,
+  getDefaultCategoryByUserId,
   getBudgetById,
   getSpendingWithDefaultCategory,
   getSpendingWithSetCategory,
+  getSelectedCategoryByStore,
+  getCardByNumber,
+  getLastSpendingAddedToDbByDate
+
 };

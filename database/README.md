@@ -13,7 +13,9 @@
 
 ## Access the DB through API requests
 1. A suggestion for what module to use when getting and putting data to and from the db is the axios module. Install: `npm i axios@0.2.0`, require: `const axios = require('axios');`
-2. In the main server's .env file, place the following: `DB_PROXY_URL=http://localhost:8000`(if you are using react or a web socket the proxy method as a bit different). 
+2. Setting up proxy rout
+- React server: When using axios in a React server any axios request done with a complete url (ex: `http://localhost:8000`) will not work, React and axios block you from exposing a url through API request. To make this work go to the package.json file and paste the following key at the end of the package.json main object: `"proxy": "http://localhost:8001"` 
+- Express server: In the main server's .env file, place the following: `DB_PROXY_URL=http://localhost:8000`(if you are using react or a web socket the proxy method as a bit different). 
   Then in the file where you are going to set up an API request, require the DB_PROXY_URL from .env file as such: `require('dotenv').config()`, then save it to a variable: `const dbProxy = process.env.DB_PROXY_URL`. Now you can reference the url like so: `${dbProxy}/<whateverRoutYouDesire>`
   This will enable you to make API requests to the db server without exposing the entire url (hiding the location of your db). In this construction your database is a bit hidden but not fully protected from attacks, the correct way of protecting it would be to add an authentication barrier for every API request.
 3. Axios get request:
@@ -83,6 +85,12 @@
   - expected parameter in url: user id and bank name
   - response from bd server: account info
 
+  # Get all accounts belonging to a user
+  - rout: `/getters/accounts_by_user/:id`
+  - API method: get
+  - expected parameter in url: user id
+  - response from bd server: accounts info
+
   # Save Token
   - rout: `/inserts/save_token`
   - API method: put
@@ -96,10 +104,10 @@
   - expected object: {user_id, category, start_date, end_date}
   - response from bd server: { for_selected_categories: [...], for_default_category:[...] }
 
-   # Get account info
+   # Get budget limits
   - rout: `/getters/budget_limits/:id`
   - API method: get
-  - expected parameter in url: user id
+  - expected parameter in url: {user_id, bank}
   - response from bd server: all categories with budget limits
 
   # Set Budget Limit
@@ -121,13 +129,13 @@
   - response from bd server: responds with all categories
 
   # Set a category to a store
-  - rout: `/inserts/new_category`
+  - rout: `/assign_category_to_spending`
   - API method: put
   - expected object from API request: {user_id, category, store_name, start_date, end_date}
   - response from bd server: all spending { for_selected_categories: [...], for_default_category:[...] }
 
    # Remove category from spending
-  - rout: `/inserts/new_category`
+  - rout: `/remove_category_from_spending`
   - API method: put
   - expected object from API request: {user_id, store_name, start_date, end_date}
   - response from bd server: all spending { for_selected_categories: [...], for_default_category:[...] }
@@ -136,4 +144,10 @@
   - rout: `/inserts/new_account`
   - API method: put
   - expected object from API request: {user_id, token, folder_url, bank}
+  - response from bd server: info for created account
+
+  # Create Download Emails
+  - rout: `/inserts/download_emails`
+  - API method: put
+  - expected object from API request: {user_id, token, bank, start_date, end_date}
   - response from bd server: info for created account
