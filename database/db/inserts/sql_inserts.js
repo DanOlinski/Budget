@@ -1,11 +1,12 @@
 const db = require('../connection');
+const generalQueries = require('../queries/generalQueries');
 
 //this function takes in an object with user info coming from a client interface form. The object must contain all necessary data
 const saveUserToDb = (userObj) => {
   //return null if no id is passed in
-  if (!userObj.email || !userObj.hashedPassword) {return null}
+  if (!userObj.email || !userObj.password) {return null}
 
-  const values = [userObj.email, userObj.hashedPassword];
+  const values = [userObj.email, userObj.password];
   const sqlQuery = `
     INSERT INTO users(email, password)
     VALUES ($1, $2);
@@ -52,7 +53,6 @@ const saveFolderUrl = (obj) => {
       .catch((err) => console.log(err.message))//debug in terminal
 };
 
-//this function takes in an object with user_id, bank, folder_url(coming from microsoft graphs)
 const saveAccountHoldings = (obj) => {
   //return null if there is missing data from incoming object
   if (!obj.user_id || !obj.bank || !obj.holdings) {return null}
@@ -70,17 +70,20 @@ const saveAccountHoldings = (obj) => {
       .catch((err) => console.log(err.message))//debug in terminal
 };
 
-//this function takes in an object with account_id, bank, folder_url(coming from microsoft graphs)
 const saveCard = (obj) => {
   //return null if there is missing data from incoming object
-  if (!obj.user_id || !obj.bank || !obj.holdings) {return null}
-
-  const values = [obj.user_id, obj.bank, obj.holdings];
+  if (!obj.account_id || !obj.card_number) {return null}
+  
+  const values = [obj.account_id, obj.card_number];
   const sqlQuery = `
-  UPDATE accounts
-  SET holdings = $3
-  WHERE user_id = $1
-  AND bank = $2;
+  INSERT INTO cards(
+    account_id,
+    card_number
+  )
+  VALUES(
+    $1, 
+    $2
+  );
   `;
 
   return db.query(sqlQuery, values)
@@ -180,7 +183,7 @@ const assignCategoryToSpending = (obj) => {
 const createNewAccount = (obj) => {
   //return null if there is missing data from incoming object
   if (!obj.user_id || !obj.bank || !obj.token || !obj.folder_url) {return null}
-
+  
   const values = [obj.user_id, obj.bank, obj.token, obj.folder_url];
   const sqlQuery = `
   INSERT INTO accounts(
@@ -202,6 +205,37 @@ const createNewAccount = (obj) => {
       .catch((err) => console.log(err.message))//debug in terminal
 };
 
+//expected obj {user_id, bank, subject, amount_spent, store_name, created_at_parsed}
+const saveSpending = (obj) => {
+  const values = [obj.user_id, obj.default_category, obj.selected_category, obj.account_id, obj.subject, obj.amount_spent, obj.store_name, obj.created_at_parsed];
+  const sqlQuery = `
+  INSERT INTO spending(
+    user_id,
+    default_category,
+    selected_category,
+    account_id,
+    subject, 
+    amount_spent,
+    store_name,
+    created_at_parsed
+  )
+  VALUES (
+    $1,
+    $2,
+    $3,
+    $4,
+    $5,
+    $6,
+    $7,
+    $8
+  );
+  `;
+
+  return db.query(sqlQuery, values)
+      .then(() => "info added to database")
+      .catch((err) => console.log(err.message))//debug in terminal
+};
+
 module.exports = {
   saveUserToDb,
   saveToken,
@@ -213,5 +247,6 @@ module.exports = {
   setBudgetLimit,
   createNewCategory,
   assignCategoryToSpending,
-  createNewAccount
+  createNewAccount,
+  saveSpending
 };
