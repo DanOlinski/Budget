@@ -10,9 +10,7 @@ import Dashboard from './pages/dashboard';
 import Category from './pages/category';
 import ResponsiveAppBar from './components/Navbar';
 
-// // Use the relative URL
-// await axios.get('/debug/queryGetRequest/1')
-// .then((res) => {console.log(res)});
+import { history } from '../src/helpers/history'
  
 function App() {
 
@@ -35,7 +33,7 @@ function App() {
 
     return (
         
-        <Router>
+        <Router history={history}>
            <ResponsiveAppBar isAuthenticated={isAuthenticated} onLogout={handleLogout} />
            <div className="App">
             <Routes>

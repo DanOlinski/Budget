@@ -3,9 +3,10 @@ const db = require('../connection');
 //this function takes in an object with user info coming from a client interface form. The object must contain all necessary data
 const saveUserToDb = (userObj) => {
   //return null if no id is passed in
-  if (!userObj.email || !userObj.hashedPassword) {return null}
+  console.log("user object in saveUserToDb", userObj);
+  if (!userObj.email || !userObj.password) {return null}
 
-  const values = [userObj.email, userObj.hashedPassword];
+  const values = [userObj.email, userObj.password];
   const sqlQuery = `
     INSERT INTO users(email, password)
     VALUES ($1, $2);
@@ -145,11 +146,11 @@ const createNewCategory = (obj) => {
   const values = [obj.user_id, obj.category];
   const sqlQuery = `
   INSERT INTO categories(
-    user_id, 
+    user_id,
     category
   )
   VALUES(
-    $1, 
+    $1,
     $2
   );
   `;
@@ -185,12 +186,12 @@ const createNewAccount = (obj) => {
   const sqlQuery = `
   INSERT INTO accounts(
     user_id,
-    bank, 
+    bank,
     token,
     folder_url
   )
   VALUES(
-    $1, 
+    $1,
     $2,
     $3,
     $4

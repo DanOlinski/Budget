@@ -41,7 +41,6 @@ const getUserByEmail = (email) => {
   return db.query(sqlQuery, values)
     .then(res => {
       //if sql does not find anything return a message
-      //console.log(res.rows)
       if(res.rows.length === 0){
         return ("not found")
       }
@@ -187,7 +186,7 @@ const getAccountInfoByUserId = (user_id, bank) => {
 
   //protect db from SQL injections
   const values = [user_id, bank];
-  
+
   const sqlQuery = `
   SELECT accounts.*
   FROM accounts
@@ -215,7 +214,7 @@ const getTokenFolderByBankUserId = (user_id, bank) => {
 
   //protect db from SQL injections
   const values = [user_id, bank];
-  
+
   const sqlQuery = `
   SELECT token, folder_url
   FROM accounts
