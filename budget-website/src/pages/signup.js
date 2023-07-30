@@ -1,22 +1,25 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Error from "../components/error";
 
-const SignUp = (props) => {
+const SignUp = ({ onFormSwitch }) => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
-  const navigate = useNavigate(); // Get the navigate function from the useNavigate hook
+  const navigate = useNavigate();
 
+  // data pushed to db
   const data = {
-    email,
-    password,
+    email : email,
+    password : password,
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(data.email);
-    try {
+
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -24,20 +27,25 @@ const SignUp = (props) => {
         },
       };
 
+      // create user
       axios.post("/user/create", data, config)
-      .then((response) => {
-        console.log(response);
-        
+      .then((res) => {
+        const data = res.data;
+        // set token for keeping user logged in
+        localStorage.setItem('auth',data.userId);
+        onFormSwitch();
+        navigate('/dashboard');
       })
-    }
-      catch(error) {
+    .catch((error) => {
         console.log("An error occurred while trying to create the user:", error.message)
-      };
+        setError(error.response.data.error);
+      });
     };
 
   return (
     <div className="authentication-form-container">
       <h2>Sign Up</h2>
+      {error && <Error error={error} />} {/* Render the Error component with the error message */}
       <form className="signup-form" onSubmit={handleSubmit}>
         <label>email</label>
         <input
@@ -47,6 +55,7 @@ const SignUp = (props) => {
           placeholder="youremail@gmail.com"
           id="email"
           name="email"
+          required
         />
         <label>password</label>
         <input
@@ -56,6 +65,7 @@ const SignUp = (props) => {
           placeholder="********"
           id="password"
           name="password"
+          required
         />
         <button type="submit">Sign Up</button>
       </form>

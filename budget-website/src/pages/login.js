@@ -1,60 +1,55 @@
 import React, {useState} from 'react';
-// import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Error from '../components/error';
  
 const Login = ({onFormSwitch}) => {
 
     const [email, setEmail] = useState("");
-    const [pass, setPass] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState(null);
 
-    const testAuthData = {
-        email: 'test@gmail.com',
-        pass: 'test',
-      }; 
-      const authenticateUser = (email, pass) => {
-        if (email === testAuthData.email && pass === testAuthData.pass) { 
-          const userData = {
-            email,
-            pass,
-          };
-          // const expirationTime = new Date(new Date().getTime() + 60000);
-          // Cookies.set('auth', JSON.stringify(userData), { expires: expirationTime });
-          localStorage.setItem('auth', JSON.stringify(userData));
-          return true;
-        }
-        return false;
-      };
+    const data = {
+      email : email,
+      password : password,
+    };
 
       const navigate = useNavigate(); // Get the navigate function from the useNavigate hook
 
       const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email);
-      
-        try {
-          const isAuthenticated = authenticateUser(email, pass);
-          // axios request to login post
-      
-          if (isAuthenticated) {
+
+          const config = {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          };
+    
+          axios.post("/user/login", data, config)
+          .then((res) => {
+            console.log(res);
+            const data = res.data;
+            localStorage.setItem('auth',data.userId);
+            console.log('set item');
             onFormSwitch();
             navigate('/dashboard');
-          } else {
-            console.log("Authentication failed.");
-          }
-        } catch (error) {
-          console.log("An error occurred while trying to log you in:", error.message);
-          // You can handle the error here or show an error message to the user
-        }
-      };
+          })
+          .catch((error) => {
+            console.log("An error occurred while trying to create the user:", error.message)
+            setError(error.response.data.error);
+          });
+        };
 
     return (
         <div className="authentication-form-container">
             <h2>Login</h2>
+            {error && <Error error={error} />} {/* Render the Error component with the error message */}
         <form className="login-form" onSubmit={handleSubmit}> 
             <label>email</label>
             <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="youremail@gmail.com" id="email" name="email"/>
             <label>password</label>
-            <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password"/>
+            <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="********" id="password" name="password"/>
             <button type="submit">Login</button>
             </form>
 
