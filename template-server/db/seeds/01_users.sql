@@ -1,23 +1,20 @@
--- Insert 20 users
-INSERT INTO users (name, email, password, phone, city, created_at)
-VALUES
-  ('Alexis Jordan', 'alexisjordan@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '123-456-7890', 'New York', NOW()),
-  ('Brandon Smith', 'bsmith@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '234-567-8901', 'Los Angeles', NOW()),
-  ('Catherine Lee', 'clee@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '345-678-9012', 'San Francisco', NOW()),
-  ('David Garcia', 'davidgarcia@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '456-789-0123', 'Chicago', NOW()),
-  ('Emily Davis', 'edavis@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '567-890-1234', 'Houston', NOW()),
-  ('Frank Johnson', 'frankjohnson@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '678-901-2345', 'Miami', NOW()),
-  ('Gabriella Rodriguez', 'grodriguez@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '789-012-3456', 'Seattle', NOW()),
-  ('Henry Kim', 'henrykim@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '890-123-4567', 'Washington DC', NOW()),
-  ('Isabella Brown', 'ibrown@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '901-234-5678', 'Boston', NOW()),
-  ('Jacob Martinez', 'jacobmartinez@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '012-345-6789', 'Dallas', NOW()),
-  ('Katherine Hernandez', 'khernandez@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '123-456-7890', 'Phoenix', NOW()),
-  ('Liam Wilson', 'liamwilson@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '234-567-8901', 'Denver', NOW()),
-  ('Mia Anderson', 'miaanderson@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '345-678-9012', 'San Diego', NOW()),
-  ('Nathan Turner', 'nathanturner@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '456-789-0123', 'Atlanta', NOW()),
-  ('Olivia Baker', 'oliviabaker@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '567-890-1234', 'Austin', NOW()),
-  ('Patrick Lee', 'patricklee@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '678-901-2345', 'San Jose', NOW()),
-  ('Quinn Green', 'quinngreen@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '789-012-3456', 'Portland', NOW()),
-  ('Ryan Hall', 'ryanhall@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '890-123-4567', 'Las Vegas', NOW()),
-  ('Samantha Kim', 'samanthakim@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '901-234-5678', 'Philadelphia', NOW()),
-  ('Thomas Perez', 'thomasperez@gmail.com', '$2b$10$5CKWUBqkdTXST7RkgZTtzOcHgFH1hG4U9itsMRNjm53gYoKy9yHMe', '012-345-6789', 'Minneapolis', NOW());
+insert into users (email, password) values ('hsorsby0@shutterfly.com', 'kD8)DMlz');
+insert into users (email, password) values ('kbuggs1@guardian.co.uk', 'oF0xJeAO#');
+insert into users (email, password) values ('ddeandreis2@t-online.de', 'iD5>hUHsaO8qCx');
+insert into users (email, password) values ('wwybourne3@seesaa.net', 'wF1$A&*YYz');
+insert into users (email, password) values ('chargerie4@comsenz.com', 'dZ4mmmNO}vdX');
+insert into users (email, password) values ('jocorhane5@wsj.com', 'qM4/NMQ&aMhnsh');
+insert into users (email, password) values ('smulvaney6@t-online.de', 'cN6\~D)R0/|');
+insert into users (email, password) values ('abravey7@state.tx.us', 'rQ6&(_$79>V9=hL');
+insert into users (email, password) values ('along8@rakuten.co.jp', 'bN4*97sj5)==#v!q');
+insert into users (email, password) values ('ocrevy9@buzzfeed.com', 'eB8{)8%T_iks+e<');
+insert into users (email, password) values ('sshermea@wix.com', 'oN3)xE(9\LN>');
+insert into users (email, password) values ('abunstoneb@google.com.br', 'wA1*J.P#');
+insert into users (email, password) values ('kgiorginic@apple.com', 'bY5}mX~~KMY{O3Y');
+insert into users (email, password) values ('bfontellesd@walmart.com', 'hI9"2bWWA');
+insert into users (email, password) values ('kvandervliese@cdbaby.com', 'mG7,xo~?B');
+insert into users (email, password) values ('cmayzesf@sun.com', 'tY3}j_}7VOT');
+insert into users (email, password) values ('ngudyerg@skyrock.com', 'wE9zDJf@{3<');
+insert into users (email, password) values ('satwellh@mapquest.com', 'tD9zxRe@|wsw?');
+insert into users (email, password) values ('wklaffi@usa.gov', 'yI1{0.o=IKW0u9x');
+insert into users (email, password) values ('bwitchallsj@simplemachines.org', 'iP6?CN#~5#~5X>');
