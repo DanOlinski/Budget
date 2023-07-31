@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function AuthenticatedMenu({ handleCloseNavMenu, onLogout }) {
   return (
@@ -51,10 +51,22 @@ function NonAuthenticatedMenu({ handleCloseNavMenu }) {
 
 function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
 
+  const navigate = useNavigate();
+
+  const handleBudgetClick = () => {
+    if (isAuthenticated) {
+      // Redirect to the dashboard if the user is logged in
+      navigate('/dashboard');
+    } else {
+      // Redirect to the login page if the user is not logged in
+      navigate('/login');
+    }
+  };
+
    // Retrieve the email from localStorage
    const userEmail = isAuthenticated ? localStorage.getItem('auth') : null;
 
-  const userAvatar = isAuthenticated ? userEmail?.charAt(11).toUpperCase() : null;
+  const userAvatar = isAuthenticated ? userEmail?.charAt(1).toUpperCase() : null;
 
   const pages = !isAuthenticated
   ? [
@@ -93,7 +105,7 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            onClick={handleBudgetClick} // Call the custom click handler
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },

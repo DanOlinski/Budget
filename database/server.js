@@ -44,6 +44,10 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+app.get('/api', (req, res) => {
+  res.status(200).send({ message: 'api', date: new Date } );
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
