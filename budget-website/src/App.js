@@ -7,7 +7,7 @@ import Home from './pages';
 import SignUp from './pages/signup';
 import Login from './pages/login';
 import Dashboard from './pages/dashboard';
-import Category from './pages/category';
+import Manage from './pages/manage';
 import ResponsiveAppBar from './components/Navbar';
 
 // // Use the relative URL
@@ -36,6 +36,7 @@ function App() {
     return (
         
         <Router>
+          
            <ResponsiveAppBar isAuthenticated={isAuthenticated} onLogout={handleLogout} />
            <div className="App">
             <Routes>
@@ -46,7 +47,7 @@ function App() {
                 {isAuthenticated ? (
             <>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/category" element={<Category />} />
+              <Route path="/manage" element={<Manage />} />
             </>
                 ) : null}
                 
