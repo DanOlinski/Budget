@@ -7,7 +7,7 @@ import Home from './pages';
 import SignUp from './pages/signup';
 import Login from './pages/login';
 import Dashboard from './pages/dashboard';
-import Category from './pages/category';
+import Manage from './pages/manage';
 import ResponsiveAppBar from './components/Navbar';
 
 import { history } from '../src/helpers/history'
@@ -44,7 +44,7 @@ function App() {
                 {isAuthenticated ? (
             <>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/category" element={<Category />} />
+              <Route path="/manage" element={<Manage />} />
             </>
                 ) : null}
                 

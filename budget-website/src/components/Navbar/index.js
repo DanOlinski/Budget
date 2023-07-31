@@ -23,8 +23,8 @@ function AuthenticatedMenu({ handleCloseNavMenu, onLogout }) {
         </Link>
       </MenuItem>
       <MenuItem onClick={handleCloseNavMenu}>
-        <Link to="/category" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <Typography textAlign="center">Manage categories</Typography>
+        <Link to="/manage" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Typography textAlign="center">Manage</Typography>
         </Link>
       </MenuItem>
       
@@ -75,7 +75,7 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
   ]
   :  [
           { label: 'Dashboard', link: '/dashboard' },
-          { label: 'Manage categories', link: '/category' },
+          { label: 'Manage', link: '/manage' },
         ]
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);

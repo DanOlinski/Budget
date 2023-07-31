@@ -201,7 +201,7 @@ router.put("/download_emails", (req, res) => {
                     obj.saveEmailsAfterThisDate = lastSpendingAdded[0].created_at_parsed
 
                     //extract info from emails
-                    //!!Any nested promise won't pick up(from obj) correct values if the values com from the extraction variable. meaning that all of the needed data coming from extraction needs to be re inserted into obj at every level of nested ".this"
+                    //!!Any nested promise won't pick up(from obj) correct values if the values com from the extraction variable. meaning that all of the needed data coming from extraction needs to be re inserted into obj at every level of nested ".this". This might be happening because in helpers file where the extractInfoFromEmail functions is located, I have a bunch of code wrapped in "{}" for no other reason rather than because I wanted to collapse sections of the code. but those might causing some odd behavior(this is just a guess, I haven't debugged this yet, cause it's working as it is)
                     const extraction = helpers.extractInfoFromEmail(email, obj.saveEmailsAfterThisDate)
 
                     //prevent extraction from printing empty objects when email dates are out of time frame range
