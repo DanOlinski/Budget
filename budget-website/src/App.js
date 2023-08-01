@@ -14,7 +14,7 @@ import { history } from '../src/helpers/history'
  
 function App() {
 
-    const [isAuthenticated, setIsAuthenticated] = useState(!localStorage.getItem('auth'));
+    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('auth'));
 
     const handleLogout = () => {
       localStorage.removeItem('auth');
