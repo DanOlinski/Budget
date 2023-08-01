@@ -55,7 +55,7 @@
   - expected object from API request: {email: "...", hashedPassword: "..."}
   - response from bd server: user id and user email (to be saved as cookies)
 
-  # Get a user's password(hashed), send user's email as a parameter
+  # Get a user's password, send user's email as a parameter
   - rout: `/user/:password/:email`
   - API method: get
   - expected parameter in url: user's email
