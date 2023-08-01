@@ -43,7 +43,7 @@ const Login = ({onFormSwitch}) => {
 
     return (
         <div className="authentication-form-container">
-            <h2>Login</h2>
+            <h2 className="label-login">Login</h2>
             {error && <Error error={error} />} {/* Render the Error component with the error message */}
         <form className="login-form" onSubmit={handleSubmit}> 
             <label>email</label>
