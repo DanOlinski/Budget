@@ -14,7 +14,7 @@ import { history } from '../src/helpers/history'
  
 function App() {
 
-    const [isAuthenticated, setIsAuthenticated] = useState(!localStorage.getItem('auth'));
+    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('auth'));
 
     const handleLogout = () => {
       localStorage.removeItem('auth');
@@ -41,7 +41,7 @@ function App() {
             <Route path="/signup" element={<SignUp onFormSwitch={handleSignUp} />} />
             <Route path="/" element={<Home />} />
 
-                {isAuthenticated ? (
+                {!isAuthenticated ? (
             <>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/category" element={<Category />} />

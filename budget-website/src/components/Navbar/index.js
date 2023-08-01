@@ -64,9 +64,9 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
   };
 
    // Retrieve the email from localStorage
-   const userEmail = isAuthenticated ? localStorage.getItem('auth') : null;
+  //  const userEmail = isAuthenticated ? localStorage.getItem('auth') : null;
 
-  const userAvatar = isAuthenticated ? userEmail?.charAt(1).toUpperCase() : null;
+  // const userAvatar = isAuthenticated ? userEmail?.charAt(1).toUpperCase() : null;
 
   const pages = !isAuthenticated
   ? [
@@ -191,7 +191,7 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg">
-                {userAvatar}
+                {/* {userAvatar} */}
                 </Avatar>
               </IconButton>
             </Tooltip>
