@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Error from "../components/error";
+import Error from "../components/dashboard/helpers/error";
+import '../components/styles/login-signup.scss'
 
 const SignUp = ({ onFormSwitch }) => {
 

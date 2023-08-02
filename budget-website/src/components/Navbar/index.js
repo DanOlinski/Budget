@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link, useNavigate } from 'react-router-dom';
+import logoChart from '../media/logoChart.png'
 
 function AuthenticatedMenu({ handleCloseNavMenu, onLogout }) {
   return (
@@ -97,10 +98,10 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{'backgroundColor': '#6f7176'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <AdbIcon sx={{display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
