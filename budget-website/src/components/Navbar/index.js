@@ -97,8 +97,10 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
     setAnchorElUser(null);
   };
 
+  // #6f7176
+
   return (
-    <AppBar position="static" sx={{'backgroundColor': '#6f7176'}}>
+    <AppBar position="fixed" sx={{'backgroundColor': 'transparent'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{display: { xs: 'none', md: 'flex' }, mr: 1 }} />
