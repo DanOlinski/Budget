@@ -38,7 +38,6 @@ function App() {
 
 
     return (
-        
         <Router history={history}>
            <ResponsiveAppBar isAuthenticated={isAuthenticated} 
            onLogout={handleLogout} />
