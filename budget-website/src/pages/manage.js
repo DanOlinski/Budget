@@ -1,15 +1,37 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import Card from '../components/manage/card';
-import AddCategory from '../components/manage/addCategory';
 import '../components/styles/manage.scss';
+import useManageApp from '../hooks/useManageApp'
+import VisitedStores from '../components/manage/visitedStores';
+import DialogBox from '../components/manage/dialogBox'
+import axios from "axios";
+import useGlobalStates from '../hooks/useGlobalStates';
+const userId = localStorage.getItem('auth')
+
+export default function Manage(props) {
+
+  //-----v-visited stores-v-----
+  const { defaultCategory, categories, visitedStores, selectedCategory } = useGlobalStates()
 
 
-export default function Manage() {
+  const renderStore = (forWhatComponent) => {
+    return visitedStores.map((store, index) => {
+
+    return (
+      <>
+      <VisitedStores
+        id={index}
+        renderFor={forWhatComponent}
+        store_name={store.store_name}
+        //tittle={'INSTITUTIONS'}//don't need this for rendering a card
+        //selected_category={store.selected_category}
+      />
+      </>
+      )
+  })}
+  //-----v-visited stores-v-----
+
+  //-----v-dialog box-v-----
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState('paper');
 
@@ -17,68 +39,73 @@ export default function Manage() {
     setOpen(true);
     setScroll(scrollType);
   };
- 
+
   const handleClose = () => {
     setOpen(false);
   };
-
-  const descriptionElementRef = React.useRef(null);
+  //-----^-dialog box-^-----
+  
+  //-----v-card-v-----
+  const renderCard = () => {
+    const textForTittle = 'INSTITUTIONS'
+    return (
+      <>
+        <div onClick={handleClickOpen('paper')}>
+          <Card 
+          tittle={textForTittle}
+          renderStores={true}
+          renderStoreComponent={renderStore('Render For Card')}
+          />
+        </div>
+        <DialogBox
+          tittle={textForTittle}
+          open={open}//handles opening dialog box
+          onClose={handleClose}
+          scroll={scroll}
+        />
+      </>
+    )
+  }
+  //-----^-card-^-----
+  
+  //-----v-update db-v-----
+  //update default category when state defaultCategory changes
   React.useEffect(() => {
-    if (open) {
-      const { current: descriptionElement } = descriptionElementRef;
-      if (descriptionElement !== null) {
-        descriptionElement.focus();
+    axios.put(
+      `/inserts/set_default_category`,
+      {
+        user_id: userId, 
+        category: defaultCategory, 
+        start_date: '2021-01-01T00:00:00Z', 
+        end_date: '2023-08-01T00:00:00Z'
       }
-    }
-  }, [open]);
+    )
+  },[defaultCategory]);
+
+  //-----^-categories-^-----
+  
+  //-----v-update db-v-----
+  const state = categories
+  React.useEffect(() => {
+    
+    // console.log(categories)
+    // state.map((i) => {
+      // console.log(category)
+    //   if(i.is_default){
+    //   }
+    // })
+
+    // console.log(state)
+  },[state]);
+  //-----^-debug states-^-----
+  
 
   return (
     <div className='manage'>
 
-      <div onClick={handleClickOpen('paper')}> 
-      <Card/>
-      </div>
+      {renderCard()}
+      <Card addCategory={true}/>
 
-      <AddCategory/>
-      <AddCategory/>
-      <AddCategory/>
-      <AddCategory/>
-      <AddCategory/>
-      <AddCategory/>
-      <AddCategory/>
-      <AddCategory/>
-      <AddCategory/>
-      <AddCategory/>
-      <AddCategory/>
-
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        scroll={scroll}
-        aria-labelledby="scroll-dialog-title"
-        aria-describedby="scroll-dialog-description"
-      >
-      <DialogTitle id="scroll-dialog-title">Visited Stores</DialogTitle>
-        
-      <DialogContent dividers={scroll === 'paper'}>
-          <DialogContentText
-            id="scroll-dialog-description"
-            ref={descriptionElementRef}
-            tabIndex={-1}
-          >
-            {[...new Array(50)]
-              .map(
-                () => `Cras mattis consectetur purus sit amet fermentum.
-Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
-              )
-              .join('\n')}
-          </DialogContentText>
-      </DialogContent>
-
-
-      </Dialog>
     </div>
   );
 }

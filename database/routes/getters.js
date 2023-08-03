@@ -7,6 +7,7 @@ router.get('/stores_by_user_id/:id', (req, res) => {
   generalQueries.getStoresByUserId(req.params.id)
   .then(
     (resp) => {
+      console.log(resp)
       res.json(resp)
   })
 });

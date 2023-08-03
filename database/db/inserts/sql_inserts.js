@@ -4,10 +4,6 @@ const generalQueries = require('../queries/generalQueries');
 //this function takes in an object with user info coming from a client interface form. The object must contain all necessary data
 const saveUserToDb = (userObj) => {
   //return null if no id is passed in
-<<<<<<< HEAD
-=======
-  console.log("user object in saveUserToDb", userObj);
->>>>>>> signup-login
   if (!userObj.email || !userObj.password) {return null}
 
   const values = [userObj.email, userObj.password];

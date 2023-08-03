@@ -86,7 +86,7 @@ const getStoresByUserId = (user_id) => {
   const values = [user_id];
 
   const sqlQuery = `
-  SELECT spending.store_name
+  SELECT DISTINCT ON (spending.store_name) store_name, spending.id, selected_category
   FROM spending
   JOIN accounts ON account_id = accounts.id
   WHERE accounts.user_id = $1;

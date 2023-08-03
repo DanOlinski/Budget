@@ -6,6 +6,7 @@
 	padding-left: 40px;
 	padding-right: 40px;
 	overflow: hidden;
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 
 
 	&--card {
@@ -17,30 +18,35 @@
 		overflow: hidden;
 		background-color: rgba($color: #000000, $alpha: 0.5);
 		width: 130px;
-		height: 140px;
+		height: 150px;
 		border-radius: 10px 10px 8px 8px;
 		border: rgb(255 255 255 / 40%);
 		border-style: solid;
 		border-width: 2px;
-		box-shadow: 6px 5px 15px rgba(0, 0, 0, 0.49);
+		box-shadow: -3px 2px 10px rgba(0, 0, 0, 0.49);
 		font-family: inherit;
+		// font-family: inherit;
 		color: #ffffffc2;
 		margin: 20px;
 
 		&--header {
+			font-family: inherit;
 			margin: 10px;
-			font-size: 14px;
+			font-size: 12px;
 			text-align: center;
 		}
 
 		&--bg {
+			font-family: inherit;
 			height: 100vh;
 			border-radius: 8px 8px 0px 0px;
 			background-color: rgb(0 0 0 / 19%);
 			margin: 0;
 			padding: 10px;
+			width: 105px;
 
 			&--body {
+				font-family: inherit;
 				font-size: 10px;
 			}
 		}
@@ -75,57 +81,65 @@
 			0% {
 				transform: translateY(0px) translatex(0px) scale(1.0);
 				border-color: rgb(255 255 255 / 40%);
+				box-shadow: -3px 2px 10px rgba(0, 0, 0, 0.49);
 			}
 
 			0.4% {
 				transform: translateY(-1px) translatex(1px) scale(1.01);
 				border-color: rgb(255 255 255 / 60%);
+				box-shadow: -6px 5px 15px rgba(0, 0, 0, 0.49);
 			}
 
 			0.7% {
 				transform: translateY(-1px) translatex(1px) scale(1.01);
 				border-color: rgb(255 255 255 / 80%);
+				box-shadow: -6px 5px 15px rgba(0, 0, 0, 0.49);
+
 			}
 
 			100% {
 				transform: translateY(-1px) translatex(1px) scale(1.01);
 				border-color: rgb(255 255 255 / 84%);
+				box-shadow: -6px 5px 15px rgba(0, 0, 0, 0.49);
+
 			}
 		}
 
 	}
 
 	&--addcat {
-		padding: 38px;
+		padding: 45px;
 
 		&--icon1 {
 			scale: 0.9;
 			background-color: rgb(0 0 0 / 40%);
-    	border: 19px;
-    	border-radius: 120px;
-    	padding: 8px;
+			border: 19px;
+			border-radius: 120px;
+			padding: 8px;
 		}
 
 		&--icon2 {
 			border: 19px;
 			border-radius: 100px;
 			--b: 1.1px;
-    width: 45px;
-    aspect-ratio: 1;
-    background: conic-gradient(from 90deg at var(--b) var(--b), #00000000 90deg, rgb(255 255 255 / 73%) 0) calc(100% + var(--b) / 2) calc(100% + var(--b) / 2)/calc(50% + var(--b)) calc(50% + var(--b));
+			width: 45px;
+			aspect-ratio: 1;
+			background: conic-gradient(from 90deg at var(--b) var(--b), #00000000 90deg, rgb(255 255 255 / 73%) 0) calc(100% + var(--b) / 2) calc(100% + var(--b) / 2)/calc(50% + var(--b)) calc(50% + var(--b));
 		}
+
 		&--icon2:hover {
 			animation-name: rotate;
 			animation-duration: 60s;
+
 			@keyframes rotate {
 				0% {
 					transform: rotateZ(0deg);
 				}
-				
+
 				0.4% {
 					transform: rotateZ(90deg);
 				}
-				
+
 				100% {
 					transform: rotateZ(90deg);
 				}
@@ -143,4 +157,79 @@ hr {
 	border-top: 1px solid #ffffffc2;
 	padding: 0;
 	width: 80%;
+}
+
+.dialog {
+	background-color: rgb(192 105 105 / 27%) !important;
+	box-shadow: -3px 2px 17px rgb(0 0 0 / 40%);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0px !important;
+	padding-bottom: 14px !important;
+
+	&--tittle{
+		background-color: rgb(192 105 105 / 27%) !important;
+		box-shadow: -3px 2px 17px rgb(0 0 0 / 40%);
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	padding: 14px !important;
+	}
+	&--default{
+		font-family: inherit;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 17px;
+	margin-bottom: 4px;
+		background-color: #0000002e;
+		padding-right: 14px;
+    padding-left: 14px;
+		padding-top: 4px;
+    padding-bottom: 4px;
+	}
+}
+
+.stores {
+
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+
+	&--card {
+		font-family:inherit;
+		margin-bottom: 2px;
+	}
+
+	&--dialog {
+		font-family:inherit;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		margin-left: 14px;
+    margin-right: 14px;
+		margin-bottom: 4px;
+	}
+}
+
+.dropdown {
+	color: #000000ad;
+	background-color: transparent;
+	border: none;
+	display: flex;
+	font-size: 100%;
+	text-align: right;
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+	max-height: 50px;
+	margin-left: 20px;
+
+	&--menu{
+		text-align: center;
+		background-color: rgb(192 105 105 / 27%);
+	}
 }

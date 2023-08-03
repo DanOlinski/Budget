@@ -7,7 +7,7 @@ final.project.lhl@outlook.com
 pw: #Finalprojectlhl
 
 -microsoft graph:
-https://developer.microsoft.com/en-us/graph/graph-explorer 
+https//developer.microsoft.com/en-us/graph/graph-explorer 
 
 -azure;
 app registration: finalprojectlhl

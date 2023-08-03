@@ -1,33 +1,29 @@
 import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
 import '../styles/manage.scss';
+import DropDownMenu from './dropDownMenu'
 
-export default function VisitedStores() {
-
-  const bodyContent = 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica'
+export default function VisitedStores(props) {
 
   return (
-    <div>
-
-      <div className='manage--card--header'>
-        VISITED STORES
-        
+    <>
+    {
+      props.renderFor === 'Render For Card' &&
+      <div className='stores--card'>
+        {props.store_name}
       </div>
-
-      <hr />
-
-      <div className='manage--card--bg'>
-        
-        <div className='manage--card--bg--body'>
-          ${bodyContent}
-        </div>
-
+    }
+    {
+      props.renderFor === 'Render For DialogBox' &&
+      <div className='stores--dialog'>
+      <div>
+      {props.store_name}
       </div>
-
-    </div>
+        <DropDownMenu
+          selected_category = {props.selected_category}
+          store_name = {props.store_name}
+        />
+      </div>
+    }
+    </>
   )
 }

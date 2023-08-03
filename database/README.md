@@ -129,13 +129,13 @@
   - response from bd server: responds with all categories
 
   # Set a category to a store
-  - rout: `/assign_category_to_spending`
+  - rout: `/inserts/assign_category_to_spending`
   - API method: put
   - expected object from API request: {user_id, category, store_name, start_date, end_date}
   - response from bd server: all spending { for_selected_categories: [...], for_default_category:[...] }
 
    # Remove category from spending
-  - rout: `/remove_category_from_spending`
+  - rout: `/inserts/remove_category_from_spending`
   - API method: put
   - expected object from API request: {user_id, store_name, start_date, end_date}
   - response from bd server: all spending { for_selected_categories: [...], for_default_category:[...] }
