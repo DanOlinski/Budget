@@ -113,7 +113,8 @@ router.put("/assign_category_to_spending", (req, res) => {
 
   let obj = req.body
   //check for empty fields
-  if (!obj.user_id || !obj.category || !obj.store_name) {
+  if (!obj.user_id || !obj.category || !obj.store_name || !obj.start_date || !obj.end_date) {
+    // console.log('missing data')
     return res.send({ error: 'missing data' })
   }
 
@@ -124,6 +125,7 @@ router.put("/assign_category_to_spending", (req, res) => {
           generalQueries.getSpendingWithSetCategory(obj)
             .then((SpendingWithSetCategory) => {
               const response = { for_selected_categories: SpendingWithSetCategory, for_default_category: SpendingWithDefaultCategory }
+              // console.log(response)
               res.json(response)
             })
             .catch((e) => console.log(e.message))

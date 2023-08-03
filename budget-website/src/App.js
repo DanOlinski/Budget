@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route }
     from 'react-router-dom';
@@ -9,9 +9,10 @@ import Login from './pages/login';
 import Dashboard from './pages/dashboard';
 import Manage from './pages/manage';
 import ResponsiveAppBar from './components/Navbar';
-
 import { history } from '../src/helpers/history'
- 
+import useManageApp from './hooks/useManageApp';
+const userId = localStorage.getItem('auth')
+
 function App() {
 
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('auth'));
@@ -30,6 +31,9 @@ function App() {
       setIsAuthenticated(true);
     }
 
+    //this function is downloading info from database as soon as the app loads
+    useManageApp(userId)
+
     return (
         
         <Router history={history}>
@@ -45,7 +49,7 @@ function App() {
                 {isAuthenticated ? (
             <>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/manage" element={<Manage />} />
+              <Route path="/manage" element={<Manage/>} />
             </>
                 ) : null}
                 
