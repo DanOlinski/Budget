@@ -15,7 +15,7 @@ const userId = localStorage.getItem('auth')
 
 function App() {
 
-    const [isAuthenticated, setIsAuthenticated] = useState(!localStorage.getItem('auth'));
+    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('auth'));
 
     const handleLogout = () => {
       localStorage.removeItem('auth');
@@ -44,6 +44,7 @@ function App() {
             <Route path="/login" element={<Login onFormSwitch={handleLogin} />} />
             <Route path="/signup" element={<SignUp onFormSwitch={handleSignUp} />} />
             <Route path="/" element={<Home />} />
+            
 
                 {isAuthenticated ? (
             <>

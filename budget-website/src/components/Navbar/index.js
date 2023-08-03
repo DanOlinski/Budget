@@ -65,7 +65,7 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
 
    // Retrieve the email from localStorage
    const userEmail = isAuthenticated ? localStorage.getItem('auth') : null;
-
+   // check how to implement track of email-username
   const userAvatar = isAuthenticated ? userEmail?.charAt(1).toUpperCase() : null;
 
   const pages = !isAuthenticated

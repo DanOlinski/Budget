@@ -14,10 +14,15 @@
 }
 
 .authentication-form-container {
-  padding: 5rem;
+  padding: 10px;
   border: 1px solid white;
   border-radius: 10px;
-  margin: 0.5rem;
+  margin: 20px auto;
+  margin-left: 500px;
+  margin-right: 500px;
+  justify-content: center;
+  display: 1;
+  align-items: center;
 }
 
 label {
