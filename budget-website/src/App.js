@@ -32,7 +32,10 @@ function App() {
     }
 
     //this function is downloading info from database as soon as the app loads
+
     //useManageApp(userId)
+
+
 
     return (
         
