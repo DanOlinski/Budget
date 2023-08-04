@@ -12,19 +12,42 @@ const useManageApp = (userId) => {
     setDefaultCategory, 
     setCategories, 
     setVisitedStores,
-    setSelectedCategory
+    setSelectedCategory,
+    setSpending
   } = useGlobalStates()
 
   useEffect(() => {
 
     Promise.all([
       axios.get(`/getters/stores_by_user_id/${userId}`),
-      axios.get(`/getters/categories/${userId}`)
+      axios.get(`/getters/categories/${userId}`),
+      axios.post('/getters/spending', 
+        {
+          user_id: userId, 
+          start_date: '2020-10-01T00:00:00Z',
+          end_date: '2023-08-01T00:00:00Z'
+        })
     ])
     .then((all) => {
       const strs = all[0].data
       const cats = all[1].data
+      const spending = all[2].data
       
+      console.log(spending)
+      console.log(spending.for_default_category)
+      console.log(spending.for_selected_categories)
+
+      const spendingObj = {
+        for_default_category: [],
+        for_selected_categories: []
+      }
+      if(spending.for_default_category){
+        spendingObj.for_default_category = spending.for_default_category
+      }
+      if(spending.for_selected_categories){
+        spendingObj.for_selected_categories = spending.for_selected_categories
+      }
+      setSpending(spendingObj)
       
       if(Array.isArray(cats)){
         setCategories(cats)

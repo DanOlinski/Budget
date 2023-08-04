@@ -276,6 +276,7 @@ router.put("/download_emails", (req, res) => {
               return console.log(e.message)
             })
         })
+        .catch((e) => console.log(e.message))
     })
 
   generalQueries.getSpendingWithDefaultCategory(obj)

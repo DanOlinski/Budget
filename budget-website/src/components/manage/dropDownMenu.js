@@ -20,10 +20,6 @@ export default function DropDownMenu(props) {
   const storeOptions = ['...']
   const defaultOptions = [defaultCategory]
 
-  if (props.selected_category) {
-    storeOptions.push(props.selected_category)
-  }
-
   categories.map((categoryObj) => {
     //prevent from appending the same category twice
     if (categoryObj.category !== defaultCategory) {
@@ -35,11 +31,10 @@ export default function DropDownMenu(props) {
     }
   })
 
+
   const handleDefaultCategoryChange = (e) => {
     setDefaultCategory(e.target.value);
   }
-
-  console.log(selectedCategory[props.store_name])
 
   const handleStoreCategoryChange = (e) => {
     const obj = { ...selectedCategory }
