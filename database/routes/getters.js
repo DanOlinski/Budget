@@ -25,6 +25,8 @@ router.get('/account_info_by_user_id_&_bank/:id/:bank', (req, res) => {
 router.post('/spending', (req, res) => {
   let obj = req.body
   
+  // console.log(obj)
+
   generalQueries.getSpendingWithDefaultCategory(obj)
   .then((SpendingWithDefaultCategory) => {
     generalQueries.getSpendingWithSetCategory(obj)

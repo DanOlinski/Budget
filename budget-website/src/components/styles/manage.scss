@@ -14,7 +14,6 @@
 		flex-direction: column;
 		justify-content: start;
 		align-items: center;
-		cursor: pointer;
 		overflow: hidden;
 		background-color: rgba($color: #000000, $alpha: 0.5);
 		width: 130px;
@@ -34,6 +33,7 @@
 			margin: 10px;
 			font-size: 12px;
 			text-align: center;
+			cursor: pointer;
 		}
 
 		&--bg {
@@ -48,6 +48,7 @@
 			&--body {
 				font-family: inherit;
 				font-size: 10px;
+				cursor: pointer;
 			}
 		}
 
@@ -116,6 +117,7 @@
 			border: 19px;
 			border-radius: 120px;
 			padding: 8px;
+			cursor: pointer;
 		}
 
 		&--icon2 {
@@ -169,30 +171,71 @@ hr {
 	padding: 0px !important;
 	padding-bottom: 14px !important;
 
-	&--tittle{
+	&--tittle {
 		background-color: rgb(192 105 105 / 27%) !important;
 		box-shadow: -3px 2px 17px rgb(0 0 0 / 40%);
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-	padding: 14px !important;
+		padding: 17px !important;
 	}
-	&--default{
+
+	&--default {
 		font-family: inherit;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
 		margin-left: 0px;
-	margin-right: 0px;
-	margin-top: 17px;
-	margin-bottom: 4px;
+		margin-right: 0px;
+		margin-top: 17px;
+		margin-bottom: 4px;
 		background-color: #0000002e;
 		padding-right: 14px;
-    padding-left: 14px;
+		padding-left: 14px;
 		padding-top: 4px;
-    padding-bottom: 4px;
+		padding-bottom: 4px;
+	}
+
+	&--newcat {
+		background-color: rgba(192, 105, 105, 0.27) !important;
+		box-shadow: -3px 2px 17px rgba(0, 0, 0, 0.4);
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		padding: 37px !important;
+
+		&--input {
+			background-color: rgb(57 44 44 / 27%);
+		}
+
+		&--save {
+			display: flex;
+			justify-content: space-between;
+			padding-top: 20px;
+
+
+			&--button {
+				display: flex;
+				justify-content: center;
+				cursor: pointer;
+				width: 50px;
+				height: 27px;
+				padding: 1px;
+				border-radius: 10px;
+				padding-top: 3.03px;
+				background-color: rgb(118 91 91 / 0%);
+				border: solid rgb(0 0 0 / 38%);
+				color: rgba(0, 0, 0, 0.631372549);
+			}
+
+			&--button:hover {
+				border: solid #0000009e;
+				color: black;
+				background-color: rgb(57 44 44 / 27%);
+			}
+		}
 	}
 }
 
@@ -201,18 +244,18 @@ hr {
 	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 
 	&--card {
-		font-family:inherit;
+		font-family: inherit;
 		margin-bottom: 2px;
 	}
 
 	&--dialog {
-		font-family:inherit;
+		font-family: inherit;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
 		margin-left: 14px;
-    margin-right: 14px;
+		margin-right: 14px;
 		margin-bottom: 4px;
 	}
 }
@@ -228,7 +271,7 @@ hr {
 	max-height: 50px;
 	margin-left: 20px;
 
-	&--menu{
+	&--menu {
 		text-align: center;
 		background-color: rgb(192 105 105 / 27%);
 	}
