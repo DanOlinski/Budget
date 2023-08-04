@@ -4,37 +4,17 @@ import { PieChart } from '@mui/x-charts';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { format, startOfMonth } from 'date-fns'
+import { startOfMonth } from 'date-fns'
 import '../styles/dashboard.scss'
 
 
 export default function CategoryList(props) {
   const { spendingState, spendingByDates } = useDashboardData();
 
-  const { categories } = spendingState;
+  const { spending } = spendingState;
+  console.log(spending);
 
-  
-
-  const pieChartData = {
-    data: categories.map((category) => ({
-      id: category.id,  // Assign a unique id based on the key of the CategoryListItem
-      value: category.budget,  // Use the 'budget' prop from CategoryListItem
-      label: category.category,    // Use the 'name' prop from CategoryListItem as the label
-    })),
-    innerRadius: 50,
-    outerRadius: 150,
-    paddingAngle: 5,
-    cornerRadius: 5,
-    startAngle: -90,
-    endAngle: 360,
-    cx: 200,
-    cy: 200,
-  };
-
-  // const currentDate = Date.parse(new Date());
-  // console.log(currentDate);
   const currentDate = new Date()
-  console.log(currentDate);
 
   const firstDayMonth = startOfMonth(currentDate);
 
@@ -44,7 +24,7 @@ export default function CategoryList(props) {
 
   useEffect(() => {
     spendingByDates(startDate, endDate);
-  }, []);
+  },[]);
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
@@ -79,14 +59,41 @@ export default function CategoryList(props) {
     
     </div>
     <div className='pie-chart'>
-    <PieChart
-    colors={['#566f73', '#655673', '#567358', '#736e56']}
-        series={[
-          pieChartData,  // Use the transformed pie chart data
-        ]}
-        width={600}
-        height={600}
-      />
+    {spending !== null && Object.keys(spending).length > 0 ? (
+          <PieChart
+            colors={['#566f73', '#655673', '#567358', '#736e56', ]}
+            series={[
+              {
+                data: Object.keys(spending).map((category) => ({
+                  id: category,
+                  value: spending[category],
+                  label: category
+                })),
+                innerRadius: 50,
+                outerRadius: 150,
+                paddingAngle: 5,
+                cornerRadius: 5,
+                startAngle: -90,
+                endAngle: 360,
+                cx: 200,
+                cy: 200,
+              },
+              sx={{
+                fontSize: '12px'
+              }}
+            ]}
+            width={600}
+            height={600}
+            label={({ dataEntry }) => `$${dataEntry.value.toFixed(2)}`} // Include the value in the label
+  labelStyle={{
+    fontSize: 8, // Adjust the font size
+    fill: 'black', // Text color
+    stroke: '1px', // No border
+  }}
+          />
+        ) : (
+          <p>No spending data available.</p>
+        )}
       </div>
   </div>
   );
