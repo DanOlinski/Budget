@@ -78,9 +78,6 @@ export default function CategoryList(props) {
                 cx: 200,
                 cy: 200,
               },
-              sx={{
-                fontSize: '12px'
-              }}
             ]}
             width={600}
             height={600}
