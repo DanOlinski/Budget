@@ -90,6 +90,7 @@ router.post("/create", async (req, res) => {
     const response = await generalQueries.getUserByEmail(email);
     const message = 'User successfully saved to db';
     console.log(response);
+    sql_inserts.addDefaultCategoryToNewUser(response[0].id)
     const sendBack = { reassuringMessage: message, userId: response[0].id, userEmail: response[0].email };
     console.log(sendBack);
     return res.send(sendBack);

@@ -236,6 +236,43 @@ const saveSpending = (obj) => {
       .catch((err) => console.log(err.message))//debug in terminal
 };
 
+const addDefaultCategoryToNewUser = (user_id) => {
+  //return null if there is missing data from incoming object
+  if (!user_id) {return null}
+  
+  const values = [user_id];
+  const sqlQuery = `
+  INSERT INTO categories(
+    user_id, 
+    category, 
+    budget,
+    is_default
+  )
+  VALUES(
+    $1, 
+    'General',
+    400.00,
+    TRUE
+  ),
+  (
+    $1, 
+    'Food', 
+    400.00,
+    FALSE
+  ),
+  (
+    $1, 
+    'Transportation', 
+    400.00,
+    FALSE
+  );
+  `;
+
+  return db.query(sqlQuery, values)
+      .then(() => "info added to database")
+      .catch((err) => console.log(err.message))//debug in terminal
+}
+
 module.exports = {
   saveUserToDb,
   saveToken,
@@ -248,5 +285,6 @@ module.exports = {
   createNewCategory,
   assignCategoryToSpending,
   createNewAccount,
-  saveSpending
+  saveSpending,
+  addDefaultCategoryToNewUser
 };

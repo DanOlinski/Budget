@@ -97,7 +97,7 @@ const getStoresByUserId = (user_id) => {
       //if sql does not find anything return a message
       //console.log(res.rows)
       if(res.rows.length === 0){
-        return ("not found")
+        return (["not found"])
       }
       return res.rows
     })
@@ -199,7 +199,7 @@ const getAccountInfoByUserIdAndBank = (user_id, bank) => {
       //if sql does not find anything return a message
       //console.log(res.rows)
       if(res.rows.length === 0){
-        return ("not found")
+        return ('not found')
       }
       return res.rows
     })
@@ -445,7 +445,7 @@ const getLastSpendingAddedToDbByDate = (user_id) => {
       //if sql does not find anything return a message
       //console.log(res.rows)
       if(res.rows.length === 0){
-        return ([{category: "not found"}])
+        return ([{created_at_parsed: '-315619200000'}])
       }
       return res.rows
     })
