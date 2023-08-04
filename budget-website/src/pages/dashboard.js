@@ -1,13 +1,13 @@
 import React from 'react';
 import PieChart from '../components/dashboard/helpers/pie-chart';
 import '../components/styles/dashboard.scss'
-import useDashboardData from '../components/dashboard/helpers/selectors'
+import useDashboardData from '../components/dashboard/hooks/selectors'
 import CategoryList from '../components/dashboard/CategoryList';
  
 const Dashboard = () => {
 
     const {
-        state
+        spendingState
       } = useDashboardData();
 
     // const categories
@@ -15,8 +15,9 @@ const Dashboard = () => {
     return (
         <div className='main-tracker-container'>
             <CategoryList 
-            categories={state.categories} />
+            categories={spendingState?.categories} />
         </div>
+
     );
 };
  
