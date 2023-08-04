@@ -45,7 +45,7 @@ CREATE TABLE categories (
 CREATE TABLE spending (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE, --I need this for assignCategoryToSpending function. not managing to perform a UPDATE with a JOIN
-  default_category VARCHAR(100) DEFAULT 'Miscellaneous', --category name
+  default_category VARCHAR(100) DEFAULT NULL, --category name
   selected_category VARCHAR(100) DEFAULT NULL, --category name
   account_id INT NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,
   subject VARCHAR(100),

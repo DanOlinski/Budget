@@ -6,8 +6,10 @@ pw: #Finalprojectlhl
 final.project.lhl@outlook.com
 pw: #Finalprojectlhl
 
--microsoft graph:
+-Token(microsoft graph):
 https//developer.microsoft.com/en-us/graph/graph-explorer 
+
+-email folder_url: https://graph.microsoft.com/v1.0/users/final.project.lhl@outlook.com/mailFolders/AQMkADAwATMwMAItNjJkOC0xMzJiLTAwAi0wMAoALgAAAy3KWEvbj4tIvxN9uTIgazUBAMVxau0anYpLoRd2HmPfL1sAAAAEH75WAAAA
 
 -azure;
 app registration: finalprojectlhl

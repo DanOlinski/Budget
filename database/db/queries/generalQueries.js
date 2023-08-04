@@ -126,7 +126,7 @@ const getSpendingWithSetCategory = (obj) => {
   WHERE accounts.user_id = $1
   AND created_at_parsed >= $2
   AND created_at_parsed <= $3
-  AND selected_category IS NOT NULL;
+  AND selected_category IS NULL;
   `;
 
   return db.query(sqlQuery, values)
@@ -163,7 +163,7 @@ const getSpendingWithDefaultCategory = (obj) => {
   WHERE accounts.user_id = $1
   AND created_at_parsed >= $2
   AND created_at_parsed <= $3
-  AND selected_category IS NULL;
+  AND selected_category IS NOT NULL;
   `;
 
   return db.query(sqlQuery, values)
@@ -455,8 +455,8 @@ const getLastSpendingAddedToDbByDate = (user_id) => {
 module.exports = {
   debugQuery,
   getUserByEmail,
-  getPasswordByEmail,
   getStoresByUserId,
+  getPasswordByEmail,
   getAccountInfoByUserIdAndBank,
   getAccountsInfoByUserId,
   getTokenFolderByBankUserId,

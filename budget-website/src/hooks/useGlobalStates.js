@@ -19,14 +19,27 @@ const useGlobalStates = create((set) => ({
     )
   },
 
-  
-  
   visitedStores: [],
   setVisitedStores: (newData) => set(() => ({visitedStores: newData})),
 
   selectedCategory: {},
   setSelectedCategory: (newData) => set(() => ({selectedCategory: newData})),
+  
+  spending: {
+    for_default_category: [],
+    for_selected_categories: []
+  },
+  setSpending: (newData) => set(() => ({spending: newData})),
 
+  openDialogVisitedStores: false,
+  setOpenDialogVisitedStores: (newData) => set(() => ({openDialogVisitedStores: newData})),
+  
+  openDialogCreateCategory: false,
+  setOpenDialogCreateCategory: (newData) => set(() => ({openDialogCreateCategory: newData})),
+  
+  scroll: 'paper',
+  setScroll: (newData) => set(() => ({scroll: newData})),
+  
   userId: localStorage.getItem('auth')
   
 }))

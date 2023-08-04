@@ -9,11 +9,12 @@ import useGlobalStates from '../hooks/useGlobalStates';
 const userId = localStorage.getItem('auth')
 
 export default function Manage(props) {
+   const { defaultCategory, categories, visitedStores, selectedCategory, openDialogVisitedStores, setOpenDialogCreateCategory, setOpenDialogVisitedStores, scroll, setScroll, spending } = useGlobalStates()
   useManageApp(userId)
+
+  // console.log(spending)
+
   //-----v-visited stores-v-----
-  const { defaultCategory, categories, visitedStores, selectedCategory } = useGlobalStates()
-
-
   const renderStore = (forWhatComponent) => {
     return visitedStores.map((store, index) => {
 
@@ -33,43 +34,43 @@ export default function Manage(props) {
   //-----v-visited stores-v-----
 
   //-----v-dialog box-v-----
-  const [open, setOpen] = React.useState(false);
-  const [scroll, setScroll] = React.useState('paper');
-
-  const handleClickOpen = (scrollType) => () => {
-    setOpen(true);
-    setScroll(scrollType);
-  };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpenDialogVisitedStores(false);
+    setOpenDialogCreateCategory(false);
   };
   //-----^-dialog box-^-----
 
   //-----v-card-v-----
-  const renderCard = () => {
-    const textForTittle = 'INSTITUTIONS'
+  const textForTittle = 'INSTITUTIONS'
+  const renderStoresCard = () => {
     return (
       <>
-        <div onClick={handleClickOpen('paper')}>
           <Card
             tittle={textForTittle}
             renderStores={true}
             renderStoreComponent={renderStore('Render For Card')}
           />
-        </div>
-        <DialogBox
-          tittle={textForTittle}
-          open={open}//handles opening dialog box
-          onClose={handleClose}
-          scroll={scroll}
-        />
       </>
     )
   }
+
+  const renderCategoriesCards = () => {
+    return categories.map((category)=>{
+      return (
+        <>
+            <Card
+              renderCategory={true}
+              category={category.category}
+              renderStoreComponent={renderStore('Render For Card')}
+            />
+        </>
+      )
+    })
+  }
   //-----^-card-^-----
 
-  //-----v-update db-v-----
+  //-----^-update db-^-----
   //update default category when state defaultCategory changes
   React.useEffect(() => {
     axios.put(
@@ -83,9 +84,9 @@ export default function Manage(props) {
     )
   }, [defaultCategory]);
 
-  //-----^-categories-^-----
+  //-----^-update db-^-----
 
-  //-----v-update db-v-----
+  //-----v-debug-v-----
   // const state = categories
   // React.useEffect(() => {
   // console.log(categories)
@@ -100,49 +101,57 @@ export default function Manage(props) {
   //------download emails-----
 
   const authentication = {
-    token: 'EwCQA8l6BAAUAOyDv0l6PcCVu89kmzvqZmkWABkAAX91R0X8177aq3rS7e66/nmiuWrSGzOfnxL8EogUTQikiLK+1GK5s0qR+jkuJDgUukk4V4jCSznthv2N1YNc+qjur1LxqjmpWbwwltXLTdX34msalQ9oWiICZI/w4filqyyTX9Ar6MS3SOMv9sEPjbTiz81HAUXAenxvPHUIVyycPzfaVskh0LsO/U2NiLsllHupwP6sfu6w7mdcXFr2VeG46wdPDDSQA4OTySVOd3ZeaLyvIpgh03vd/Ja/mY3vLNsVhEUSjD0YD7vJ3VcDWAZ/Ns68zle3sIP48FwtKO52J54xFoBVT+WoDby+JTpgw9ioj4ma2gQc78qaCxKvHIwDZgAACM6tFuA6fKH2YAJkysNReSQXbCX390ytBIYHGYdWfI1HhNGmFs+bHSe0FIEgT1WNolD111SSpcQJlqy9D0R2PqsbC7qYeCOp3c2qszPE5DUPl2Qhl27oKtkUwxJ7wl6WOukF7k7iPnBDAueEdoP593Vc/nXv+7p6lc2mh2A6YyIoX7TolhdROjNClVO7FaUpRd4NQDNWnqEPW+RwYD/4mQ7cn5e1lpw1HmGiw2DBRlH/QdOCfNYBeZ+BnnuL8vnepqYbL0UvVUT/3K7bl7vZBt27dEIr3Mo+qMluspf7LMNN7DZpiDEosIyeEqwqqI4XVJt74uh/DgrKJfqbgyOe/+uUD84aIca+oHxE4sgDSBXdpT/nCApZT23rQumY6rywny5lQkeR9UIC/m9PMiHxkYYnbSagi4h8nC2j3BoU63SHbZbU4S73QOZ3/zSeQA/545F7WwIl+xLh9CVqdfQoLJBwRcB9eVI9U0XmZIa/agSq05dmD0+TsheBdbpjan5tLvr+qzvw4Mkbp9NcBvNUrP4kGPg5RykCtZydG9LSkZvkFJlY3eLL8QPmHBEWuarTm0M9eNtAfU3XPh43FOEWk08WQWYDPaQRuf1I3VLI85x0HpK9wn2OyQbTDPx7RTuPQm6UeWSgGevQzyCSOPimt3t81QUptqzvi9C93SIyfeAYgVnavqk/pAmGfzxpbOR2ytQ4rmDa/6ky1HJl/fy5F6H+zw6IG1ubMiJamtIErlJ7rcnkwb7zM602Xly0E98S8Gvugg96rK4MoOrxWmg2LZkZFVCn+wdJ6cbSS/SjX4v0DQXf5zYz3nSxYKgC'
+    token: 'EwCIA8l6BAAUAOyDv0l6PcCVu89kmzvqZmkWABkAAf80LozgdApXw/6aKrlGuuXWmHGk45JS83cML6A2N6Xas+d69qe4lVi3saMxN5H09jxONo6mLPXK/vLttJ/mY7qAyqjeiayo1PIEKLyZRk5YwBiU5GvHApQLSTgQ31RDE2soOq31WjE6pMs0oA/ghA+TVIDS9wiA6VRAepahXjPA8QpQc34Mskj3P/7G4tOXfrsvIjxmWacJSVvl6/F/hSmgEj5XjlQgJ3FpVXaAnkxT2KuXjt/XipDGeGn69TKKLe6jhotUA2moFdy5HGEEXMOaZjfNYdKvlqnkzNKTy/v4eyaKapvIJ55LnewTjOBcVMnw1YBjPyAKZyzRgkcSwpUDZgAACEQcYVvB9E2wWAIOIAWTvBZ13Qw61coIPuM4On6X3bT2ituuXau6d2rwY4dHkxYU4u/WH6VepoDkyN39KYUoooENsvPMow1ZX4kI0t/JJ5s49mDRqmU4zUEw1swJSN+QOSwNroD3AHiViBRJcXe/8TkweSbt9BgubZI6kmy+P+lC+NLYEW5XCClTZUq+ZmIopgnTsFIi4ddikdX96eXug3pEQDQ/x2ijPJrqjlOHikSkBkDHiRm0kWvzCXmWtAXyVmfVhb7YlMOxUD7nPXgLtM1spZU03aJVoD0v8GZ1GEqoMhYUsfKCFDJ2NaeL+nMHCq9yF7l7br/cgA3+YdIa9SF9bsTL5kpeNgY1/h/cA6MqwWSo7Xhir/2fDvz+CNbgd1kBZqhSUmYEIXzO8xXLayFv1MPY7qrqXF9/PDPUHhi35oOWU/x+yvFiu715Dy210/kDGUNklhzCvBCSptUC3qZXf48y+X61jN7cc957fYNxJqlB/GXaPlv2sL1FN4VCcWVR6yAszRG0P5jklXnJW1y45gs4uqRyv1sV3K2Yxvcd70slJvn6qll5ToNigVdKzfte3z2Nmc5FwjvHeGbsUeC+7oV45LMTOWQP+wCfMRWTqisChQcVFUMgdCvtoX8XtuiZCnlIfmLru6Gp7yCG/NS+h8Bq2Ef2edF8zBd1iE7F+dos0R+tuswgUaC3lxGM8OYOGBzKHouuqPR963nPG024TkU3weNktbOFIb/lzNYleHyCg26sTvmigL0gtcQuR9EMPOXRfLL2qcwzT93P2YGm0YjBITsUuFNDYPSqUXv5t6qoAg=='
   }
 
-  console.log(userId)
-  //run this 1st
-  // React.useEffect(() => {
-  //   axios.put('/inserts/new_account',
-  //     {
-  //       user_id: userId,
-  //       bank: 'Scotiabank',
-  //       token: authentication.token,
-  //       folder_url: 'https://graph.microsoft.com/v1.0/users/final.project.lhl@outlook.com/mailFolders/AQMkADAwATMwMAItNjJkOC0xMzJiLTAwAi0wMAoALgAAAy3KWEvbj4tIvxN9uTIgazUBAMVxau0anYpLoRd2HmPfL1sAAAAEH75WAAAA',
-  //     })
-  //     .then((resp) => {
-  //       console.log(resp.data)
-  //     })
-  // }, []);
+  // run this 1st
+  React.useEffect(() => {
+    axios.put('/inserts/new_account',
+      {
+        user_id: userId,
+        bank: 'Scotiabank',
+        token: authentication.token,
+        folder_url: 'https://graph.microsoft.com/v1.0/users/final.project.lhl@outlook.com/mailFolders/AQMkADAwATMwMAItNjJkOC0xMzJiLTAwAi0wMAoALgAAAy3KWEvbj4tIvxN9uTIgazUBAMVxau0anYpLoRd2HmPfL1sAAAAEH75WAAAA',
+      })
+      .then((resp) => {
+        // console.log(resp.data)
+      })
+  }, []);
   
   
-  //run this 2nd
-  // React.useEffect(() => {
-  //   //https//developer.microsoft.com/en-us/graph/graph-explorer
-  //   axios.put('/inserts/download_emails',
-  //     {
-  //       user_id: userId,
-  //       token: authentication.token,
-  //       bank: 'Scotiabank',
-  //       start_date: '2020-10-01T00:00:00Z',
-  //       end_date: '2023-08-01T00:00:00Z'
-  //     })
-  //     .then((resp) => {
-  //       console.log(resp.data)
-  //     })
-  // }, []);
+  // //run this 2nd
+  React.useEffect(() => {
+    //https//developer.microsoft.com/en-us/graph/graph-explorer
+    axios.put('/inserts/download_emails',
+      {
+        user_id: userId,
+        token: authentication.token,
+        bank: 'Scotiabank',
+        start_date: '2020-10-01T00:00:00Z',
+        end_date: '2023-08-01T00:00:00Z'
+      })
+      .then((resp) => {
+        // console.log(resp.data)
+      })
+  }, []);
 
-  //-----^-debug states-^-----
+  //-----^-debug-^-----
 
 
   return (
     <div className='manage'>
 
-      {renderCard()}
+      {renderStoresCard()}
+
+      {renderCategoriesCards()}
+
       <Card addCategory={true} />
+
+      <DialogBox
+          tittle={textForTittle}
+          onClose={handleClose}
+          scroll={scroll}
+        />
 
     </div>
   );
