@@ -7,7 +7,8 @@ import { create } from 'zustand'
 //You can also use this object to make any set of info to ba accessible globally
 const useGlobalStates = create((set) => ({
   //here the defaultCategory is set to an empty array, since in this app all data coming from db is an array, if the data type is set to something different the app breaks. 
-  defaultCategory: [],
+
+  defaultCategory: ['Default'],
   setDefaultCategory: (newData) => set(() => ({defaultCategory: newData})),
 
   categories: [],

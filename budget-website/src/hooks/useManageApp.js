@@ -24,23 +24,26 @@ const useManageApp = (userId) => {
     .then((all) => {
       const strs = all[0].data
       const cats = all[1].data
-      setVisitedStores(strs)
-
-      setCategories(cats)
-
-      cats.map((categoryObj) => {
-        if(categoryObj.is_default){
-          //here I am updating the value for the default category to the value coming from the database
-          setDefaultCategory(categoryObj.category)
-        } 
-      })
-
-      const selectedCategoryObj = {}
-      strs.map((storeObj) => {
-        selectedCategoryObj[storeObj.store_name] = storeObj.selected_category
-      })
-      setSelectedCategory(selectedCategoryObj)
       
+      
+      if(Array.isArray(cats)){
+        setCategories(cats)
+        cats.map((categoryObj) => {
+          if(categoryObj.is_default){
+            //here I am updating the value for the default category to the value coming from the database
+            setDefaultCategory(categoryObj.category)
+          } 
+        })
+      }
+      
+      if(Array.isArray(strs)){
+        setVisitedStores(strs)
+        const selectedCategoryObj = {}
+        strs.map((storeObj) => {
+          selectedCategoryObj[storeObj.store_name] = storeObj.selected_category
+        })
+        setSelectedCategory(selectedCategoryObj)
+      }
     })
   },[]) 
 

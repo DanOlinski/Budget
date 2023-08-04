@@ -152,7 +152,10 @@ router.put("/new_account", (req, res) => {
                 return res.json(resp)
               })
           })
-      } else { return res.json("Bank already registered") }
+      } 
+      else if (r !== 'not found'){ 
+        return res.json("Bank already registered") 
+      }
     })
 })
 
@@ -179,6 +182,8 @@ router.put("/download_emails", (req, res) => {
       obj.folder_url = accountInfo[0].folder_url
       obj.account_id = accountInfo[0].id
 
+      //console.log(accountInfo)
+      
       //build API request and extract data from emails
       //const emailMessagesRequest = (obj) => {
       //request for the folder length
@@ -189,9 +194,13 @@ router.put("/download_emails", (req, res) => {
           const folderLength = axiosFolderLengthResp.data.value
           const dataRequestUrl = `${obj.folder_url}${obj.endUrlForDataRequest}${folderLength}`
 
+          //console.log(folderLength)
+
           axios.get(dataRequestUrl, obj.authentication)
             .then((axiosDataResp) => {
               const emails = axiosDataResp.data.value
+
+              // console.log(emails)
 
               //loop through all incoming emails
               //level of nested loops is 1
@@ -205,6 +214,8 @@ router.put("/download_emails", (req, res) => {
                     //extract info from emails
                     //!!Any nested promise won't pick up(from obj) correct values if the values com from the extraction variable. meaning that all of the needed data coming from extraction needs to be re inserted into obj at every level of nested ".this". This might be happening because in helpers file where the extractInfoFromEmail functions is located, I have a bunch of code wrapped in "{}" for no other reason rather than because I wanted to collapse sections of the code. but those might causing some odd behavior(this is just a guess, I haven't debugged this yet, cause it's working as it is)
                     const extraction = helpers.extractInfoFromEmail(email, obj.saveEmailsAfterThisDate)
+
+                    // console.log(lastSpendingAdded)
 
                     //prevent extraction from printing empty objects when email dates are out of time frame range
                     if (Object.entries(extraction).length > 0) {

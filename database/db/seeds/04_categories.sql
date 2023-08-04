@@ -6,7 +6,7 @@ INSERT INTO categories(
 )
 VALUES(
   1, 
-  'Miscellaneous', 
+  'General', 
   1000.00,
   TRUE
 );
