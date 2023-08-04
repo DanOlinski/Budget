@@ -15,7 +15,8 @@ const Dashboard = () => {
     return (
         <div className='main-tracker-container'>
             <CategoryList 
-            categories={spendingState?.categories} />
+            categories={spendingState?.categories} 
+            />
         </div>
 
     );
