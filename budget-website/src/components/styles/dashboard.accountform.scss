@@ -1,0 +1,79 @@
+.popup, .account-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.popup {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px); /* Apply background blur */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-inner {
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 10px;
+  margin: 20px auto;
+  width: 400px;
+  height: 300;
+  margin-top: 100px;
+  // margin-left: 300px;
+  // margin-right: 300px;
+  max-width: 600px;
+  justify-content: center;
+  display: 1;
+  align-items: center;
+  color: white;
+  position: relative; /* Add this line */
+}
+
+.popup-inner label {
+  text-align: left;
+  padding: 0.25rem 0;
+  display: block; /* Add this line */
+}
+
+.popup-inner input {
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  display: block; /* Add this line */
+}
+
+.popup-inner button[type="submit"],
+.popup-inner button[type="button"] {
+  border: none;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #5f6265;
+  text-align: center;
+  margin: 0 auto; /* Add this line to center the button */
+}
+
+.popup-inner button[type="submit"]:hover,
+.popup-inner button[type="button"]:hover {
+  background-color: #f3f3f3;
+}
+
+.popup-inner .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: white;
+}

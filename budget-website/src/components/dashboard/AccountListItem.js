@@ -1,11 +1,17 @@
 import React from "react";
+import '../styles/dashboard.scss'
 
-function AccountListItem({ user_id, name, budget }) {
+function AccountListItem({ user_id, bank, holdings }) {
   return (
-    <li>
-      user ID: {user_id}, category: {name}, budget: {budget}
-    </li>
+    <div className='info-account'>
+      <div>
+      {bank} 
+      </div>
+      <div>
+      $ {holdings}
+      </div>
+      </div>
   );
 }
 
-export default CategoryListItem;
+export default AccountListItem;

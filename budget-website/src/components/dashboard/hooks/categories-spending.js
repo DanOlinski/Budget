@@ -126,8 +126,13 @@ function calculateSpendingByCategory(data) {
  
   // for each category push a category with the amount spent
   currentSpending.forEach ((transaction) => {
-  const category = transaction.selected_category || transaction.default_category;
-  const amountSpent = parseInt(transaction.amount_spent);
+  let category = transaction.selected_category;
+
+  if (!transaction.selected_category) {
+    category = transaction.default_category
+  }
+
+  const amountSpent = parseInt((transaction.amount_spent).replace("$", ''));
 
   // if the category already exists, just add to total else if new, add amountSpent
   if (categories[category]) {

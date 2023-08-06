@@ -67,10 +67,10 @@ export default function CategoryList(props) {
                 data: Object.keys(spending).map((category) => ({
                   id: category,
                   value: spending[category],
-                  label: category
+                  label: category 
                 })),
                 innerRadius: 50,
-                outerRadius: 150,
+                outerRadius: 180,
                 paddingAngle: 5,
                 cornerRadius: 5,
                 startAngle: -90,
@@ -81,7 +81,8 @@ export default function CategoryList(props) {
             ]}
             width={600}
             height={600}
-            label={({ dataEntry }) => `$${dataEntry.value.toFixed(2)}`} // Include the value in the label
+            // label={({ dataEntry }) => {const percentage = ((dataEntry.value / getTotalSpending()) * 100).toFixed(2);
+            // return `${dataEntry.label} - $${dataEntry.value.toFixed(2)} (${percentage}%)`;}} // Include the value in the label
   labelStyle={{
     fontSize: 8, // Adjust the font size
     fill: 'black', // Text color
@@ -89,7 +90,7 @@ export default function CategoryList(props) {
   }}
           />
         ) : (
-          <p>No spending data available.</p>
+          <p>No spending data available for this timeframe.</p>
         )}
       </div>
   </div>

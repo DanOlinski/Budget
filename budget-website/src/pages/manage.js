@@ -100,40 +100,40 @@ export default function Manage(props) {
 
   //------download emails-----
 
-  const authentication = {
-    token: 'EwCIA8l6BAAUAOyDv0l6PcCVu89kmzvqZmkWABkAAf80LozgdApXw/6aKrlGuuXWmHGk45JS83cML6A2N6Xas+d69qe4lVi3saMxN5H09jxONo6mLPXK/vLttJ/mY7qAyqjeiayo1PIEKLyZRk5YwBiU5GvHApQLSTgQ31RDE2soOq31WjE6pMs0oA/ghA+TVIDS9wiA6VRAepahXjPA8QpQc34Mskj3P/7G4tOXfrsvIjxmWacJSVvl6/F/hSmgEj5XjlQgJ3FpVXaAnkxT2KuXjt/XipDGeGn69TKKLe6jhotUA2moFdy5HGEEXMOaZjfNYdKvlqnkzNKTy/v4eyaKapvIJ55LnewTjOBcVMnw1YBjPyAKZyzRgkcSwpUDZgAACEQcYVvB9E2wWAIOIAWTvBZ13Qw61coIPuM4On6X3bT2ituuXau6d2rwY4dHkxYU4u/WH6VepoDkyN39KYUoooENsvPMow1ZX4kI0t/JJ5s49mDRqmU4zUEw1swJSN+QOSwNroD3AHiViBRJcXe/8TkweSbt9BgubZI6kmy+P+lC+NLYEW5XCClTZUq+ZmIopgnTsFIi4ddikdX96eXug3pEQDQ/x2ijPJrqjlOHikSkBkDHiRm0kWvzCXmWtAXyVmfVhb7YlMOxUD7nPXgLtM1spZU03aJVoD0v8GZ1GEqoMhYUsfKCFDJ2NaeL+nMHCq9yF7l7br/cgA3+YdIa9SF9bsTL5kpeNgY1/h/cA6MqwWSo7Xhir/2fDvz+CNbgd1kBZqhSUmYEIXzO8xXLayFv1MPY7qrqXF9/PDPUHhi35oOWU/x+yvFiu715Dy210/kDGUNklhzCvBCSptUC3qZXf48y+X61jN7cc957fYNxJqlB/GXaPlv2sL1FN4VCcWVR6yAszRG0P5jklXnJW1y45gs4uqRyv1sV3K2Yxvcd70slJvn6qll5ToNigVdKzfte3z2Nmc5FwjvHeGbsUeC+7oV45LMTOWQP+wCfMRWTqisChQcVFUMgdCvtoX8XtuiZCnlIfmLru6Gp7yCG/NS+h8Bq2Ef2edF8zBd1iE7F+dos0R+tuswgUaC3lxGM8OYOGBzKHouuqPR963nPG024TkU3weNktbOFIb/lzNYleHyCg26sTvmigL0gtcQuR9EMPOXRfLL2qcwzT93P2YGm0YjBITsUuFNDYPSqUXv5t6qoAg=='
-  }
+  // const authentication = {
+  //   token: 'EwCIA8l6BAAUAOyDv0l6PcCVu89kmzvqZmkWABkAAafgrD6vy4qVtJuIPSMqQNHZKaxJU0AaQ4ZVZbBlympc0CvZTV3Yf3m0fog1vDxmqaB4fOkEbUp0nRW0G1WE2CjPxxN4xFQioWF+2ks7nMMpjshNN9BuvavmiJQinOBOP8VVGhS+3q+EdPaaCsSMueIAuWYKmkTgUfuiahlIH9RR0dpxkb5oFQ/7Fhr0vBd3m9tjN4KeIu5SZYBG3u1enrGN9vZA9pafHIMw2Kx38Or/AB4rYrauTlbH3pbZLDj9IwuCQrNet/k/+Yg7Dc1nAyhCPSQ1yfA0Fz0WYYVj947lYRkmBsJetUgv9PDM4fkSBw0qXC1ZAI0MNYhe9eOmAJsDZgAACKW57ta/gaUfWAIDA6EYMl0wf8JU7IuLP0acin+rM5BupbUH48L7L30ABFv2vfr8KVFCp4wgKUEyLVnA6Q2hXRAFbZBBAJn50yoJ1/q2Leuwb60tibz+KIJd9qkRUs8CKAekUWZaTL5LB9SSzOUS7nxit6IdMBvzNhgz75jgoBBIdWjQWAhzP7mFtHRgztPdJQGWE4LJKbdyysI1dDaUAO3SR5EyxHsaH4uwc3NsIhpuiypVTnzCOahOLtj6AZ86jF4xQ8wAwPSHCgP8XIJcF9UhBwdcDqlTT27GO9yI7rrPz6EQT21VEAS4J4eD+/AKRJvVO5foBdhcVyJ2d3uiLxmIFhzOzeeHIs+JMrNZ78FU8+0QO0u8mtdpxaL/n+ZVrBC7bPuYGhaQpO6o+78L2qfb2UayB9nu+4i7YBjr6Cf1Xwkrxx9HSJMwSExK+qyWIybj2x9UzrvWVxm59+50JRq8kHmuI8QcnMPUGUCon/5MV5A/tdS6u/E3SEv7be22ExQ/SNJPI0unWP2ss19rQ+1A9GTj26glRH7nKxHoB8CYmxvnspKZQwjUZ0StZJGvMazxzjNM+uTXL6BCVk1FPvQMs3S6s4FSDJP/ICrfEeS64IOPLDwqXp8hgMpo/TMddZZyocs+TrPrnuU08pY2mwJz3x9CrlX3dRhXtLC1BhDhWxeypBKKXYezLbzXwEozrM6MXPteChrfjWdpveEg2OxNiyOK5glmoV72TwmCw+K4uCxEpUeTBskVVmu7VaazlVeplW50LjGUWbCM6Ux4Js/VXWHtPbvn32r0NAVJjK2Eh6WoAg=='
+  // }
 
-  // run this 1st
-  React.useEffect(() => {
-    axios.put('/inserts/new_account',
-      {
-        user_id: userId,
-        bank: 'Scotiabank',
-        token: authentication.token,
-        folder_url: 'https://graph.microsoft.com/v1.0/users/final.project.lhl@outlook.com/mailFolders/AQMkADAwATMwMAItNjJkOC0xMzJiLTAwAi0wMAoALgAAAy3KWEvbj4tIvxN9uTIgazUBAMVxau0anYpLoRd2HmPfL1sAAAAEH75WAAAA',
-      })
-      .then((resp) => {
-        // console.log(resp.data)
-      })
-  }, []);
+  // // run this 1st
+  // React.useEffect(() => {
+  //   axios.put('/inserts/new_account',
+  //     {
+  //       user_id: userId,
+  //       bank: 'Scotiabank',
+  //       token: authentication.token,
+  //       folder_url: 'https://graph.microsoft.com/v1.0/users/final.project.lhl@outlook.com/mailFolders/AQMkADAwATMwMAItNjJkOC0xMzJiLTAwAi0wMAoALgAAAy3KWEvbj4tIvxN9uTIgazUBAMVxau0anYpLoRd2HmPfL1sAAAAEH75WAAAA',
+  //     })
+  //     .then((resp) => {
+  //       // console.log(resp.data)
+  //     })
+  // }, []);
   
   
-  // //run this 2nd
-  React.useEffect(() => {
-    //https//developer.microsoft.com/en-us/graph/graph-explorer
-    axios.put('/inserts/download_emails',
-      {
-        user_id: userId,
-        token: authentication.token,
-        bank: 'Scotiabank',
-        start_date: '2020-10-01T00:00:00Z',
-        end_date: '2023-08-01T00:00:00Z'
-      })
-      .then((resp) => {
-        // console.log(resp.data)
-      })
-  }, []);
+  // // //run this 2nd
+  // React.useEffect(() => {
+  //   //https//developer.microsoft.com/en-us/graph/graph-explorer
+  //   axios.put('/inserts/download_emails',
+  //     {
+  //       user_id: userId,
+  //       token: authentication.token,
+  //       bank: 'Scotiabank',
+  //       start_date: '2020-10-01T00:00:00Z',
+  //       end_date: '2023-08-01T00:00:00Z'
+  //     })
+  //     .then((resp) => {
+  //       // console.log(resp.data)
+  //     })
+  // }, []);
 
   //-----^-debug-^-----
 
