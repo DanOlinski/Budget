@@ -77,6 +77,7 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
   :  [
           { label: 'Dashboard', link: '/dashboard' },
           { label: 'Manage', link: '/manage' },
+          { label: 'Sheets', link: '/sheets' }
         ]
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);

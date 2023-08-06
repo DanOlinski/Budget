@@ -80,7 +80,7 @@ export default function CategoryList(props) {
               },
             ]}
             width={600}
-            height={600}
+            height={500}
             // label={({ dataEntry }) => {const percentage = ((dataEntry.value / getTotalSpending()) * 100).toFixed(2);
             // return `${dataEntry.label} - $${dataEntry.value.toFixed(2)} (${percentage}%)`;}} // Include the value in the label
   labelStyle={{
