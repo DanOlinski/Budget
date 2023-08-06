@@ -21,28 +21,28 @@ const toggleDownloadEmailsForm = () => {
   setShowDownloadEmailsForm(!showDownloadEmailsForm);
 }
 
-  const account = props.accounts.map((account) => {
-    return (
-  <AccountListItem
-  key={account.id}
-  id={account.id}
-  holdings={account.holdings}
-  bank={account.bank}
-    />
-    )
-  });
+  const account = props.accounts.map((account) => (
+    <div key={account.id} className='account-item'>
+      <div className='account-details'>
+    <AccountListItem
+    key={account.id}
+    id={account.id}
+    holdings={account.holdings}
+    bank={account.bank}
+    cards={account.cards}
+      />
+    <button className='download-emails-but' onClick={toggleDownloadEmailsForm}>Import Budget Details</button>
+    {showDownloadEmailsForm && <DownloadEmails toggle={toggleDownloadEmailsForm} /> }
+    </div>
+    </div>
+  ));
 
   return (
     <ul className='account-list'>
       {account}
-      
-      <div>
-          <button onClick={toggleDownloadEmailsForm}>Import Budget Details</button>
-          {showDownloadEmailsForm && <DownloadEmails toggle={toggleDownloadEmailsForm} /> }
-      </div>
 
       <div>
-          <button onClick={toggleNewAccountForm}>Add a New Account</button>
+          <button className='download-emails-but' onClick={toggleNewAccountForm}>Add a New Account</button>
           {showNewAccountForm && <AddNewAccountForm toggle={toggleNewAccountForm} />}
       </div>
   </ul>

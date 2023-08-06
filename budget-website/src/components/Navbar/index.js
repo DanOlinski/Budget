@@ -112,7 +112,7 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
+              fontFamily: "'Poppins', sans-serif",
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
@@ -168,7 +168,7 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
+              fontFamily: "'Poppins', sans-serif",
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',

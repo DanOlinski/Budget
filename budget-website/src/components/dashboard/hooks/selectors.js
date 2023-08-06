@@ -24,7 +24,7 @@ export default function useDashboardData() {
   useEffect(() => {
     Promise.all([
       axios.get('/getters/categories/' + userId),
-      axios.get('/getters/accounts_by_user/' + userId),
+      axios.get('/getters/accounts_details_by_user/' + userId),
     ]).then((all) => {
         // console.log("axios request to get all cat and accounts",all);
       setSpendingState(prev => ({
@@ -81,8 +81,6 @@ export default function useDashboardData() {
   // }
 
   // spendingByDates();
-
-
 
   return { spendingState, spendingByDates };
 
