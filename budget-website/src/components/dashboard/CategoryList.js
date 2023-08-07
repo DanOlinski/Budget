@@ -6,10 +6,13 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { startOfMonth } from 'date-fns'
 import '../styles/dashboard.scss'
+import useGlobalStates from "../../hooks/useGlobalStates";
+import useManageApp from "../../hooks/useManageApp";
 
 
 export default function CategoryList(props) {
   const { spendingState, spendingByDates } = useDashboardData();
+  const { rangeDates, setRangeDates } = useGlobalStates()
 
   const { spending } = spendingState;
   console.log(spending);
@@ -23,6 +26,7 @@ export default function CategoryList(props) {
   const [endDate, setEndDate] = useState(currentDate);
 
   useEffect(() => {
+    
     spendingByDates(startDate, endDate);
   },[]);
 
@@ -35,6 +39,28 @@ export default function CategoryList(props) {
     setEndDate(date);
     spendingByDates(startDate, endDate);
   };
+
+  
+  //--v--extracting range dates to be used in manage route
+  
+  useEffect(() => {
+    const convertDateToISO = (date) => {
+      let dateFunc = new Date(date)
+      return dateFunc.toISOString()
+    }
+
+    const obj = {
+      start_date: convertDateToISO(startDate), 
+      end_date: convertDateToISO(endDate)
+    }
+
+    setRangeDates(obj)
+    
+  }, [startDate, endDate]);
+
+    useManageApp()
+
+  //--^--extracting range dates to be used in manage route
 
   return (
     <div className='categories-container'>

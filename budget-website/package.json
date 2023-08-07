@@ -34,6 +34,10 @@
   "scripts": {
     "start": "react-scripts start",
     "winstart": "FAST_REFRESH=true WATCHPACK_POLLING=true react-scripts --max-old-space-size=10128 start",
+    "winstart2": "FAST_REFRESH=false WATCHPACK_POLLING=true react-scripts --max-old-space-size=10128 start",
+    "winstart3": "WATCHPACK_POLLING=true react-scripts --max-old-space-size=10128 start",
+    "winstart4": "CHOKIDAR_USEPOLLING=true react-scripts --max-old-space-size=10128 start",
+    "winstart5": "CHOKIDAR_POLLING=true react-scripts --max-old-space-size=10128 start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

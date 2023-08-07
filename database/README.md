@@ -125,7 +125,7 @@
   # Create New Category
   - rout: `/inserts/new_category`
   - API method: put
-  - expected object from API request: {user_id, category}
+  - expected object from API request: {user_id, category, budget_limit}
   - response from bd server: responds with all categories
 
   # Set a category to a store

@@ -45,6 +45,16 @@ router.get('/categories/:id', (req, res) => {
   })
 });
 
+
+router.get('/defaultCategory/:id', (req, res) => {
+  generalQueries.getDefaultCategoryAndBudgetByUserId(req.params.id)
+  .then(
+    (resp) => {
+      // console.log(resp)
+      res.json(resp)
+  })
+});
+
 //http://localhost:8000/getters/budget_limits/:id
 router.get('/budget_limits/:id', (req, res) => {
 

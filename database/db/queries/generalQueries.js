@@ -126,7 +126,7 @@ const getSpendingWithSetCategory = (obj) => {
   WHERE accounts.user_id = $1
   AND created_at_parsed >= $2
   AND created_at_parsed <= $3
-  AND selected_category IS NULL;
+  AND selected_category IS NOT NULL;
   `;
 
   return db.query(sqlQuery, values)
@@ -163,7 +163,7 @@ const getSpendingWithDefaultCategory = (obj) => {
   WHERE accounts.user_id = $1
   AND created_at_parsed >= $2
   AND created_at_parsed <= $3
-  AND selected_category IS NOT NULL;
+  AND selected_category IS NULL;
   `;
 
   return db.query(sqlQuery, values)
@@ -344,6 +344,33 @@ const getDefaultCategoryByUserId = (user_id) => {
     .catch((err) => console.log(err.message))//debug in terminal
 };
 
+const getDefaultCategoryAndBudgetByUserId = (user_id) => {
+  //return null if no id is passed in
+  if (!user_id) {
+    return null;
+  }
+  //protect db from SQL injections
+  const values = [user_id];
+
+  const sqlQuery = `
+  SELECT *
+  FROM categories
+  WHERE is_default = TRUE
+  AND user_id = $1;
+  `;
+
+  return db.query(sqlQuery, values)
+    .then(res => {
+      //if sql does not find anything return a message
+      //console.log(res.rows)
+      if(res.rows.length === 0){
+        return ([{category: "not found", budget: "not found"}])
+      }
+      return res.rows
+    })
+    .catch((err) => console.log(err.message))//debug in terminal
+};
+
 const getBudgetById = (user_id) => {
   //return null if no id is passed in
   if (!user_id) {
@@ -453,6 +480,7 @@ const getLastSpendingAddedToDbByDate = (user_id) => {
 }
 
 module.exports = {
+  getDefaultCategoryAndBudgetByUserId,
   debugQuery,
   getUserByEmail,
   getStoresByUserId,

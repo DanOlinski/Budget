@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link, useNavigate } from 'react-router-dom';
 import logoChart from '../media/logoChart.png'
+import '../../components/styles/navBar.scss';
 
 function AuthenticatedMenu({ handleCloseNavMenu, onLogout }) {
   return (
@@ -100,7 +101,7 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
   // #6f7176
 
   return (
-    <AppBar position="fixed" sx={{'backgroundColor': 'transparent'}}>
+    <AppBar className={'navBar'} position="fixed" sx={{'backgroundColor': 'transparent'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{display: { xs: 'none', md: 'flex' }, mr: 1 }} />

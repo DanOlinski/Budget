@@ -31,9 +31,8 @@ function App() {
       setIsAuthenticated(true);
     }
 
-    //this function is downloading info from database as soon as the app loads
-
-    //useManageApp(userId)
+    //loading info from db into global states from all other pages except from the manage file, to avoid data conflicts
+    useManageApp(userId)
 
 
 
@@ -45,7 +44,7 @@ function App() {
             <Routes>
             <Route path="/login" element={<Login onFormSwitch={handleLogin} />} />
             <Route path="/signup" element={<SignUp onFormSwitch={handleSignUp} />} />
-            <Route path="/" element={<Home />} />
+            {/* <Route path="/" element={<Home />} /> */}
             
 
                 {isAuthenticated ? (
