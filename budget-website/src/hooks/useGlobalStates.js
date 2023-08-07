@@ -8,7 +8,7 @@ import { create } from 'zustand'
 const useGlobalStates = create((set) => ({
   //here the defaultCategory is set to an empty array, since in this app all data coming from db is an array, if the data type is set to something different the app breaks. 
 
-  defaultCategory: ['Default'],
+  defaultCategory: {category: '-Default-', budget: null},
   setDefaultCategory: (newData) => set(() => ({defaultCategory: newData})),
 
   categories: [],
@@ -37,12 +37,29 @@ const useGlobalStates = create((set) => ({
   openDialogCreateCategory: false,
   setOpenDialogCreateCategory: (newData) => set(() => ({openDialogCreateCategory: newData})),
   
+  openDialogCategoryInfo: false,
+  setOpenDialogCategoryInfo: (newData) => set(() => ({openDialogCategoryInfo: newData})),
+
   scroll: 'paper',
   setScroll: (newData) => set(() => ({scroll: newData})),
+  
+  newCategory: {category: null, budget: null},
+  setNewCategory: (newData) => set(() => ({newCategory: newData})),
+  
+  categoryToDelete: null,
+  setCategoryToDelete: (newData) => set(() => ({categoryToDelete: newData})),
+  
+  clickedCard: {category: null, budget: null},
+  setClickedCard: (newData) => set(() => ({clickedCard: newData})),
+  
+  updateBudget: {user_id: null, category: null, budget_limit: null},
+  setUpdateBudget: (newData) => set(() => ({updateBudget: newData})),
+
+  rangeDates: {start_date: null, end_date: null},
+  setRangeDates: (newData) => set(() => ({rangeDates: newData})),
   
   userId: localStorage.getItem('auth')
   
 }))
 
 export default useGlobalStates
-

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 //importing the global state
 import useGlobalStates from "./useGlobalStates";
+import { startOfMonth } from "date-fns";
 
 
 //this function is triggered(in the 1st page(App.js)) to download all the info from the db then set that info to the global states available, these states are coded in the useGlobalStates file.
@@ -13,50 +14,74 @@ const useManageApp = (userId) => {
     setCategories, 
     setVisitedStores,
     setSelectedCategory,
-    setSpending
+    setSpending,
+    rangeDates,
+    setRangeDates
   } = useGlobalStates()
+
+  //------V---------dates
+  
+  if(!rangeDates.start_date || !rangeDates.end_date){
+    const currentDate = new Date()
+    const firstDayMonth = startOfMonth(currentDate);
+    const convertDateToISO = (date) => {
+      let dateFunc = new Date(date)
+      return dateFunc.toISOString()
+    }
+
+    const defaultDatesObj = {
+    start_date: convertDateToISO(firstDayMonth),
+    end_date: convertDateToISO(currentDate)
+  }
+
+  setRangeDates(defaultDatesObj)
+  }
+
+  //------^---------dates
+
 
   useEffect(() => {
 
     Promise.all([
       axios.get(`/getters/stores_by_user_id/${userId}`),
       axios.get(`/getters/categories/${userId}`),
+      axios.get(`/getters/defaultCategory/${userId}`),
       axios.post('/getters/spending', 
         {
           user_id: userId, 
-          start_date: '2020-10-01T00:00:00Z',
-          end_date: '2023-08-01T00:00:00Z'
+          start_date: `${rangeDates.start_date}`,//'2020-10-01T00:00:00Z',
+          end_date: `${rangeDates.end_date}`,//'2023-08-01T00:00:00Z'
         })
+      
     ])
     .then((all) => {
       const strs = all[0].data
       const cats = all[1].data
-      const spending = all[2].data
+      const defaultCat = all[2].data
+      const spending = all[3].data
       
-      console.log(spending)
-      console.log(spending.for_default_category)
-      console.log(spending.for_selected_categories)
-
       const spendingObj = {
         for_default_category: [],
         for_selected_categories: []
       }
-      if(spending.for_default_category){
+      if(spending.for_default_category && spending.for_default_category !== 'not found'){
         spendingObj.for_default_category = spending.for_default_category
       }
-      if(spending.for_selected_categories){
+      if(spending.for_selected_categories && spending.for_selected_categories !== 'not found'){
         spendingObj.for_selected_categories = spending.for_selected_categories
       }
       setSpending(spendingObj)
       
       if(Array.isArray(cats)){
         setCategories(cats)
-        cats.map((categoryObj) => {
-          if(categoryObj.is_default){
-            //here I am updating the value for the default category to the value coming from the database
-            setDefaultCategory(categoryObj.category)
-          } 
-        })
+
+        //this code is getting the default category from category state, but it is looping, the there is already an API request to handle this, below
+        // cats.map((categoryObj) => {
+        //   if(categoryObj.is_default){
+        //     //here I am updating the value for the default category to the value coming from the database
+        //     setDefaultCategory(categoryObj.category)
+        //   } 
+        // })
       }
       
       if(Array.isArray(strs)){
@@ -67,8 +92,18 @@ const useManageApp = (userId) => {
         })
         setSelectedCategory(selectedCategoryObj)
       }
+
+      if(defaultCat && defaultCat[0].category !== 'not found'){
+        setDefaultCategory({category: defaultCat[0].category, budget: defaultCat[0].budget})
+      }
+
     })
-  },[]) 
+    .catch((e) => console.log(e.message))
+  },[rangeDates]) 
+
+
+  // console.log(rangeDates.start_date, '#########')
+  // console.log(rangeDates.end_date, '#########')
 
   return 'db downloader'
 }

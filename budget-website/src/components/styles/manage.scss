@@ -2,7 +2,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
-	padding-top: 40px;
+	padding-top: 90px;
 	padding-left: 40px;
 	padding-right: 40px;
 	overflow: hidden;
@@ -15,7 +15,7 @@
 		justify-content: start;
 		align-items: center;
 		overflow: hidden;
-		background-color: rgba($color: #000000, $alpha: 0.5);
+		// background-color: rgba($color: #000000, $alpha: 0.5);
 		width: 130px;
 		height: 150px;
 		border-radius: 10px 10px 8px 8px;
@@ -29,11 +29,40 @@
 		margin: 20px;
 
 		&--header {
+			display: flex;
+			justify-content: space-between;
 			font-family: inherit;
 			margin: 10px;
 			font-size: 12px;
 			text-align: center;
-			cursor: pointer;
+			width: 110px;
+			min-height: 14px;
+		}
+		
+		&--x {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 2px;
+	position: absolute;
+	margin-left: 94px;
+
+	&--icon {
+		display: flex;
+		justify-content: center;
+		background-color: rgba(0, 0, 0, 0.215);
+		width: 15px;
+		height: 14px;
+		border-radius: 50px;
+		align-items: center;
+		padding-left: 0.3px;
+		padding-bottom: 0.9px;
+		cursor: pointer;
+		color: rgba(240, 248, 255, 0.106);
+	}
+
+	&--icon:hover {
+		color: white
+	}
 		}
 
 		&--bg {
@@ -43,8 +72,9 @@
 			background-color: rgb(0 0 0 / 19%);
 			margin: 0;
 			padding: 10px;
-			width: 105px;
-
+			width: 109px;
+			cursor: pointer;
+			
 			&--body {
 				font-family: inherit;
 				font-size: 10px;
@@ -58,21 +88,54 @@
 
 			@keyframes fade {
 				0% {
-					background-color: rgb(0 0 0 / 19%);
+					background-color: rgbargb(0 0 0 / 19%);
 				}
 
 				0.4% {
-					background-color: rgb(0 0 0 / 46%);
+					background-color: rgb(0 0 0 / 34%);
 				}
 
 				100% {
-					background-color: rgb(0 0 0 / 46%);
+					background-color: rgb(0 0 0 / 34%);
 				}
+			}
+		}
+
+		&--spending {
+			display: flex;
+			justify-content: space-between;
+			margin-top: 3px;
+
+			&--total {
+				margin-bottom: 7px;
+				display: flex;
+				justify-content: space-between;
 			}
 		}
 
 
 	}
+
+	&--cardColor {
+		display: flex;
+    width: 100%;
+    height: 100%;
+    animation-name: change-color;
+    animation-duration: 180s;
+    background-color: rgba(255, 186, 186, 0.13);
+    justify-content: center;
+
+			@keyframes change-color {
+				0% {background-color: rgba(255 186 186 / 18%);}
+				15% {background-color: rgba(255 229 186 / 18%);}
+				30% {background-color: rgba(212 255 186 / 18%);}
+				45% {background-color: rgba(186 255 250 / 18%);}
+				60% {background-color: rgba(186 200 255 / 18%);}
+				75% {background-color: rgba(247 186 255 / 18%);}
+				90% {background-color: rgba(255 186 216 / 18%);}
+				100% {background-color: rgba(255 186 186 / 18%);}
+			}
+		}
 
 	&--card:hover {
 		animation-name: move;
@@ -87,20 +150,19 @@
 
 			0.4% {
 				transform: translateY(-1px) translatex(1px) scale(1.01);
-				border-color: rgb(255 255 255 / 60%);
+				border-color: rgb(255 255 255 / 48%);
 				box-shadow: -6px 5px 15px rgba(0, 0, 0, 0.49);
 			}
 
 			0.7% {
 				transform: translateY(-1px) translatex(1px) scale(1.01);
-				border-color: rgb(255 255 255 / 80%);
+				border-color: rgb(255 255 255 / 66%);
 				box-shadow: -6px 5px 15px rgba(0, 0, 0, 0.49);
-
 			}
 
 			100% {
 				transform: translateY(-1px) translatex(1px) scale(1.01);
-				border-color: rgb(255 255 255 / 84%);
+				border-color: rgb(255 255 255 / 66%);
 				box-shadow: -6px 5px 15px rgba(0, 0, 0, 0.49);
 
 			}
@@ -109,15 +171,17 @@
 	}
 
 	&--addcat {
-		padding: 45px;
+		
 
 		&--icon1 {
-			scale: 0.9;
-			background-color: rgb(0 0 0 / 40%);
+			display: flex;
+			scale: 0.97;
+			background-color: rgba(0, 0, 0, 0.4);
 			border: 19px;
 			border-radius: 120px;
 			padding: 8px;
 			cursor: pointer;
+			margin-top: 43px;
 		}
 
 		&--icon2 {
@@ -148,7 +212,6 @@
 			}
 		}
 	}
-
 }
 
 //this is to create a line
@@ -206,37 +269,185 @@ hr {
 		justify-content: center;
 		padding: 37px !important;
 
+		&--form{
+			display: flex;
+    	flex-direction: column;
+		}
+
 		&--input {
 			background-color: rgb(57 44 44 / 27%);
 		}
 
-		&--save {
+		&--button {
 			display: flex;
 			justify-content: space-between;
 			padding-top: 20px;
 
 
-			&--button {
+			&--save {
 				display: flex;
 				justify-content: center;
 				cursor: pointer;
-				width: 50px;
-				height: 27px;
+				width: 65px;
+				height: 32px;
 				padding: 1px;
 				border-radius: 10px;
+				border-width: 2px !important;
+				background-color: rgb(118 91 91 / 0%);
+				border: solid rgb(0 0 0 / 38%);
+				color: rgba(0, 0, 0, 0.631372549);
+				margin-left: 7px;
+    		margin-right: 7px;
+			}
+
+			&--cancel {
+				display: flex;
+				justify-content: center;
+				cursor: pointer;
+				width: 61px;
+				height: 26px;
+				padding: 1px;
+				border-radius: 10px;
+				border-width: 2px !important;
 				padding-top: 3.03px;
 				background-color: rgb(118 91 91 / 0%);
 				border: solid rgb(0 0 0 / 38%);
 				color: rgba(0, 0, 0, 0.631372549);
+				margin: 7px;
 			}
 
-			&--button:hover {
+			&--save:hover {
+				border: solid #0000009e;
+				color: black;
+				background-color: rgb(57 44 44 / 27%);
+			}
+			&--cancel:hover {
 				border: solid #0000009e;
 				color: black;
 				background-color: rgb(57 44 44 / 27%);
 			}
 		}
 	}
+
+	&--categoriesCard {
+		background-color: rgba(192, 105, 105, 0.27) !important;
+		box-shadow: -3px 2px 17px rgba(0, 0, 0, 0.4);
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+
+		&--hr{
+			border: solid 0px rgb(0 0 0 / 52%);
+			background-color: rgb(0 0 0 / 48%);
+			height: 2px;
+			width: 95%;
+		}
+
+		&--header{
+			display: flex;
+    	flex-direction: row;
+			justify-content: space-between;
+		}
+
+		&--form{
+			display: flex;
+    	flex-direction: column;
+		}
+
+		&--input {
+			background-color: rgb(0 0 0 / 19%);
+			margin-right: 81px;
+			padding-right: 10px;
+			padding-left: 10px;
+			height: 30px;
+			padding-top: 0px;
+			padding-bottom: 0px;
+			width: 80px;
+		}
+
+		&--budget {
+			padding-right: 11px;
+    padding-bottom: 11px;
+    padding-top: 11px;
+		}
+
+		&--total {
+			padding-bottom: 11px;
+    padding-top: 20px;
+		}
+
+		&--rows{
+			display: flex;
+			flex-direction: column;
+			overflow: overlay;
+			padding-right: 13px;
+			padding-left: 15px;
+			background-color: #00000021;
+			border-radius: 7px;
+
+			&--div{
+				margin-right: 10px;
+			}
+			&--singleRow{
+				display: flex;
+    flex-direction: row;
+    margin-top: 13px;
+    margin-bottom: 13px;
+    justify-content: space-between;
+			}
+		}
+
+		&--button {
+			display: flex;
+			justify-content: space-between;
+			padding-top: 11px;
+
+
+			&--save {
+				display: flex;
+				justify-content: center;
+				cursor: pointer;
+				width: 65px;
+				height: 32px;
+				padding: 1px;
+				border-radius: 10px;
+				border-width: 2px !important;
+				background-color: rgb(118 91 91 / 0%);
+				border: solid rgb(0 0 0 / 38%);
+				color: rgba(0, 0, 0, 0.631372549);
+				margin-left: 7px;
+    		margin-right: 7px;
+			}
+
+			&--cancel {
+				display: flex;
+				justify-content: center;
+				cursor: pointer;
+				width: 61px;
+				height: 26px;
+				padding: 1px;
+				border-radius: 10px;
+				border-width: 2px !important;
+				padding-top: 3.03px;
+				background-color: rgb(118 91 91 / 0%);
+				border: solid rgb(0 0 0 / 38%);
+				color: rgba(0, 0, 0, 0.631372549);
+				margin: 7px;
+			}
+
+			&--save:hover {
+				border: solid #0000009e;
+				color: black;
+				background-color: rgb(57 44 44 / 27%);
+			}
+			&--cancel:hover {
+				border: solid #0000009e;
+				color: black;
+				background-color: rgb(57 44 44 / 27%);
+			}
+		}
+	}
+
 }
 
 .stores {

@@ -9,10 +9,11 @@ import useGlobalStates from '../hooks/useGlobalStates';
 const userId = localStorage.getItem('auth')
 
 export default function Manage(props) {
-   const { defaultCategory, categories, visitedStores, selectedCategory, openDialogVisitedStores, setOpenDialogCreateCategory, setOpenDialogVisitedStores, scroll, setScroll, spending } = useGlobalStates()
-  useManageApp(userId)
+  const { defaultCategory, categories, visitedStores, selectedCategory, openDialogVisitedStores, setOpenDialogCreateCategory, setOpenDialogVisitedStores, scroll, setScroll, spending, newCategory, openDialogCategoryInfo, setOpenDialogCategoryInfo, setCategories, setNewCategory, categoryToDelete, setCategoryToDelete, updateBudget, rangeDates } = useGlobalStates()
 
   // console.log(spending)
+  // console.log(categories)
+
 
   //-----v-visited stores-v-----
   const renderStore = (forWhatComponent) => {
@@ -38,51 +39,106 @@ export default function Manage(props) {
   const handleClose = () => {
     setOpenDialogVisitedStores(false);
     setOpenDialogCreateCategory(false);
+    setOpenDialogCategoryInfo(false)
   };
   //-----^-dialog box-^-----
 
   //-----v-card-v-----
-  const textForTittle = 'INSTITUTIONS'
+  const storesCardTittle = 'Institutions'
   const renderStoresCard = () => {
     return (
       <>
-          <Card
-            tittle={textForTittle}
-            renderStores={true}
-            renderStoreComponent={renderStore('Render For Card')}
-          />
+        <Card
+          tittle={'Institutions'}
+          renderStores={true}
+          renderStoreComponent={renderStore('Render For Card')}
+        />
       </>
     )
   }
 
   const renderCategoriesCards = () => {
-    return categories.map((category)=>{
-      return (
-        <>
+    return categories.map((category) => {
+      if (category.category !== defaultCategory.category) {
+        return (
+          <>
             <Card
+              budget={category.budget}
               renderCategory={true}
               category={category.category}
               renderStoreComponent={renderStore('Render For Card')}
             />
-        </>
-      )
+          </>
+        )
+      }
     })
   }
+// console.log(defaultCategory)
+  const renderDefaultCategory = () => {
+    if(defaultCategory.category !== '-Default-'){
+    return (
+      <>
+        <Card
+          budget={defaultCategory.budget}
+          renderCategory={true}
+          category={defaultCategory.category}
+          renderStoreComponent={renderStore('Render For Card')}
+        />
+      </>
+    )
+    }
+  }
+
+  
   //-----^-card-^-----
 
   //-----^-update db-^-----
   //update default category when state defaultCategory changes
   React.useEffect(() => {
-    axios.put(
-      `/inserts/set_default_category`,
-      {
-        user_id: userId,
-        category: defaultCategory,
-        start_date: '2021-01-01T00:00:00Z',
-        end_date: '2023-08-01T00:00:00Z'
-      }
-    )
+    if(defaultCategory.category !== '-Default-'){
+      axios.put(
+        `/inserts/set_default_category`,
+        {
+          user_id: userId,
+          category: defaultCategory.category,
+          start_date: `${rangeDates.start_date}`,//'2021-01-01T00:00:00Z',
+          end_date: `${rangeDates.end_date}`//'2023-08-01T00:00:00Z'
+        }
+      )
+    }
   }, [defaultCategory]);
+
+  React.useEffect(() => {
+    if(categoryToDelete !== null && categoryToDelete !== defaultCategory.category){
+      axios.put(
+        `/delete/category`,
+        {
+          user_id: userId,
+          category: categoryToDelete,
+        }
+      )
+    }
+  }, [categoryToDelete]);
+  
+    React.useEffect(() => {
+
+      if(newCategory.category && newCategory.budget){
+        axios.put(
+          `/inserts/new_category`,
+          {user_id: userId, category: newCategory.category, budget_limit: newCategory.budget}
+        )
+      }
+    
+  }, [newCategory]);
+
+  React.useEffect(() => {
+    if(updateBudget.user_id && updateBudget.category && updateBudget.budget_limit){
+      axios.put(
+        `/inserts/set_budget_limit`,
+        updateBudget
+      )
+    }
+  }, [updateBudget]);
 
   //-----^-update db-^-----
 
@@ -100,58 +156,60 @@ export default function Manage(props) {
 
   //------download emails-----
 
+  //place updated token
+  //login
+  //go to manage tab
+  //refresh browser 2 times
   const authentication = {
-    token: 'EwCIA8l6BAAUAOyDv0l6PcCVu89kmzvqZmkWABkAAf80LozgdApXw/6aKrlGuuXWmHGk45JS83cML6A2N6Xas+d69qe4lVi3saMxN5H09jxONo6mLPXK/vLttJ/mY7qAyqjeiayo1PIEKLyZRk5YwBiU5GvHApQLSTgQ31RDE2soOq31WjE6pMs0oA/ghA+TVIDS9wiA6VRAepahXjPA8QpQc34Mskj3P/7G4tOXfrsvIjxmWacJSVvl6/F/hSmgEj5XjlQgJ3FpVXaAnkxT2KuXjt/XipDGeGn69TKKLe6jhotUA2moFdy5HGEEXMOaZjfNYdKvlqnkzNKTy/v4eyaKapvIJ55LnewTjOBcVMnw1YBjPyAKZyzRgkcSwpUDZgAACEQcYVvB9E2wWAIOIAWTvBZ13Qw61coIPuM4On6X3bT2ituuXau6d2rwY4dHkxYU4u/WH6VepoDkyN39KYUoooENsvPMow1ZX4kI0t/JJ5s49mDRqmU4zUEw1swJSN+QOSwNroD3AHiViBRJcXe/8TkweSbt9BgubZI6kmy+P+lC+NLYEW5XCClTZUq+ZmIopgnTsFIi4ddikdX96eXug3pEQDQ/x2ijPJrqjlOHikSkBkDHiRm0kWvzCXmWtAXyVmfVhb7YlMOxUD7nPXgLtM1spZU03aJVoD0v8GZ1GEqoMhYUsfKCFDJ2NaeL+nMHCq9yF7l7br/cgA3+YdIa9SF9bsTL5kpeNgY1/h/cA6MqwWSo7Xhir/2fDvz+CNbgd1kBZqhSUmYEIXzO8xXLayFv1MPY7qrqXF9/PDPUHhi35oOWU/x+yvFiu715Dy210/kDGUNklhzCvBCSptUC3qZXf48y+X61jN7cc957fYNxJqlB/GXaPlv2sL1FN4VCcWVR6yAszRG0P5jklXnJW1y45gs4uqRyv1sV3K2Yxvcd70slJvn6qll5ToNigVdKzfte3z2Nmc5FwjvHeGbsUeC+7oV45LMTOWQP+wCfMRWTqisChQcVFUMgdCvtoX8XtuiZCnlIfmLru6Gp7yCG/NS+h8Bq2Ef2edF8zBd1iE7F+dos0R+tuswgUaC3lxGM8OYOGBzKHouuqPR963nPG024TkU3weNktbOFIb/lzNYleHyCg26sTvmigL0gtcQuR9EMPOXRfLL2qcwzT93P2YGm0YjBITsUuFNDYPSqUXv5t6qoAg=='
+    token: 'EwCIA8l6BAAUAOyDv0l6PcCVu89kmzvqZmkWABkAAeqXJ/lDa2XFgGTug8hQI6S51Ejv3mOnCoZy4FBG83ITj8W/tVmvq8xqqff371atd0OZkZhsGZxYGh3yWDsgbVMnTJ4/HVK+9RGGz2l2RAUs5c5bu7UcJTMHuRmmUxebegWppP2NiyyrTxVPnaS1P6K+68vcjZV5/ndY99dZSu/MwirwxVveKNwHgVR/g8eEzttPEjRZ1p5RMO4EC9Ps3Oi519bbMe3+PS5Y2gTgElA8rFdTVotMHb09ZsWIspvYQtRXlLiTEyBlLy+y7Ymbf0Gla7wx/AD3Zl7s7jCC25HMuKKuU6Tl5C22BN8Gcfx8nUWTCOkS5jzNXnEEVjjtJokDZgAACBFnbu6M4JlyWAIlCsDd6LiOpBZrd+utN0R7vS7Ad3gvqfotsf+Z57EhSq5wF3wrGw39UdxoppC2aUtrRdQBOV2Ffk9hoiuz6gefOuAFJbIzECYDVMyT0/8GKBZ11RZU9wDsoEVUaVSkEtLnCIWJjhqDJwNe2nT4JQ5LDAqH9AgS33osHvT0/gUTLn7TtxJa2yEVJZWG1zuY2LPoDpnTW50OT0N7grCvLViHd+aIzdn6lXdud5HXpAvTz9oFE7aFwrh82puw8DWyUbMLwBr0mdFpYPxEoWh0gtYy9Fh8dd3R+HZTADoB1Pj0bDGO6X5JdGPCBGh3tsngWDAKmnMvROdrodSsGea5t7l/onl/LKnk1inSrxxQSGzRpCqQQ9M9zhnwPMH33S7FuOkwGZgR0cBkBu59cpEmdqgggqjzprRZuLTBtmDKBCgXLx61bspVEfcZ4jDP7zLf9e4RAttq2ZWDNWxC38RoviCKbX1s8hthN43/60Wwko0q3nzUOpZKk7hxreV1/XU/T2wsCdAdUt8DJoIwgEDY66WPfJ2DcNl1dSS3o1K16ac1zLoC71AbvNBHoc4xRiwsCOmKx1VIpHvIbVlkaT7qUwmyvVmwX2+Msi3Nhl4mtN3vcOjewO1H/QPs0Tk0y/HefMIG0rZ/VTDxOy8P4cvZewBJkDydqo5myDslt14kdxe8ewTS+Jf8tBnd8mfzlU8hrywappmVKaaCnqCWuyRP0XysiOX+fAWdiBi1KxEw4n1DusE3jP9yea3yjkjjlaIGQbrwB3jDZ0plL41CDLnxu1aFgT78JAxgSCioAg=='
   }
 
-  // run this 1st
-  React.useEffect(() => {
-    axios.put('/inserts/new_account',
-      {
-        user_id: userId,
-        bank: 'Scotiabank',
-        token: authentication.token,
-        folder_url: 'https://graph.microsoft.com/v1.0/users/final.project.lhl@outlook.com/mailFolders/AQMkADAwATMwMAItNjJkOC0xMzJiLTAwAi0wMAoALgAAAy3KWEvbj4tIvxN9uTIgazUBAMVxau0anYpLoRd2HmPfL1sAAAAEH75WAAAA',
-      })
-      .then((resp) => {
-        // console.log(resp.data)
-      })
-  }, []);
-  
-  
-  // //run this 2nd
-  React.useEffect(() => {
-    //https//developer.microsoft.com/en-us/graph/graph-explorer
-    axios.put('/inserts/download_emails',
-      {
-        user_id: userId,
-        token: authentication.token,
-        bank: 'Scotiabank',
-        start_date: '2020-10-01T00:00:00Z',
-        end_date: '2023-08-01T00:00:00Z'
-      })
-      .then((resp) => {
-        // console.log(resp.data)
-      })
-  }, []);
+  // React.useEffect(() => {
+  //   axios.put('/inserts/new_account',
+  //     {
+  //       user_id: userId,
+  //       bank: 'Scotiabank',
+  //       token: authentication.token,
+  //       folder_url: 'https://graph.microsoft.com/v1.0/users/final.project.lhl@outlook.com/mailFolders/AQMkADAwATMwMAItNjJkOC0xMzJiLTAwAi0wMAoALgAAAy3KWEvbj4tIvxN9uTIgazUBAMVxau0anYpLoRd2HmPfL1sAAAAEH75WAAAA',
+  //     })
+  //     .then((resp) => {
+  //       // console.log(resp.data)
+  //     })
+  // }, []);
+
+  // React.useEffect(() => {
+  //   //https//developer.microsoft.com/en-us/graph/graph-explorer
+  //   axios.put('/inserts/download_emails',
+  //     {
+  //       user_id: userId,
+  //       token: authentication.token,
+  //       bank: 'Scotiabank',
+  //       start_date: '2020-10-01T00:00:00Z',
+  //       end_date: '2023-08-01T00:00:00Z'
+  //     })
+  //     .then((resp) => {
+  //       // console.log(resp.data)
+  //     })
+  // }, []);
 
   //-----^-debug-^-----
 
-
+  // useManageApp(userId)
   return (
     <div className='manage'>
 
-      {renderStoresCard()}
+      {renderStoresCard()} 
 
+      {renderDefaultCategory()}
       {renderCategoriesCards()}
 
       <Card addCategory={true} />
 
       <DialogBox
-          tittle={textForTittle}
-          onClose={handleClose}
-          scroll={scroll}
-        />
+        tittle={storesCardTittle}
+        onClose={handleClose}
+        scroll={scroll}
+      />
 
     </div>
   );

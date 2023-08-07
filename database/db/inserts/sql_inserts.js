@@ -164,7 +164,7 @@ const createNewCategory = (obj) => {
 
 const assignCategoryToSpending = (obj) => {
   //return null if there is missing data from incoming object
-  if (!obj.user_id || !obj.category || !obj.store_name) {return null}
+  if (!obj.user_id || !obj.store_name) {return null}
 
   const values = [obj.user_id, obj.category, obj.store_name];
   const sqlQuery = `

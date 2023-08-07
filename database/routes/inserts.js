@@ -87,7 +87,7 @@ router.put("/new_category", (req, res) => {
 
   let obj = req.body
   //check for empty fields
-  if (!obj.user_id || !obj.category) {
+  if (!obj.user_id || !obj.category || !obj.budget_limit) {
     return res.send({ error: 'missing data' })
   }
 
@@ -97,10 +97,13 @@ router.put("/new_category", (req, res) => {
       if (r === 'not found') {
         sql_inserts.createNewCategory(obj)
           .then(() => {
-            generalQueries.getCategoriesByUserId(obj.user_id)
+            sql_inserts.setBudgetLimit(obj)
+            .then(() =>{
+              generalQueries.getCategoriesByUserId(obj.user_id)
               .then((response) => {
                 return res.json(response)
               })
+            })
           })
           .catch((error) => {
             return console.log(error.message);
@@ -113,7 +116,7 @@ router.put("/assign_category_to_spending", (req, res) => {
 
   let obj = req.body
   //check for empty fields
-  if (!obj.user_id || !obj.category || !obj.store_name || !obj.start_date || !obj.end_date) {
+  if (!obj.user_id || !obj.store_name || !obj.start_date || !obj.end_date) {
     // console.log('missing data')
     return res.send({ error: 'missing data' })
   }
