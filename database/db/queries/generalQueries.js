@@ -214,7 +214,7 @@ const getAccountsInfoByUserId = (user_id) => {
 
   //protect db from SQL injections
   const values = [user_id];
-  
+
   const sqlQuery = `
   SELECT accounts.*
   FROM accounts
@@ -452,6 +452,40 @@ const getLastSpendingAddedToDbByDate = (user_id) => {
     .catch((err) => console.log(err.message))//debug in terminal
 }
 
+const getAccountDetailsByUser = (user_id) => {
+  //return null if no id is passed in
+  if (!user_id) {
+    return { error: "No account ID provided" };
+  }
+
+  //protect db from SQL injections
+  const values = [user_id];
+
+  const sqlQuery = `
+  SELECT
+  a.id as account_id,
+  a.bank,
+  a.holdings,
+  json_agg(c.card_number) AS cards
+  FROM accounts a
+  LEFT JOIN cards c ON a.id = c.account_id
+  WHERE user_id = $1
+  GROUP BY a.id, a.bank, a.holdings;
+  `;
+
+  return db.query(sqlQuery, values)
+    .then(res => {
+      //if sql does not find anything return a message
+      //console.log(res.rows)
+      if(res.rows.length === 0){
+        return ("not found")
+      }
+      return res.rows
+    })
+    .catch((err) => console.log(err.message))//debug in terminal
+};
+
+
 module.exports = {
   debugQuery,
   getUserByEmail,
@@ -468,6 +502,6 @@ module.exports = {
   getSpendingWithSetCategory,
   getSelectedCategoryByStore,
   getCardByNumber,
-  getLastSpendingAddedToDbByDate
-
+  getLastSpendingAddedToDbByDate,
+  getAccountDetailsByUser
 };

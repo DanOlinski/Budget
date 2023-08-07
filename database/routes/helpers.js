@@ -7,7 +7,7 @@ const sql_inserts = require('../db/inserts/sql_inserts');
 const compareDates = (dateBefore, dateAfter) => {
   const dateBeforeParesed = Date.parse(dateBefore)
   const dateAfterParsed = Date.parse(dateAfter)
-  
+
   if(dateBeforeParesed < dateAfterParsed){
     return true
   }
@@ -36,18 +36,18 @@ const extractInfoFromEmail = (email, saveEmailsAfterThisDate) => {
       scanStringForCardNumber: (string) => {
       let start
       let stop = []
-        
+
       //loop through the email and determain when you find "balance for account", set that index located after the sentence to be stores in "start" variable
       for(let i = 0; i < string.length; i++){
         if(
-          string[i-20] === 'b' && 
-          string[i-19] === 'a'&& 
-          string[i-18] === 'l'&& 
-          string[i-17] === 'a'&& 
-          string[i-16] === 'n'&& 
-          string[i-15] === 'c'&& 
-          string[i-14] === 'e'&& 
-          string[i-13] === ' '&& 
+          string[i-20] === 'b' &&
+          string[i-19] === 'a'&&
+          string[i-18] === 'l'&&
+          string[i-17] === 'a'&&
+          string[i-16] === 'n'&&
+          string[i-15] === 'c'&&
+          string[i-14] === 'e'&&
+          string[i-13] === ' '&&
           string[i-12] === 'f'&&
           string[i-11] === 'o'&&
           string[i-10] === 'r'&&
@@ -64,56 +64,57 @@ const extractInfoFromEmail = (email, saveEmailsAfterThisDate) => {
           start = i
         }
       }
-    
+
       //if there are no values in the body of the email return a notice
       if(!string[start]){
         return 'No Value Found'
       }
-    
+
       for(let i = start; i < string.length; i++){
         if(string[i] === ' '){
           stop.push(i)
         }
       }
-        
+
       //remove everithing before and after the account number
       let value = string.slice(start, stop[0])
-      
+
       return value
       },
       scanStringForPrice: (string) => {
         let value
         let start
         let stop =[]
-        
-        
+
+
         //loop through the email and determain when you find the $, set that index to start
+        // eli note - correct and remove $ sign - include rest of the string (price)
         for(let i = 0; i < string.length; i++){
           if(string[i] === '$'){
-            start = i
+            start = i + 1
           }
         }
-      
+
         //if there are no values in the body of the email return a notice
         if(!string[start]){
           return 'No Value Found'
         }
-      
+
         //loop through email starting where the $ symbol is and stop when the numbers end. Set that index to stop
         for(let i = start; i < string.length; i++){
           if(string[i] === ' '){
             stop.push(i)
           }
         }
-        
+
         //remove everithing before the $ and after the price value
         value = string.slice(start, stop[0])
-        
+
         //remove the last dot of the string if there is one
         if(value[value.length-1] === '.'){
           value = string.slice(start, stop[0]-1)
         }
-      
+
         return value
       },
       scanStringForStore: (string) => {
@@ -121,7 +122,7 @@ const extractInfoFromEmail = (email, saveEmailsAfterThisDate) => {
         let start
         let stop =[]
         let boolean = false
-      
+
         //find where there is an 'at' and save the index number
         for(let i=0;i<string.length;i++){
           if(string[i] === 'a' && string[i+1] === 't' && string[i+2] === ' '){
@@ -129,7 +130,7 @@ const extractInfoFromEmail = (email, saveEmailsAfterThisDate) => {
             break
             }
           }
-        
+
         //Find where there is a # and save the index number
         for(let i = start; i < string.length; i++){
           if(string[i] === '#'){
@@ -144,7 +145,7 @@ const extractInfoFromEmail = (email, saveEmailsAfterThisDate) => {
         if(!boolean){
           return 'No Value Found'
         }
-      
+
         final = string.slice(start, stop[0])
         return final
       },
@@ -152,41 +153,41 @@ const extractInfoFromEmail = (email, saveEmailsAfterThisDate) => {
       scanStringForDummyDate: (string) => {
         let start
         let stop = []
-          
+
         //loop through the email and determain when you find "date:", set that index located after the sentence to be stores in "start" variable
         for(let i = 0; i < string.length; i++){
           if(
-            string[i-5] === 'd' && 
-            string[i-4] === 'a'&& 
-            string[i-3] === 't'&& 
-            string[i-2] === 'e'&& 
+            string[i-5] === 'd' &&
+            string[i-4] === 'a'&&
+            string[i-3] === 't'&&
+            string[i-2] === 'e'&&
             string[i-1] === ':'
             ){
             start = i
           }
         }
-      
+
         //if there are no values in the body of the email return a notice
         if(!string[start]){
           return 'No Value Found'
         }
-      
+
         for(let i = start; i < string.length; i++){
           if(string[i] === 'Z'){
             stop.push(i+1)
           }
         }
-          
+
         //remove everithing before and after the account number
         let value = string.slice(start, stop[0])
-        
+
         return value
         },
     }
   }
-  
+
   const finalObj = {}
-  
+
   {//extraction from scotiabank
 
     let dummyIncomingDate
@@ -201,7 +202,7 @@ const extractInfoFromEmail = (email, saveEmailsAfterThisDate) => {
     // console.log(card_number)
   }
     }
-  
+
     {//extract account holdings for db accounts.holdings
     //consideration: I want to save to db only the most recent account balance, but in my dummy email data I only have a single email informing account balance. So for presentation purposes disconsider incoming date when saving account balance
     if(
@@ -212,7 +213,7 @@ const extractInfoFromEmail = (email, saveEmailsAfterThisDate) => {
       // console.log(holdings)
     }
     }
-  
+
     {//extract dummy incoming date for db spending.created_at_parsed
     if(
       emailExtractors.scotiabank.locateEmailSubject(email) ===
@@ -227,7 +228,7 @@ const extractInfoFromEmail = (email, saveEmailsAfterThisDate) => {
     if(saveEmailsAfterThisDate < dummyIncomingDateParsed) {
     finalObj.created_at_parsed = dummyIncomingDateParsed
     finalObj.created_at_notParsed = dummyIncomingDate
-      
+
       {//extract spending amount for db spending.amount_spent
       if(
         emailExtractors.scotiabank.locateEmailSubject(email) ===
@@ -237,7 +238,7 @@ const extractInfoFromEmail = (email, saveEmailsAfterThisDate) => {
         // console.log(amount_spent)
       }
       }
-    
+
       {//extract store name for db spending.store_name
       if(
         emailExtractors.scotiabank.locateEmailSubject(email) ===
@@ -257,7 +258,7 @@ const extractInfoFromEmail = (email, saveEmailsAfterThisDate) => {
           // console.log(store_name)
         }
       }
-  
+
     }
 
   }
