@@ -1,22 +1,75 @@
-.main-tracker-container {
-  padding: 50px;
-  height: 500px;
-  margin-top: 100px;
+.dashboard-container {
   display: flex;
+  flex-direction: column;
+  position: relative; /* Ensure proper positioning for absolute elements */
+  min-height: 1250px; /* Minimum full viewport height */
+  
+}
+
+.main-tracker-container {
+  flex: 1; /* Take remaining vertical space */
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width:100%;
-  border-radius:10px;
-  margin: 100px;
   color: white;
 }
 
 .categories-container {
-  padding: 10px;
+  margin-top:150px;
   display: flex;
-  flex-direction:row;
-  color:white;
-  
+  height: 1000;
+  justify-content: center; /* Center items horizontally */
+  align-items: flex-start;
+  padding: 10px;
+  color: white;
+  display: flex;
+  flex-direction: row;
+}
+
+/* Adjustments for input components */
+.date-picker {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items at the top */
+  padding: 10px;
+}
+
+.MuiInputBase-root {
+  width: 100%;
+}
+
+/* Account container */
+.account-container {
+  color:#10111187;
+  border-radius: 5px;
+  padding: 0;
+  margin: 2rem;
+  background-color: white; /* Change to your desired background color */
+  box-shadow: 0 4px 6px -3px rgba(0, 0, 0, 0.2), 0 10px 14px 1px rgba(0, 0, 0, 0.14), 0 5px 24px 2px rgba(0, 0, 0, 0.12);
+  border-left: 6px solid #10111187
+}
+
+.info-account {
+  padding: 0.25rem 0;
+  display: flex;
+  flex-direction: row;;
+}
+
+/* Button styles */
+button {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Adjust other button styles as needed */
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  /* Add responsive styles here */
 }
 
 .date-picker {
@@ -24,10 +77,92 @@
   align-items:flex-start;
   padding-right: 100px;
   justify-content: space-between;
-  color:white;
+
+  .Mui-focused {
+    /* Change the outline color to white */
+    // outline: 2px solid white;
+
+    /* You can also remove any box-shadow if present */
+    box-shadow: none;
+  }
+
+//   /* Add shadow to the bottom and sides */
+.MuiInputBase-root {
+  border: none; // Remove existing border
+  padding: 8px;
+  width: 100%;
+  position: relative; // Required for absolute positioning
+  display: flex; // Align the label and icon horizontally
+  align-items: center; // Center the label and icon vertically
+  box-shadow: 0 4px 6px -3px rgba(0, 0, 0, 0.2), 0 10px 14px 1px rgba(0, 0, 0, 0.14), 0 5px 24px 2px rgba(0, 0, 0, 0.12); // Add shadow
 }
 
-.picker1 {
-  margin-right:20px;
-  color:white;
+/* Add a negative margin and absolute positioning to the label */
+label {
+  position: absolute;
+  color: white;
+}
+.MuiSvgIcon-root {
+  fill: white; // color of icon
+}
+
+.css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+  color: white; // color of text
+}
+}
+
+.account-list {
+  padding:0;
+  // padding-right:1rem;
+}
+
+.account-details {
+  display: flex;
+  // align-items: flex-start;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #10111187;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  }
+
+  .info-account:hover {
+    background-color: #10111127;
+  }
+
+.bank-name {
+  flex: 1; /* Take available space */
+}
+
+.info-account-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardsDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 0.5rem;
+}
+
+.holdings {
+  margin-left: auto; /* Push holdings to the right */
+}
+
+.info-account-name-holdings {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.download-emails-but {
+  border: 1px solid #10111187;
+  margin: 1rem;
+}
+
+.download-emails-but:hover {
+  background-color: rgb(193, 190, 190);
+  box-shadow: 0 4px 6px -3px rgba(0, 0, 0, 0.2), 0 10px 14px 1px rgba(0, 0, 0, 0.14), 0 5px 24px 2px rgba(0, 0, 0, 0.12); // Add shadow
 }

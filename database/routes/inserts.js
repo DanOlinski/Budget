@@ -136,7 +136,7 @@ router.put("/assign_category_to_spending", (req, res) => {
     })
 })
 
-router.put("/new_account", (req, res) => {
+router.post("/new_account", (req, res) => {
 
   let obj = req.body
   //check for empty fields
@@ -155,9 +155,9 @@ router.put("/new_account", (req, res) => {
                 return res.json(resp)
               })
           })
-      } 
-      else if (r !== 'not found'){ 
-        return res.json("Bank already registered") 
+      }
+      else if (r !== 'not found'){
+        return res.json("Bank already registered")
       }
     })
 })
@@ -186,7 +186,7 @@ router.put("/download_emails", (req, res) => {
       obj.account_id = accountInfo[0].id
 
       //console.log(accountInfo)
-      
+
       //build API request and extract data from emails
       //const emailMessagesRequest = (obj) => {
       //request for the folder length
@@ -232,7 +232,7 @@ router.put("/download_emails", (req, res) => {
                           .then((getCard) => {
                             if (getCard === "not found") {
                               obj.card_number = extraction.card_number
-                              
+
                               //save Card From Email
                               sql_inserts.saveCard(obj)
                                 .then((saveCard) => {
@@ -288,7 +288,7 @@ router.put("/download_emails", (req, res) => {
     .then((SpendingWithSetCategory) => {
       const response = {for_selected_categories: SpendingWithSetCategory, for_default_category: SpendingWithDefaultCategory}
       res.json(response)
-    }) 
+    })
   })
 
 })

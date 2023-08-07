@@ -1,8 +1,11 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import calculateSpendingByCategory from './categories-spending';
+import useGlobalStates from '../../../hooks/useGlobalStates';
 
 export default function useDashboardData() {
+
+  const { spending } = useGlobalStates();
 
   const userId = localStorage.getItem('auth');
 
@@ -15,13 +18,13 @@ export default function useDashboardData() {
       state: 'January',
       categories: [],
       accounts: [], 
-      spending: null
+      spending: spending
     });
 
   useEffect(() => {
     Promise.all([
       axios.get('/getters/categories/' + userId),
-      axios.get('/getters/accounts_by_user/' + userId),
+      axios.get('/getters/accounts_details_by_user/' + userId),
     ]).then((all) => {
         // console.log("axios request to get all cat and accounts",all);
       setSpendingState(prev => ({
@@ -31,6 +34,8 @@ export default function useDashboardData() {
       }));
     });
   },[]);
+
+  console.log(spendingState.accounts);
 
   function spendingByDates(startDate, endDate) {
     const data = {
@@ -59,6 +64,21 @@ export default function useDashboardData() {
       console.log("An error occurred:", error.message)
     });
   };
+
+  // function getTotalSpending() {
+  //   let totalSpending = 0;
+  //   const categories = spendingByDates()
+
+  //   categories.forEach((category) => {
+  //     totalSpending += spendingByDates[category];
+  //     console.log(totalSpending);
+  //   })
+  //   return totalSpending;
+  // }
+
+  // getTotalSpending();
+
+  // }
 
   // spendingByDates();
 

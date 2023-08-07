@@ -1,11 +1,27 @@
 import React from "react";
+import '../styles/dashboard.scss'
 
-function AccountListItem({ user_id, name, budget }) {
+function AccountListItem({ bank, holdings, cards }) {
   return (
-    <li>
-      user ID: {user_id}, category: {name}, budget: {budget}
-    </li>
+    <div className='all-account-info'>
+    <div className='info-account-name-holdings'>
+      <div className='bank-name'>
+        {bank}
+      </div>
+      
+      {/* <div className='info-account-details'> */}
+        <div className='holdings'>
+          $ {holdings}
+        </div>
+        </div>
+
+        <div className='cardsDisplay'>
+          {cards.map((cardNumber, index) => (
+            <div key={index}>{cardNumber}</div>
+          ))}
+        </div>
+        </div>
   );
 }
 
-export default CategoryListItem;
+export default AccountListItem;

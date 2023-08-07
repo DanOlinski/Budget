@@ -156,14 +156,11 @@ export default function Manage(props) {
 
   //------download emails-----
 
-  //place updated token
-  //login
-  //go to manage tab
-  //refresh browser 2 times
-  const authentication = {
-    token: 'EwCIA8l6BAAUAOyDv0l6PcCVu89kmzvqZmkWABkAAeqXJ/lDa2XFgGTug8hQI6S51Ejv3mOnCoZy4FBG83ITj8W/tVmvq8xqqff371atd0OZkZhsGZxYGh3yWDsgbVMnTJ4/HVK+9RGGz2l2RAUs5c5bu7UcJTMHuRmmUxebegWppP2NiyyrTxVPnaS1P6K+68vcjZV5/ndY99dZSu/MwirwxVveKNwHgVR/g8eEzttPEjRZ1p5RMO4EC9Ps3Oi519bbMe3+PS5Y2gTgElA8rFdTVotMHb09ZsWIspvYQtRXlLiTEyBlLy+y7Ymbf0Gla7wx/AD3Zl7s7jCC25HMuKKuU6Tl5C22BN8Gcfx8nUWTCOkS5jzNXnEEVjjtJokDZgAACBFnbu6M4JlyWAIlCsDd6LiOpBZrd+utN0R7vS7Ad3gvqfotsf+Z57EhSq5wF3wrGw39UdxoppC2aUtrRdQBOV2Ffk9hoiuz6gefOuAFJbIzECYDVMyT0/8GKBZ11RZU9wDsoEVUaVSkEtLnCIWJjhqDJwNe2nT4JQ5LDAqH9AgS33osHvT0/gUTLn7TtxJa2yEVJZWG1zuY2LPoDpnTW50OT0N7grCvLViHd+aIzdn6lXdud5HXpAvTz9oFE7aFwrh82puw8DWyUbMLwBr0mdFpYPxEoWh0gtYy9Fh8dd3R+HZTADoB1Pj0bDGO6X5JdGPCBGh3tsngWDAKmnMvROdrodSsGea5t7l/onl/LKnk1inSrxxQSGzRpCqQQ9M9zhnwPMH33S7FuOkwGZgR0cBkBu59cpEmdqgggqjzprRZuLTBtmDKBCgXLx61bspVEfcZ4jDP7zLf9e4RAttq2ZWDNWxC38RoviCKbX1s8hthN43/60Wwko0q3nzUOpZKk7hxreV1/XU/T2wsCdAdUt8DJoIwgEDY66WPfJ2DcNl1dSS3o1K16ac1zLoC71AbvNBHoc4xRiwsCOmKx1VIpHvIbVlkaT7qUwmyvVmwX2+Msi3Nhl4mtN3vcOjewO1H/QPs0Tk0y/HefMIG0rZ/VTDxOy8P4cvZewBJkDydqo5myDslt14kdxe8ewTS+Jf8tBnd8mfzlU8hrywappmVKaaCnqCWuyRP0XysiOX+fAWdiBi1KxEw4n1DusE3jP9yea3yjkjjlaIGQbrwB3jDZ0plL41CDLnxu1aFgT78JAxgSCioAg=='
-  }
+  // const authentication = {
+  //   token: 'EwCIA8l6BAAUAOyDv0l6PcCVu89kmzvqZmkWABkAAafgrD6vy4qVtJuIPSMqQNHZKaxJU0AaQ4ZVZbBlympc0CvZTV3Yf3m0fog1vDxmqaB4fOkEbUp0nRW0G1WE2CjPxxN4xFQioWF+2ks7nMMpjshNN9BuvavmiJQinOBOP8VVGhS+3q+EdPaaCsSMueIAuWYKmkTgUfuiahlIH9RR0dpxkb5oFQ/7Fhr0vBd3m9tjN4KeIu5SZYBG3u1enrGN9vZA9pafHIMw2Kx38Or/AB4rYrauTlbH3pbZLDj9IwuCQrNet/k/+Yg7Dc1nAyhCPSQ1yfA0Fz0WYYVj947lYRkmBsJetUgv9PDM4fkSBw0qXC1ZAI0MNYhe9eOmAJsDZgAACKW57ta/gaUfWAIDA6EYMl0wf8JU7IuLP0acin+rM5BupbUH48L7L30ABFv2vfr8KVFCp4wgKUEyLVnA6Q2hXRAFbZBBAJn50yoJ1/q2Leuwb60tibz+KIJd9qkRUs8CKAekUWZaTL5LB9SSzOUS7nxit6IdMBvzNhgz75jgoBBIdWjQWAhzP7mFtHRgztPdJQGWE4LJKbdyysI1dDaUAO3SR5EyxHsaH4uwc3NsIhpuiypVTnzCOahOLtj6AZ86jF4xQ8wAwPSHCgP8XIJcF9UhBwdcDqlTT27GO9yI7rrPz6EQT21VEAS4J4eD+/AKRJvVO5foBdhcVyJ2d3uiLxmIFhzOzeeHIs+JMrNZ78FU8+0QO0u8mtdpxaL/n+ZVrBC7bPuYGhaQpO6o+78L2qfb2UayB9nu+4i7YBjr6Cf1Xwkrxx9HSJMwSExK+qyWIybj2x9UzrvWVxm59+50JRq8kHmuI8QcnMPUGUCon/5MV5A/tdS6u/E3SEv7be22ExQ/SNJPI0unWP2ss19rQ+1A9GTj26glRH7nKxHoB8CYmxvnspKZQwjUZ0StZJGvMazxzjNM+uTXL6BCVk1FPvQMs3S6s4FSDJP/ICrfEeS64IOPLDwqXp8hgMpo/TMddZZyocs+TrPrnuU08pY2mwJz3x9CrlX3dRhXtLC1BhDhWxeypBKKXYezLbzXwEozrM6MXPteChrfjWdpveEg2OxNiyOK5glmoV72TwmCw+K4uCxEpUeTBskVVmu7VaazlVeplW50LjGUWbCM6Ux4Js/VXWHtPbvn32r0NAVJjK2Eh6WoAg=='
+  // }
 
+  // // run this 1st
   // React.useEffect(() => {
   //   axios.put('/inserts/new_account',
   //     {
@@ -176,7 +173,9 @@ export default function Manage(props) {
   //       // console.log(resp.data)
   //     })
   // }, []);
-
+  
+  
+  // // //run this 2nd
   // React.useEffect(() => {
   //   //https//developer.microsoft.com/en-us/graph/graph-explorer
   //   axios.put('/inserts/download_emails',

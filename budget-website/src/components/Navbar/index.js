@@ -78,6 +78,7 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
   :  [
           { label: 'Dashboard', link: '/dashboard' },
           { label: 'Manage', link: '/manage' },
+          { label: 'Sheets', link: '/sheets' }
         ]
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -101,7 +102,7 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
   // #6f7176
 
   return (
-    <AppBar className={'navBar'} position="fixed" sx={{'backgroundColor': 'transparent'}}>
+    <AppBar position="fixed" sx={{'backgroundImage': 'linear-gradient(79deg,#111112, #1a1a1be3 48%, #101111cf)'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -113,7 +114,7 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
+              fontFamily: "'Poppins', sans-serif",
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
@@ -169,7 +170,7 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
+              fontFamily: "'Poppins', sans-serif",
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
