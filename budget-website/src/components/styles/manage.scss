@@ -28,6 +28,11 @@
 		color: #ffffffc2;
 		margin: 20px;
 
+		&--exceededBudget{
+			background-color: rgb(255 44 44 / 32%);
+			display: flex;
+		}
+
 		&--header {
 			display: flex;
 			justify-content: space-between;

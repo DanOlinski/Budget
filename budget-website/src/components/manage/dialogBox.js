@@ -26,7 +26,7 @@ export default function DialogBox(props) {
           {' - '}
           </div>
           <div className='dialog--categoriesCard--rows--div'>
-          {obj.amount_spent}
+          {'$'}{obj.amount_spent}
           </div>
           <div className='dialog--categoriesCard--rows--div'>
           {' - '}
@@ -240,7 +240,7 @@ export default function DialogBox(props) {
                 {'Budget '}
                 <input
                 className='dialog--categoriesCard--input'
-                placeholder={clickedCard.budget}
+                placeholder={`$${clickedCard.budget}`}
                 type="text"
                 name="newbudget"
               />
