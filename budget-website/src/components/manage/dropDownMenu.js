@@ -37,7 +37,7 @@ export default function DropDownMenu(props) {
     }
   })
 
-  console.log(defaultCategory)
+  // console.log(defaultCategory)
 
   const handleDefaultCategoryChange = (e) => {
 

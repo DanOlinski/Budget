@@ -72,7 +72,7 @@ const categoryInfo = (
               {storeName}
             </div>
             <div>
-              {amount_spent}
+              {'$'}{amount_spent}
             </div>
           </div>
         )
@@ -102,7 +102,7 @@ const categoryInfo = (
                 {storeName}
               </div>
               <div>
-                {amount_spent}
+                {'$'}{amount_spent}
               </div>
             </div>
           )
@@ -143,6 +143,7 @@ const categoryInfo = (
   }
 
   const spendingSum = () => {
+    
     const sum = (arrayOfObjs) => {
       if (Array.isArray(arrayOfObjs) && arrayOfObjs.length > 0) {
         let sum = 0

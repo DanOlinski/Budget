@@ -73,23 +73,26 @@ export default function Manage(props) {
       }
     })
   }
-// console.log(defaultCategory)
+  
   const renderDefaultCategory = () => {
-    if(defaultCategory.category !== '-Default-'){
-    return (
-      <>
-        <Card
-          budget={defaultCategory.budget}
-          renderCategory={true}
-          category={defaultCategory.category}
-          renderStoreComponent={renderStore('Render For Card')}
-        />
-      </>
-    )
-    }
+    //this is really odd. I don't need to loop through all categories to find the default category, I can simply set the category prop to be equal to defaultCategory.category, however if I do it like that the filter that set the color to red when the budget limit is exceeded simply doesn't work
+    return categories.map((category) => {
+      if (category.category === defaultCategory.category && defaultCategory.category !== '-Default-') {
+        return (
+          <>
+            <Card
+              budget={category.budget}
+              renderCategory={true}
+              category={category.category}
+              renderStoreComponent={renderStore('Render For Card')}
+            />
+          </>
+        )
+      }
+    })
   }
 
-  
+
   //-----^-card-^-----
 
   //-----^-update db-^-----
