@@ -1,3 +1,4 @@
+import { disableReactDevTools } from '@fvilers/disable-react-devtools'
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route }
@@ -13,6 +14,8 @@ import { history } from '../src/helpers/history'
 import useManageApp from './hooks/useManageApp';
 import Sheets from './pages/sheets';
 const userId = localStorage.getItem('auth')
+
+// disableReactDevTools()
 
 function App() {
 

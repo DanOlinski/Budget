@@ -12,7 +12,7 @@ const categoryInfo = (
       let sum = 0
       arrayOfObjs.map((spendingObj) => {
         if (spendingObj.amount_spent) {
-          sum += Number(spendingObj.amount_spent.slice(1))
+          sum += Number(spendingObj.amount_spent)
         }
       })
       const round = Math.round((sum * 100) / 100).toFixed(2)
@@ -149,7 +149,7 @@ const categoryInfo = (
         let sum = 0
         arrayOfObjs.map((spendingObj) => {
           if (spendingObj.amount_spent) {
-            sum += Number(spendingObj.amount_spent.slice(1))
+            sum += Number(spendingObj.amount_spent)
           }
         })
         const round = Math.round((sum * 100) / 100).toFixed(2)
