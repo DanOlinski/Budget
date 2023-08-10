@@ -20,6 +20,8 @@ const SignUp = ({ onFormSwitch }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // added for visual purposes to be able to render the first letter in the navbar - security breach has to be handled better
+    localStorage.setItem('email',data.email);
 
       const config = {
         headers: {
@@ -34,6 +36,8 @@ const SignUp = ({ onFormSwitch }) => {
         const data = res.data;
         // set token for keeping user logged in
         localStorage.setItem('auth',data.userId);
+        // added for visual purposes to be able to render the first letter in the navbar - security breach has to be handled better
+        localStorage.setItem('email',data.email);
         onFormSwitch();
         navigate('/dashboard');
       })

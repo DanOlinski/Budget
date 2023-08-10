@@ -6,8 +6,10 @@ import AccountList from '../components/dashboard/AccountList';
 import useGlobalStates from '../hooks/useGlobalStates';
  
 const Dashboard = () => {
-    const { spending } =  useGlobalStates()
-    console.log(spending);
+    // const { spending } =  useGlobalStates()
+    // console.log(spending);
+
+    
 
 //loading info from db into global states from all other pages except from the manage file, to avoid data conflicts
 // const userId = localStorage.getItem('auth')

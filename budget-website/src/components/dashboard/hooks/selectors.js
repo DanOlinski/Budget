@@ -18,7 +18,7 @@ export default function useDashboardData() {
       state: 'January',
       categories: [],
       accounts: [], 
-      spending: spending
+      spendingTotal: {}
     });
 
   useEffect(() => {
@@ -35,52 +35,32 @@ export default function useDashboardData() {
     });
   },[]);
 
-  console.log(spendingState.accounts);
-
   function spendingByDates(startDate, endDate) {
+    const convertDateToISO = (date) => {
+      let dateFunc = new Date(date)
+      return dateFunc.toISOString()
+    }
+
     const data = {
       user_id: userId, 
-      start_date: startDate, 
-      end_date: endDate}
-
-      console.log("data startdate",data.start_date);
+      start_date: `${convertDateToISO(startDate)}`, 
+      end_date: `${convertDateToISO(endDate)}`}
 
     axios.post('/getters/spending', data)
     .then((res) => {
-      console.log("this is response from post spending",res);
       const data = res.data;
-      console.log(data);
-      let spending = calculateSpendingByCategory(data);
-      console.log ("this is spending after datacalc", spending);
+      console.log("this is the data gotten from axios", data);
+      let spendingCalculation = calculateSpendingByCategory(data);
       setSpendingState({
         ...spendingState,
-        spending: spending
+        spendingTotal: spendingCalculation
       });
-      console.log("this is state after setState",spendingState);
-      console.log(spendingState.spending);
       
     })
     .catch((error) => {
       console.log("An error occurred:", error.message)
     });
   };
-
-  // function getTotalSpending() {
-  //   let totalSpending = 0;
-  //   const categories = spendingByDates()
-
-  //   categories.forEach((category) => {
-  //     totalSpending += spendingByDates[category];
-  //     console.log(totalSpending);
-  //   })
-  //   return totalSpending;
-  // }
-
-  // getTotalSpending();
-
-  // }
-
-  // spendingByDates();
 
   return { spendingState, spendingByDates };
 

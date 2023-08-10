@@ -101,3 +101,28 @@ VALUES
   (1, 'General', 'Transportation', 1, 'Taxi Ride', '18.00', 'QuickRide', '1623720000000'),
   (1, 'General', 'Food', 1, 'Lunch at Cafe', '12.00', 'Cafe Delight', '1623566400000');
 
+  INSERT INTO spending (
+  user_id,
+  default_category,
+  selected_category,
+  account_id,
+  subject,
+  amount_spent,
+  store_name,
+  created_at_parsed
+)
+VALUES
+  (1, 'General', 'Food', 1, 'Lunch at Restaurant', '15.00', 'Tasty Bites', '1678550400000'),
+  (1, 'General', 'Entertainment', 1, 'Movie Tickets', '30.00', 'Cineplex', '1677907200000'),
+  (1, 'General', 'Clothing', 1, 'New Dress', '75.00', 'Fashion Emporium', '1676419200000'),
+  (1, 'General', 'Groceries', 1, 'Weekly Grocery Shopping', '95.00', 'SuperMart', '1675526400000'),
+  (1, 'General', 'Transportation', 1, 'Train Fare', '5.50', 'Metro Rail', '1674633600000'),
+  (1, 'General', 'Utilities', 1, 'Internet Bill', '60.00', 'WebConnect', '1673740800000'),
+  (1, 'General', 'Food', 1, 'Dinner Delivery', '20.00', 'FoodExpress', '1672848000000'),
+  (1, 'General', 'Entertainment', 1, 'Concert Tickets', '50.00', 'Live Arena', '1671955200000'),
+  (1, 'General', 'Clothing', 1, 'New Shoes', '55.00', 'Shoe Haven', '1671062400000'),
+  (1, 'General', 'Groceries', 1, 'Weekly Grocery Shopping', '105.00', 'SuperMart', '1665139200000'),
+  (1, 'General', 'Transportation', 1, 'Taxi Ride', '18.00', 'QuickRide', '1664246400000'),
+  (1, 'General', 'Food', 1, 'Lunch at Cafe', '12.00', 'Cafe Delight', '1663353600000');
+
+

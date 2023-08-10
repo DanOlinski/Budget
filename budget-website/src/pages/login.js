@@ -19,6 +19,8 @@ const Login = ({onFormSwitch}) => {
 
       const handleSubmit = (e) => {
         e.preventDefault();
+        // added for visual purposes to be able to render the first letter in the navbar - security breach has to be handled better
+        localStorage.setItem('email',data.email);
 
           const config = {
             headers: {
@@ -31,7 +33,10 @@ const Login = ({onFormSwitch}) => {
           .then((res) => {
             console.log(res);
             const data = res.data;
+            console.log(data);
             localStorage.setItem('auth',data.userId);
+            
+            
             console.log('set item');
             onFormSwitch();
             navigate('/dashboard');

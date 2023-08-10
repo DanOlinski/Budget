@@ -16,8 +16,8 @@
 		align-items: center;
 		overflow: hidden;
 		// background-color: rgba($color: #000000, $alpha: 0.5);
-		width: 130px;
-		height: 150px;
+		width: 160px;
+		height: 180px;
 		border-radius: 10px 10px 8px 8px;
 		border: rgb(255 255 255 / 40%);
 		border-style: solid;
@@ -40,7 +40,8 @@
 			margin: 10px;
 			font-size: 12px;
 			text-align: center;
-			width: 110px;
+			// width: 110px;
+			width: 120px;
 			min-height: 14px;
 		}
 		
@@ -49,7 +50,8 @@
 	justify-content: flex-end;
 	margin-bottom: 2px;
 	position: absolute;
-	margin-left: 94px;
+	// margin-left: 94px;
+	margin-left:125px;
 
 	&--icon {
 		display: flex;
@@ -77,7 +79,8 @@
 			background-color: rgb(0 0 0 / 19%);
 			margin: 0;
 			padding: 10px;
-			width: 109px;
+			// width: 109px;
+			width: 140px;
 			cursor: pointer;
 			
 			&--body {

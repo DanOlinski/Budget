@@ -14,8 +14,7 @@ export default function CategoryList(props) {
   const { spendingState, spendingByDates } = useDashboardData();
   const { rangeDates, setRangeDates } = useGlobalStates()
 
-  const { spending } = spendingState;
-  console.log(spending);
+  const { spendingTotal } = spendingState;
 
   const currentDate = new Date()
 
@@ -26,18 +25,38 @@ export default function CategoryList(props) {
   const [endDate, setEndDate] = useState(currentDate);
 
   useEffect(() => {
-    
-    spendingByDates(startDate, endDate);
-  },[]);
+    console.log("useEffect ran!");
+    const storedStartDate = localStorage.getItem('selectedStartDate');
+    const storedEndDate = localStorage.getItem('selectedEndDate');
+  
+    if (storedStartDate) {
+      setStartDate(new Date(storedStartDate));
+    } else {
+      setStartDate(firstDayMonth);
+    }
+  
+    if (storedEndDate) {
+      setEndDate(new Date(storedEndDate));
+    } else {
+      setEndDate(currentDate);
+    }
+  
+    spendingByDates(storedStartDate || firstDayMonth, storedEndDate || currentDate);
+  }, []);
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
-    spendingByDates(startDate, endDate);
+    console.log("this is the start date set now", date)
+    setEndDate(prevEndDate => prevEndDate);
+    spendingByDates(date, endDate);
+    localStorage.setItem('selectedStartDate', date.toISOString());
   };
 
   const handleEndDateChange = (date) => {
+    setStartDate(prevStartDate => prevStartDate);
     setEndDate(date);
-    spendingByDates(startDate, endDate);
+    spendingByDates(startDate, date);
+    localStorage.setItem('selectedEndDate', date.toISOString());
   };
 
   
@@ -85,14 +104,14 @@ export default function CategoryList(props) {
     
     </div>
     <div className='pie-chart'>
-    {spending !== null && Object.keys(spending).length > 0 ? (
+    {spendingTotal !== null && Object.keys(spendingTotal).length > 0 ? (
           <PieChart
             colors={['#566f73', '#655673', '#567358', '#736e56', ]}
             series={[
               {
-                data: Object.keys(spending).map((category) => ({
+                data: Object.keys(spendingTotal).map((category) => ({
                   id: category,
-                  value: spending[category],
+                  value: spendingTotal[category],
                   label: category 
                 })),
                 innerRadius: 50,
@@ -107,8 +126,6 @@ export default function CategoryList(props) {
             ]}
             width={600}
             height={500}
-            // label={({ dataEntry }) => {const percentage = ((dataEntry.value / getTotalSpending()) * 100).toFixed(2);
-            // return `${dataEntry.label} - $${dataEntry.value.toFixed(2)} (${percentage}%)`;}} // Include the value in the label
   labelStyle={{
     fontSize: 8, // Adjust the font size
     fill: 'black', // Text color

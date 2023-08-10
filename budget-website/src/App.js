@@ -12,7 +12,6 @@ import Manage from './pages/manage';
 import ResponsiveAppBar from './components/Navbar';
 import { history } from '../src/helpers/history'
 import useManageApp from './hooks/useManageApp';
-import Sheets from './pages/sheets';
 const userId = localStorage.getItem('auth')
 
 // disableReactDevTools()
@@ -23,6 +22,9 @@ function App() {
 
     const handleLogout = () => {
       localStorage.removeItem('auth');
+      localStorage.removeItem('selectedStartDate');
+      localStorage.removeItem('selectedEndDate');
+      localStorage.removeItem('email');
       setIsAuthenticated(false);
       window.location.href = "/login"
     };
@@ -55,7 +57,6 @@ function App() {
             <>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/manage" element={<Manage/>} />
-              <Route path="/sheets" element={<Sheets />} />
             </>
                 ) : null}
                 
