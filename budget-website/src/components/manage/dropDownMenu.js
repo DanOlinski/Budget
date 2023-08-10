@@ -61,37 +61,51 @@ export default function DropDownMenu(props) {
 
   const handleStoreCategoryChange = (e) => {
 
+    //set the sate that holds values with the relation between store name and category it should be appended to
     const categoryObj = { ...selectedCategory }
     categoryObj[props.store_name] = e.target.value
     setSelectedCategory(categoryObj)
 
+    //This used to resets the state of spending 
     const spendingObj = {
-       for_default_category: [...spending.for_default_category],
+       for_default_category: [],
        for_selected_categories: [] 
       }
 
-
+    //update spending.for_selected_category
     if(
+      //before mapping always check if value can be mapped without crashing
       Array.isArray(spending.for_selected_categories) && 
       spending.for_selected_categories.length > 0
     ){
       
       spending.for_selected_categories.map((obj)=>{
-
+        //if the mapped object is does not have store_name equal to the store we want to currently update, add that stores(without applying changes to it) to the spending state
         if(props.store_name !== obj.store_name){
           spendingObj.for_selected_categories.push(obj)
         }
 
+        //if the mapped object has store_name equal to the store we want to currently update:
         if(props.store_name === obj.store_name){
+
+          //create an object with the spending object we found(one that needs to be updated)
           const updatedStoreObj = { ...obj }
-          
+
+          //if we are setting a store to not have a selected category, set the selected_category to null
           if(e.target.value === '...'){
+            //update the selected_category key within the object we created updatedStoreObj
             updatedStoreObj.selected_category = null
+
+            //push the updatedStoreObj into the array spendingObj.for_default_category
             spendingObj.for_default_category.push(updatedStoreObj)
           }
 
+          //if we are setting a store to have a selected category, set the selected_category to equal the category that was selected in the dropdown menu. This info is stored in e.target.value
           if(e.target.value !== '...'){
+            //update the selected_category key within the object we created updatedStoreObj
             updatedStoreObj.selected_category = e.target.value
+
+            //push the updatedStoreObj into the array spendingObj.for_selected_category
             spendingObj.for_selected_categories.push(updatedStoreObj)
           }
 
@@ -102,16 +116,27 @@ export default function DropDownMenu(props) {
 
     }
     
+    //update spending.for_default_category
     if (
+      //before mapping always check if value can be mapped without crashing
       Array.isArray(spending.for_default_category) && 
       spending.for_default_category.length > 0
     ){
-      
+      //map default category
       spending.for_default_category.map((obj)=>{
 
+        //if the mapped object is does not have store_name equal to the store we want to currently update, add that stores(without applying changes to it) to the spending state
+        if(props.store_name !== obj.store_name){
+          spendingObj.for_default_category.push(obj)
+        }
+
+        //if the mapped object has store_name equal to the store we want to currently update:
         if(props.store_name === obj.store_name){
-          const updatedStoreObj = { ...obj }
           
+          //create an object with the spending object we found(one that needs to be updated)
+          const updatedStoreObj = { ...obj }
+
+          //if there is an object in the default categories that is being set from selected_category = null to selected_category = e.target.value. Then update that key inside the updatedStoreObj then push that object into the spendingObj.for_selected_categories array
           if(e.target.value !== '...'){
             updatedStoreObj.selected_category = e.target.value
             spendingObj.for_selected_categories.push(updatedStoreObj)

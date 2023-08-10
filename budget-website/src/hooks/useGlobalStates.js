@@ -22,6 +22,9 @@ const useGlobalStates = create((set) => ({
   visitedStores: [],
   setVisitedStores: (newData) => set(() => ({visitedStores: newData})),
 
+  //holds the value for what category is set to a store. This value is used to tell react the relation of store and in what category that store should be placed
+  //this object will contain one key/value pair for each store
+  //{store_name: selected_category}
   selectedCategory: {},
   setSelectedCategory: (newData) => set(() => ({selectedCategory: newData})),
   
