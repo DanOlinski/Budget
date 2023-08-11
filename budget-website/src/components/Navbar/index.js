@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link, useNavigate } from 'react-router-dom';
-import logoChart from '../media/logoChart.png'
+import logoChart2 from '../media/logoChart2.png'
 import '../../components/styles/navBar.scss';
 
 function AuthenticatedMenu({ handleCloseNavMenu, onLogout }) {
@@ -110,7 +110,18 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
     <AppBar position="fixed" sx={{'backgroundImage': 'linear-gradient(79deg,#111112, #1a1a1be3 48%, #101111cf)'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          {/* <AdbIcon sx={{display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
+          <Avatar
+  alt="logo"
+  src={logoChart2}
+  onClick={handleBudgetClick}
+  sx={{
+    mr: 2,
+    display: { xs: 'none', md: 'flex' },
+    width: 32,
+    height: 32,
+  }}
+/>
           <Typography
             variant="h6"
             noWrap
@@ -128,6 +139,7 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
           >
             BUDGET
           </Typography>
+          
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -200,7 +212,7 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg">
+                <Avatar alt="user" src="/static/images/avatar/2.jpg">
                 {userAvatar}
                 </Avatar>
               </IconButton>
