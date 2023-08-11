@@ -66,7 +66,7 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
       navigate('/dashboard');
     } else {
       // Redirect to the login page if the user is not logged in
-      navigate('/login');
+      navigate('/');
     }
   };
 

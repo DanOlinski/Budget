@@ -9,7 +9,7 @@ INSERT INTO accounts(
 VALUES(
   1,
   'Scotiabank',
-  120000.00,
+  '12,0000.00',
   'token here',
   'https://graph.microsoft.com/v1.0/users/final.project.lhl@outlook.com/mailFolders/AQMkADAwATMwMAItNjJkOC0xMzJiLTAwAi0wMAoALgAAAy3KWEvbj4tIvxN9uTIgazUBAMVxau0anYpLoRd2HmPfL1sAAAAEH75WAAAA'
 );
@@ -25,7 +25,7 @@ INSERT INTO accounts(
 VALUES(
   1,
   'Tangerine',
-  5000.00,
+  '5,000.00',
   'token here',
   'https://graph.microsoft.com/v1.0/users/final.project.lhl@outlook.com/mailFolders/AQMkADAwATMwMAItNjJkOC0xMzJiLTAwAi0wMAoALgAAAy3KWEvbj4tIvxN9uTIgazUBAMVxau0anYpLoRd2HmPfL1sAAAAEH75WAAAA'
 );
@@ -41,7 +41,7 @@ INSERT INTO accounts(
 VALUES(
   1,
   'BMO',
-  10000.00,
+  '10,000.00',
   'token here',
   'https://graph.microsoft.com/v1.0/users/final.project.lhl@outlook.com/mailFolders/AQMkADAwATMwMAItNjJkOC0xMzJiLTAwAi0wMAoALgAAAy3KWEvbj4tIvxN9uTIgazUBAMVxau0anYpLoRd2HmPfL1sAAAAEH75WAAAA'
 );

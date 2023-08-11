@@ -38,8 +38,20 @@ const toggleDownloadEmailsForm = () => {
   ));
 
   return (
-    <ul className='account-list'>
-      {account}
+  //   { accountList.length > 0 ? (
+  //   <ul >
+  //     accountList
+  //     ) : (
+  //     <p> No Accounts Linked.</p>
+  // )}
+ <ul>
+  <div className='account-list'>
+    {account.length > 0 ? (
+      account
+    ) : (
+      <p>No accounts linked at the moment.</p>
+    )}
+    </div>
 
       <div>
           <button className='download-emails-but' onClick={toggleNewAccountForm}>Add a New Account</button>

@@ -50,7 +50,7 @@ function App() {
             <Routes>
             <Route path="/login" element={<Login onFormSwitch={handleLogin} />} />
             <Route path="/signup" element={<SignUp onFormSwitch={handleSignUp} />} />
-            {/* <Route path="/" element={<Home />} /> */}
+            <Route path="/" element={<Home />} />
             
 
                 {isAuthenticated ? (

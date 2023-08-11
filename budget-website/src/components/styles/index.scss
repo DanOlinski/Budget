@@ -1,0 +1,66 @@
+// .dashboard-container {
+//   display: flex;
+//   flex-direction: column;
+//   position: relative; /* Ensure proper positioning for absolute elements */
+//   min-height: 1250px; /* Minimum full viewport height */
+  
+// }
+
+// .main-content {
+//   padding: 50px;
+//   font-size: larger;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-start; /* Align text to the left within the column */
+// }
+
+
+// .main-content {
+//   padding: 50px;
+//   padding-left:700px;
+//   padding-top: 200px;
+//   padding-bottom: 200px;
+//   font-size: larger;
+//   display: flex;
+//   justify-content: center;
+//   flex-direction: column;
+// }
+
+.container-intro {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Align vertically center */
+  // // padding: 0 50px; /* Add some horizontal padding to center the button */
+  // height: 100vh; /* Set the height to the full viewport height */
+  // box-sizing: border-box; /* Include padding in the total height calculation */
+}
+
+.main-content {
+  padding: 50px;
+  padding-left:300px;
+  padding-top: 200px;
+  padding-bottom: 200px;
+  font-size: larger;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align text to the left within the column */
+}
+
+.outside-container {
+  color:white;
+  background-image: linear-gradient(79deg,#111112, #1a1a1be3 48%, #101111cf);
+}
+
+.start-btn {
+  border: none;
+  background-color: white;
+  font-size: larger;
+  padding-right: 30px;
+  padding-left: 30px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #5f6265;
+  margin-top: 10px; /* Add some space between text and button */
+  margin-left:250px;
+  width: 500px;
+}

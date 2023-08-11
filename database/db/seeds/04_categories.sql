@@ -1,45 +1,56 @@
 INSERT INTO categories(
-  user_id, 
-  category, 
+  user_id,
+  category,
   budget,
   is_default
 )
 VALUES(
-  1, 
-  'General', 
+  1,
+  'General',
   1000.00,
   TRUE
 );
 
 INSERT INTO categories(
-  user_id, 
-  category, 
+  user_id,
+  category,
   budget
 )
 VALUES(
-  1, 
-  'Food', 
+  1,
+  'Food',
   1000.00
 );
 
 INSERT INTO categories(
-  user_id, 
-  category, 
+  user_id,
+  category,
   budget
 )
 VALUES(
-  1, 
-  'Housing', 
+  1,
+  'Housing',
   1000.00
 );
 
 INSERT INTO categories(
-  user_id, 
-  category, 
+  user_id,
+  category,
   budget
 )
 VALUES(
-  1, 
-  'Transportation', 
+  1,
+  'Transportation',
   1000.00
-); 
+);
+
+INSERT INTO categories(
+  user_id,
+  category,
+  budget
+)
+VALUES(
+  1,
+  'Entertainment',
+  1000.00
+);

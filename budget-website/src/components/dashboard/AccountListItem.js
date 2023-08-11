@@ -11,7 +11,12 @@ function AccountListItem({ bank, holdings, cards }) {
       
       {/* <div className='info-account-details'> */}
         <div className='holdings'>
-          $ {holdings}
+          {holdings !==  null ? (
+            `$ ${holdings}`
+          ) : (
+            '$ 0.00'
+          )}
+          
         </div>
         </div>
 
