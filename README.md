@@ -43,13 +43,13 @@ Follow the instructions from the README.md file located in the database folder.
 From your terminal go to the database folder and run the command `npm run local`
 
 Both the front-end and back-end servers have to be run simultaneously.
-Open two terminals for that effect. Note that the database server needs to start before the front end react server
+Open two terminals for that effect. Note that the database server needs to start before the front end react server.
 
 From a second terminal go to the budget-website folder and run the command `npm start`
 
 DISCLAIMER: This application is a proof of concept and has a specific use-case for displaying data.
 This website is designed to retrieve data from a single email account. To display fictitious banking data, which mimics real banking email notifications.
-Be mindful that the incoming moc data for this presentation will always be the same.
+Be mindful that the incoming mock data for this presentation will always be the same.
 In order to display data from other email accounts, the app would have to be slightly adjusted to handle this
 
 Follow the steps below to proceed with the expected use-case scenario.
