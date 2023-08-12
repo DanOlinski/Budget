@@ -60,11 +60,23 @@ export default function DropDownMenu(props) {
   }
 
   const handleStoreCategoryChange = (e) => {
-
+    
     //set the sate that holds values with the relation between store name and category it should be appended to
-    const categoryObj = { ...selectedCategory }
+    let categoryObj = { ...selectedCategory }
+    
     categoryObj[props.store_name] = e.target.value
+    
+    //this should't be done(changing a state directly) but:
+    //setSelectedCategory(categoryObj) is not running. 
+    //It changes when the dialog opens
+    //but doesn't trigger when a new category is selected
+    //cagetogyObj is updating correctly
+    // console.log(categoryObj, 'OBJ')
+    // console.log(selectedCategory, 'STATE')
+    selectedCategory[props.store_name] = e.target.value
+
     setSelectedCategory(categoryObj)
+
 
     //This used to resets the state of spending 
     const spendingObj = {
@@ -80,7 +92,7 @@ export default function DropDownMenu(props) {
     ){
       
       spending.for_selected_categories.map((obj)=>{
-        //if the mapped object is does not have store_name equal to the store we want to currently update, add that stores(without applying changes to it) to the spending state
+        //if the mapped object does not have store_name equal to the store we want to currently update, add that stores(without applying changes to it) to the spending state
         if(props.store_name !== obj.store_name){
           spendingObj.for_selected_categories.push(obj)
         }
@@ -150,16 +162,12 @@ export default function DropDownMenu(props) {
     setOpenDialogVisitedStores(false);
     setOpenDialogCreateCategory(false);
     setOpenDialogCategoryInfo(false)
-  }
 
-  // update selected_category when state changes
-  React.useEffect(() => {
+    // update selected_category when state changes
     let categoryName = null
-
     if(selectedCategory[props.store_name] !== '...'){
       categoryName = selectedCategory[props.store_name]
     }
-
     axios.put(
       `inserts/assign_category_to_spending`,
       {
@@ -171,14 +179,14 @@ export default function DropDownMenu(props) {
       }
     )
 
-  }, [selectedCategory]);
+  }
 
   //render the dropdown list
   const storeDropDownList = storeOptions.map((option, index) => {
     return (
       <option
         className='dropdown--menu'
-        id={index}
+        key={index}
         value={option}
       >
         {option}
@@ -191,13 +199,19 @@ export default function DropDownMenu(props) {
     return (
       <option
         className='dropdown--menu'
-        id={index}
+        key={index}
         value={option}
       >
         {option}
       </option>
     )
   })
+
+  //this is being passed into the <select> component, if selectedCategory[props.store_name] is null then react crashes, so I'm preventing that by seting up this variable and filter
+  let valueProp = '...'
+  if(selectedCategory[props.store_name]){
+    valueProp = selectedCategory[props.store_name]
+  }
 
   return (
     <div>
@@ -217,17 +231,17 @@ export default function DropDownMenu(props) {
             </select>
           </div>
           :
-          <>
+          
             <select
               className='dropdown'
-              value={selectedCategory[props.store_name]}
+              value={valueProp}
               onChange={handleStoreCategoryChange}
             >
 
               {storeDropDownList}
 
             </select>
-          </>
+          
       }
     </div>
   );

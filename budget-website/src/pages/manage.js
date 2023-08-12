@@ -16,22 +16,24 @@ export default function Manage(props) {
 
 
   //-----v-visited stores-v-----
+
   const renderStore = (forWhatComponent) => {
     return visitedStores.map((store, index) => {
 
       return (
-        <>
+        <div key={index}>
           <VisitedStores
-            id={index}
+            key={index}
             renderFor={forWhatComponent}
             store_name={store.store_name}
           //tittle={'INSTITUTIONS'}//don't need this for rendering a card
           //selected_category={store.selected_category}
           />
-        </>
+        </div>
       )
     })
   }
+
   //-----v-visited stores-v-----
 
   //-----v-dialog box-v-----
@@ -41,9 +43,11 @@ export default function Manage(props) {
     setOpenDialogCreateCategory(false);
     setOpenDialogCategoryInfo(false)
   };
+
   //-----^-dialog box-^-----
 
   //-----v-card-v-----
+
   const storesCardTittle = 'Institutions'
   const renderStoresCard = () => {
     return (
@@ -58,17 +62,18 @@ export default function Manage(props) {
   }
 
   const renderCategoriesCards = () => {
-    return categories.map((category) => {
+    return categories.map((category, index) => {
       if (category.category !== defaultCategory.category) {
         return (
-          <>
+          <div key={index}>
             <Card
+            key={index}
               budget={category.budget}
               renderCategory={true}
               category={category.category}
               renderStoreComponent={renderStore('Render For Card')}
             />
-          </>
+          </div>
         )
       }
     })
@@ -76,27 +81,27 @@ export default function Manage(props) {
   
   const renderDefaultCategory = () => {
     //this is really odd. I don't need to loop through all categories to find the default category, I can simply set the category prop to be equal to defaultCategory.category, however if I do it like that the filter that set the color to red when the budget limit is exceeded simply doesn't work
-    return categories.map((category) => {
+    return categories.map((category, index) => {
       if (category.category === defaultCategory.category && defaultCategory.category !== '-Default-') {
         return (
-          <>
+          <div key={index}>
             <Card
+            key={index}
               budget={category.budget}
               renderCategory={true}
               category={category.category}
               renderStoreComponent={renderStore('Render For Card')}
             />
-          </>
+          </div>
         )
       }
     })
   }
 
-
   //-----^-card-^-----
 
   //-----^-update db-^-----
-  //update default category when state defaultCategory changes
+
   React.useEffect(() => {
     if(defaultCategory.category !== '-Default-'){
       axios.put(
@@ -142,10 +147,11 @@ export default function Manage(props) {
       )
     }
   }, [updateBudget]);
-
+ 
   //-----^-update db-^-----
 
   //-----v-debug-v-----
+
   // const state = categories
   // React.useEffect(() => {
   // console.log(categories)
@@ -193,7 +199,6 @@ export default function Manage(props) {
   //       // console.log(resp.data)
   //     })
   // }, []);
-
   //-----^-debug-^-----
 
   // useManageApp(userId)

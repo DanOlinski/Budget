@@ -14,36 +14,6 @@ export default function DialogBox(props) {
 
   const { accessDynamicSpendingArrOfObj, spendingSum } = categoryInfo(categories, clickedCard.category, defaultCategory, spending)
 
-  const renderCategoryDialogRows = () => {
-    // console.log(accessDynamicSpendingArrOfObj(), 'this should be an ARRAY')
-    return accessDynamicSpendingArrOfObj().map((obj) => {
-        return (
-        <div className='dialog--categoriesCard--rows--singleRow'>
-          <div className='dialog--categoriesCard--rows--div'>
-          {obj.store_name}
-          </div>
-          <div className='dialog--categoriesCard--rows--div'>
-          {' - '}
-          </div>
-          <div className='dialog--categoriesCard--rows--div'>
-          {'$'}{obj.amount_spent}
-          </div>
-          <div className='dialog--categoriesCard--rows--div'>
-          {' - '}
-          </div>
-          <div>
-          {obj.bank}
-          </div>
-          <DropDownMenu
-            selected_category = {obj.selected_category}
-            store_name = {obj.store_name}
-          />
-
-        </div>
-      )
-    })
-  }
-
   const descriptionElementRef = React.useRef(null);
 
   React.useEffect(() => {
@@ -59,15 +29,48 @@ export default function DialogBox(props) {
     return visitedStores.map((store, index) => {
 
       return (
-        <>
+        <div key={index}>
           <VisitedStores
             tittle={props.tittle}
             renderFor={forWhatComponent}
             store_name={store.store_name}
             selected_category={selectedCategory[store.store_name]}
-            key={index}
+            key={index+1}
           />
-        </>
+        </div>
+      )
+    })
+  }
+
+  const renderCategoryDialogRows = () => {
+    // console.log(accessDynamicSpendingArrOfObj(), 'this should be an ARRAY')
+    return accessDynamicSpendingArrOfObj().map((obj, index) => {
+        return (
+        <div key={index} className='dialog--categoriesCard--rows--singleRow'>
+          <div key={index+1} className='dialog--categoriesCard--rows--div'>
+          {obj.store_name}
+          </div>
+          <div key={index+2} className='dialog--categoriesCard--rows--div'>
+          {' - '}
+          </div>
+          <div key={index+3} className='dialog--categoriesCard--rows--div'>
+          {'$'}{obj.amount_spent}
+          </div>
+          <div key={index+4} className='dialog--categoriesCard--rows--div'>
+          {' - '}
+          </div>
+          <div key={index+5}>
+          {obj.bank}
+          </div>
+
+          <DropDownMenu
+            key={index+6}
+            selected_category = {obj.selected_category}
+            store_name = {obj.store_name}
+            default={false}
+          />
+
+        </div>
       )
     })
   }
@@ -123,6 +126,7 @@ export default function DialogBox(props) {
     <>
       {// if openDialogVisitedStores is true open this dialog
         <Dialog
+        
           open={openDialogVisitedStores}
           onClose={props.onClose}
           scroll={props.scroll}
@@ -135,17 +139,17 @@ export default function DialogBox(props) {
           </DialogTitle>
 
           <DialogContent dividers={`${props.scroll}` === 'paper'} className='dialog'>
-            <DialogContentText
-              id="scroll-dialog-description"
-              ref={descriptionElementRef}
-              tabIndex={-1}
-            >
+
+            <div>
+              
               <DropDownMenu
                 default={true}
               />
 
               {renderStore('Render For DialogBox')}
-            </DialogContentText>
+
+            </div>
+          
           </DialogContent>
 
         </Dialog>
@@ -229,6 +233,7 @@ export default function DialogBox(props) {
 
           <DialogContent dividers={`${props.scroll}` === 'paper'} className='dialog--categoriesCard'>
 
+            
             <form className='dialog--categoriesCard--form'
               type="submit"
               onSubmit={event => event.preventDefault()}

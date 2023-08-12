@@ -21,6 +21,7 @@ export default function VisitedStores(props) {
         <DropDownMenu
           selected_category = {props.selected_category}
           store_name = {props.store_name}
+          default = {false}
         />
       </div>
     }
