@@ -17,15 +17,13 @@ React - Front-End
 
 1. Clone the repo on your local machine
 
-In your local machine terminal, cd into the folder you would like to clone the repo in and run:
+In your local machine terminal, cd into the folder you would like to clone the repo into and run:
 
 ```
-git clone https://github.com/DanOlinski/Budget.git
+git clone https://github.com/DanOlinski/Budget
 ```
 
-2. Open the cloned repo folder in VisualStudio Code or your code editor of choice.
-
-3. Install the required NPM packages.
+2. Install the required NPM packages.
 
 You will have to install the dependencies for the front-end and back-end server.
 First cd into the budget-website folder and run:
@@ -34,13 +32,11 @@ First cd into the budget-website folder and run:
 npm install
 ```
 
-4. Run the front-end and back-end servers.
-
 Then cd into the database folder and run the same command.
 
-4. Follow the instructions Setup and Create the DB in the database README.md file to set it up.
+3. Follow the instructions Setup and Create the DB in the database README.md file to set it up.
 
-5. Run servers to get started.
+4. Run servers to get started.
 
 Both the front-end and back-end servers have to be run simultaneously.
 Open two terminals for that effect.
