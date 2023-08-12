@@ -110,6 +110,7 @@ export default function CategoryList(props) {
             series={[
               {
                 data: Object.keys(spendingTotal).map((category) => ({
+                  key: category,
                   id: category,
                   value: spendingTotal[category],
                   label: category 

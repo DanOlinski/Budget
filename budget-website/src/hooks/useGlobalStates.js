@@ -60,6 +60,12 @@ const useGlobalStates = create((set) => ({
 
   rangeDates: {start_date: null, end_date: null},
   setRangeDates: (newData) => set(() => ({rangeDates: newData})),
+
+  triggerDashboardDownload: null,
+  setTriggerDashboardDownload: (newData) => set(() => ({triggerDashboardDownload: newData})),
+
+  clickedAccount: null,
+  setClickedAccount: (newData) => set(() => ({clickedAccount: newData})),
   
   userId: localStorage.getItem('auth')
   

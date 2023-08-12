@@ -65,7 +65,7 @@ export default function DialogBox(props) {
             renderFor={forWhatComponent}
             store_name={store.store_name}
             selected_category={selectedCategory[store.store_name]}
-            id={index}
+            key={index}
           />
         </>
       )

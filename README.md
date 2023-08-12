@@ -25,10 +25,14 @@ git clone https://github.com/DanOlinski/Budget
 npm install
 ```
 
+<<<<<<< HEAD
 3. Setup Database.
 ```
 Follow the README.md file from within the database folder
 ```
+=======
+
+>>>>>>> d16a2d9c80d06f59777cf8dae91bca25790288fa
 
 4. Run the front-end and back-end servers.
 
@@ -69,12 +73,6 @@ The user lets the user create new and/or update current categories. The app trac
 ![Categories](https://github.com/DanOlinski/Budget/blob/2c2edff110522e2fd76eeeeef8d787d161e5648b/media/Categories.png)
 
 ![Manage Categories](https://github.com/DanOlinski/Budget/blob/2c2edff110522e2fd76eeeeef8d787d161e5648b/media/ManageCategories.png)
-
-### Google Sheets
-
-The user can also have access to a Google Sheets version which appends the information similarly to the app. This additional feature, however, is essential as it provides the user another dimension to the budget tracker. It can facilitate tax returns for example by tracking specific spendings over time.
-
-![Google Sheets](https://github.com/DanOlinski/Budget/blob/2c2edff110522e2fd76eeeeef8d787d161e5648b/media/GoogleSheets.png)
 
 ## Credits
 

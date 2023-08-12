@@ -110,7 +110,6 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
     <AppBar position="fixed" sx={{'backgroundImage': 'linear-gradient(79deg,#111112, #1a1a1be3 48%, #101111cf)'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* <AdbIcon sx={{display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           <Avatar
   alt="logo"
   src={logoChart2}

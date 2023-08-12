@@ -6,8 +6,9 @@ import useGlobalStates from '../../hooks/useGlobalStates';
  
 export default function AddNewAccountForm(props) {
 
-  const { userId } = useGlobalStates()
+  const { setTriggerDashboardDownload } = useGlobalStates()
 
+  const userId = localStorage.getItem('auth');
 
     const [bank, setBank] = useState('');
     const [token, setToken] = useState('');
@@ -42,6 +43,8 @@ export default function AddNewAccountForm(props) {
             console.log(res);
             const data = res.data;
             console.log(data);
+            const randomNumber = Math.random();
+            setTriggerDashboardDownload(randomNumber);
           })
           .catch((error) => {
             console.log("An error occurred while trying to add a new bank account", error.message)

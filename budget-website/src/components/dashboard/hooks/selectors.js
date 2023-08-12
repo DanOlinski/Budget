@@ -5,7 +5,7 @@ import useGlobalStates from '../../../hooks/useGlobalStates';
 
 export default function useDashboardData() {
 
-  const { spending } = useGlobalStates();
+  const { spending, triggerDashboardDownload } = useGlobalStates();
 
   const userId = localStorage.getItem('auth');
 
@@ -34,8 +34,10 @@ export default function useDashboardData() {
         categories: all[0].data,
         accounts: all[1].data
       }));
+    }).catch((error) => {
+      console.log("An error occurred:", error.message)
     });
-  },[]);
+  },[triggerDashboardDownload]);
 
   function spendingByDates(startDate, endDate) {
     const convertDateToISO = (date) => {
