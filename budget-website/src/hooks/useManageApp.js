@@ -3,10 +3,17 @@ import { useState, useEffect } from "react";
 //importing the global state
 import useGlobalStates from "./useGlobalStates";
 import { startOfMonth } from "date-fns";
+import useDashboardData from "../components/dashboard/hooks/selectors";
 
 
 //this function is triggered(in the 1st page(App.js)) to download all the info from the db then set that info to the global states available, these states are coded in the useGlobalStates file.
-const useManageApp = (userId) => {
+const useManageApp = () => {
+
+  const {
+    spendingState
+  } = useDashboardData();
+
+  const userId = localStorage.getItem('auth');
 
   //here I am setting "setDefaultCategory"(global state) to a variable so that I can change these states from an empty array to info from database
   const { 
@@ -99,7 +106,7 @@ const useManageApp = (userId) => {
 
     })
     .catch((e) => console.log(e.message))
-  },[rangeDates]) 
+  },[rangeDates, spendingState]) 
 
 
   // console.log(rangeDates.start_date, '#########')

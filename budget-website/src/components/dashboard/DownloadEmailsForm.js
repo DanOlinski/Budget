@@ -6,7 +6,9 @@ import useGlobalStates from '../../hooks/useGlobalStates';
  
 const DownloadEmails = (props) => {
 
-  const { userId } = useGlobalStates()
+  const { clickedAccount, setClickedAccount } = useGlobalStates();
+
+  const userId = localStorage.getItem('auth');
 
     const [token, setToken] = useState('');
     const [error, setError] = useState(null);
@@ -16,9 +18,9 @@ const DownloadEmails = (props) => {
     const data = {
       user_id: userId,
       token : token,
-      bank : 'Scotiabank',
-      start_date: '2020-10-01T00:00:00Z',
-      end_date: '2023-08-01T00:00:00Z'
+      bank : clickedAccount,
+      start_date: '1960-10-01T00:00:00Z',
+      end_date: '2050-08-01T00:00:00Z'
     };
 
     console.log(data);
