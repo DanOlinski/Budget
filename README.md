@@ -1,7 +1,7 @@
 # Budget App - Track Your Expenses
 
 ## Project Description
-The Budget app has been built with the primary scope of tracking your expenses and helping you create and stick to a budget. This application is able to track spending and other relevant information from any bank accounts linked. In order to provide a secure environment for the user's sensitive banking information, the application links to the email notifications received from a given bank instead of requiring direct bank information access. Users can assign their regular purchases to new or existing categories and in this way, track their daily spendings. They can also set spending limits per category in order to have a guideline of how much they should spend within a specific timeframe.
+The Budget app has been built with the primary scope of tracking your expenses and helping you create and stick to a budget. This application is able to track spending and other relevant information from any bank accounts linked. In order to provide a secure environment for the user's sensitive banking information, the application links to the email notifications received from a given bank instead of requiring direct bank information access. Users can assign their regular purchases to new or existing categories and in this way, track their daily spendings. They can also set spending limits per category in order to have a guideline of how much they should spend within a specific time frame.
 
 ![Budget App](./media/BudgetApp.png)
 
@@ -43,14 +43,14 @@ Follow the instructions from the README.md file located in the database folder.
 From your terminal go to the database folder and run the command `npm run local`
 
 Both the front-end and back-end servers have to be run simultaneously.
-Open two terminals for that effect. However the database server needs to start before the front end react server
+Open two terminals for that effect. Note that the database server needs to start before the front end react server
 
 From a second terminal go to the budget-website folder and run the command `npm start`
 
 DISCLAIMER: This application is a proof of concept and has a specific use-case for displaying data.
 This website is designed to retrieve data from a single email account. To display fictitious banking data, which mimics real banking email notifications.
 Be mindful that the incoming moc data for this presentation will always be the same.
-In order to display data from other email accounts, the app would have to be slightly adjusted to handle linking different email accounts
+In order to display data from other email accounts, the app would have to be slightly adjusted to handle this
 
 Follow the steps below to proceed with the expected use-case scenario.
 
@@ -58,7 +58,7 @@ Follow the steps below to proceed with the expected use-case scenario.
 
 1. On the home page, click 'Get Started Now'. This will bring you to the sign up page.
 
-2. On the sign up page, input your email, chosen a password and click 'Sign Up'.
+2. On the sign up page, input your email and password then click 'Sign Up'.
 
 3. Once the account is created, you will be re-directed to the main dashboard page. No bank accounts are linked yet, so no data is displayed.
 
@@ -67,26 +67,27 @@ Follow the steps below to proceed with the expected use-case scenario.
 - Enter the bank name of your choice.
 
 - To retrieve a token: 
-  - head to https://developer.microsoft.com/en-us/graph/graph-explorer 
+  - head to Graph Explorer: https://developer.microsoft.com/en-us/graph/graph-explorer 
   - login with the following credentials;
-    - Email: final.project.lhl@outlook.com
-    - Password: #Finalprojectlhl
+    - Email: `final.project.lhl@outlook.com`
+    - Password: `#Finalprojectlhl`
+    - If you are prompted with a request for a verification code on sign in, contact Daniel Olinski G. at +1(403)6180269
 
-  - On the main Graph Explorer page, click the button 'Access Token' to generate a unique token, which provides API access to the email and creates the connection between the application and the bank notification emails.
+  - On the Graph Explorer page (link above), click the button 'Access Token' to generate a unique token, which provides API access to the email and creates the connection between the application and the bank notifications (these notifications are currently in the outlook email account).
   ![Access Token](./media/AccessToken.PNG)
 
 - Copy the token, go back to the budget app form, paste the token then click 'Submit'.
 
-5. You now have your first account set up, but there doesn't seem to be any data.. To import the data, you will have to make a request for it by clicking on the 'Import Budget Details' button. A form will be displayed, which asks you to input the unique token again. The same token can be used here.
+5. You now have your first account set up, but there doesn't seem to be any data.. To import the data, you will have to make a download emails request by clicking on the 'Import Budget Details' button. A form will be displayed, which asks you to input the Access Token again. The same token described in the step above can be used here.
 
-6. Upon completion of the request, make sure you are in the dashboard page, there you will see two date manus, these two dates mark the boundaries you want to set, to view spending data that ocurred within the provided time frame
+6. Upon completion of the request, make sure you are in the dashboard page, there you will see two date menus, these two dates mark the boundaries you want to set, to view spending data (transactions that ocurred within the provided time frame)
 
 - The application obtains access to the account's emails and will scan each email for relevant banking information. This includes account balance, transactions, the institution where the transaction was made, the amount spent and the credit/debit card number used.
 
 - The bank account information will display the last recorded account balance and the debit/credit cards linked to the account.
 
-- The pie chart will display the total spending for the selected time frame, which is initially set between the first of the month and the current day of the month. The dates can be adjusted to display the spending within any time frame you like, as long as there is a data recorded.
-  - when you set a store to a category the pie chart will split into sections (each section represents a category) (check the section below (section 7) for more info on how to set categories)
+- The pie chart will display the total spending for the selected time frame, which is initially set between the first of the month and the current day of the month. The dates can be adjusted to display the spending within any time frame you like, as long as there is a data recorded for the selected time frame.
+  - when you set a store to a category the pie chart will split into sections (each section represents a category) (check the description below (section 7) for more info on how to set up categories)
 
 ![Dashboard Chart](./media/DashboardChart.png)
 
@@ -95,7 +96,10 @@ Follow the steps below to proceed with the expected use-case scenario.
 
 - The application has three categories set up when first logging in: General, Food and Transportation. All the spendings will initially be set to the default category General.
 
-- The institutions box lists the different stores recorded on the banking transactions. By clicking on the box, a form opens up, which lets you categorize the stores you purchased from, in an existent category. This means that every time you would make a purchase to that specific store, the purchase will be tracked in the selected category. Ex: Choose to put all Tim Hortons purchases in the category Food, any store that is not set to a category will show up in the default category.
+- The institutions box lists the different stores recorded on the banking transactions. By clicking on the box, a form opens up, which lets you set a store, to an existing category. This means that every time you make a purchase from that specific store, the purchase will be displayed in the category you selected for that store. Ex: Choose to put SAFEWAY purchases in the category Food.
+- Any store that is not set to a category will be displayed in the default category.
+
+![Manage Categories](./media/ManageCategories.png)
 
 - Once a store is assigned to a category, all transactions will be displayed in it. To view the spending details for a given category, simply click on the desired category. This will give you an overview of the spendings tracked and the total amount spent. It also displays the maximum budget assigned to it. You can update the budget limit as you wish by changing the input field and clicking 'Save.
 
@@ -104,15 +108,6 @@ Follow the steps below to proceed with the expected use-case scenario.
 - To add a category, click on the + button. It will ask you to input the category name and budget limit. Click 'Save' to add it to your tracked categories. Categories can also be deleted (except for the set default category)
 
 ![Categories](./media/Categories.png)
-
-![Manage Categories](./media/ManageCategories.png)
-
-###################################
-
-### Manage Categories
-The manage categories lets the user create new and/or update current categories. The app tracks the institutions where the user has spent money in the past and they can be assigned to specific categories. A budget limit can be set for each category and the app lets the user know when they have reached that limit. Having multiple categories which can be modeled to the user's needs, facilitates the spending tracking.
-
-
 
 ## Credits
 
