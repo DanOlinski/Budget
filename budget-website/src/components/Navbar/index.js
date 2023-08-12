@@ -84,7 +84,9 @@ function ResponsiveAppBar({ onFormSwitch, isAuthenticated, onLogout }) {
   :  [
           { label: 'Dashboard', link: '/dashboard' },
           { label: 'Manage', link: '/manage' },
-          { label: 'Sheets', link:'https://docs.google.com/spreadsheets/d/1AYmZ9v5-x_W_Fb-u3Zs0lhHhatQBMNW_xEp4iyDIHak/edit?usp=sharing', target: '_blank'}
+
+          // { label: 'Sheets', link:'https://docs.google.com/spreadsheets/d/1AYmZ9v5-x_W_Fb-u3Zs0lhHhatQBMNW_xEp4iyDIHak/edit?usp=sharing', target: '_blank'}
+
         ]
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
