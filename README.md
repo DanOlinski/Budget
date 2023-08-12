@@ -17,11 +17,10 @@ React - Front-End
 
 1. Clone the repo on your local machine
 
-Above the list of files, click Code and copy the Clone HTTPS link on your clipboard.
 In your local machine terminal, cd into the folder you would like to clone the repo in and run:
 
 ```
-git clone https://github.com/DanOlinski/Budget
+git clone https://github.com/DanOlinski/Budget.git
 ```
 
 2. Open the cloned repo folder in VisualStudio Code or your code editor of choice.
