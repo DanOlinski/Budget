@@ -12,7 +12,7 @@ import useManageApp from "../../hooks/useManageApp";
 
 export default function CategoryList(props) {
   const { spendingState, spendingByDates } = useDashboardData();
-  const { rangeDates, setRangeDates } = useGlobalStates()
+  const { rangeDates, setRangeDates, emailsDownloaded } = useGlobalStates()
 
   const { spendingTotal } = spendingState;
 
@@ -41,8 +41,19 @@ export default function CategoryList(props) {
       setEndDate(currentDate);
     }
   
-    spendingByDates(storedStartDate || firstDayMonth, storedEndDate || currentDate);
-  }, []);
+
+
+    
+    
+   
+    
+    setTimeout(()=> {
+      spendingByDates(storedStartDate || firstDayMonth, storedEndDate || currentDate)
+      }, 3000)
+
+
+  }, [emailsDownloaded]);
+
 
   const handleStartDateChange = (date) => {
     setStartDate(date);

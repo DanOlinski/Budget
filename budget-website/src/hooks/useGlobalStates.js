@@ -67,6 +67,9 @@ const useGlobalStates = create((set) => ({
   clickedAccount: null,
   setClickedAccount: (newData) => set(() => ({clickedAccount: newData})),
   
+  emailsDownloaded: null,
+  setEmailsDownloaded: (newData) => set(() => ({emailsDownloaded: newData})),
+
   userId: localStorage.getItem('auth')
   
 }))

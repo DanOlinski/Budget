@@ -3,10 +3,11 @@ import axios from 'axios';
 import Error from './helpers/error';
 import '../styles/dashboard.accountform.scss';
 import useGlobalStates from '../../hooks/useGlobalStates';
- 
-const DownloadEmails = (props) => {
+import useDashboardData from './hooks/selectors';
 
-  const { clickedAccount, setClickedAccount } = useGlobalStates();
+const DownloadEmails = (props) => {
+  const { spendingByDates } = useDashboardData()
+  const { clickedAccount, setClickedAccount, rangeDates, emailsDownloaded, setEmailsDownloaded } = useGlobalStates();
 
   const userId = localStorage.getItem('auth');
 
@@ -42,12 +43,16 @@ const DownloadEmails = (props) => {
             console.log(res);
             const data = res.data;
             console.log(data);
+
+            setEmailsDownloaded(Math.random())
+            
           })
           .catch((error) => {
             console.log("An error occurred while trying to add a new bank account", error.message)
             setError(error.response.data.error);
           });
         };
+        
       };
 
     return (
