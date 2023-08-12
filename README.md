@@ -34,6 +34,8 @@ First cd into the budget-website folder and run:
 npm install
 ```
 
+4. Run the front-end and back-end servers.
+
 Then cd into the database folder and run the same command.
 
 4. Follow the instructions Setup and Create the DB in the database README.md file to set it up.
