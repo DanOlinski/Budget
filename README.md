@@ -89,12 +89,12 @@ Password: #Finalprojectlhl
 
 9. The application has three categories set up when first logging in. The General, Food and Transportation. categories. All the spendings will initially be set to the default category General.
 
-10. The institutions box lists the different stores recorded on the banking transactions. By clicking on the box, a form opens up, which lets you categorize the stores you purchased from, in a specific category. This means that every time you would make a purchase to that specific store, the purchase will be tracked in the selected category. Ex: Choose to put all Tim Hortons purchases in the category Food.
+10. The institutions box lists the different stores recorded on the banking transactions. By clicking on the box, a form opens up, which lets you categorize the stores you purchased from, in an existent category. This means that every time you would make a purchase to that specific store, the purchase will be tracked in the selected category. Ex: Choose to put all Tim Hortons purchases in the category Food.
 Here, you can also change the default category. By updating it, all the spendings will be appended to your selected default.
 
-11. Once a store is assigned to a category, all transactions will be displayed in that category. To view the spending details for a given category, simply click on the box category. This will give you an overview of the spendings tracked and the total amount spent. It also displays the maximum budget assigned to it.
+11. Once a store is assigned to a category, all transactions will be displayed in it. To view the spending details for a given category, simply click on the box category. This will give you an overview of the spendings tracked and the total amount spent. It also displays the maximum budget assigned to it. You can update the budget limit as you wish by changing the input field and clicking 'Save.
 
-12. If a category has exceeded the budget limit, it will change color to red.
+12. If a category has exceeded the budget limit, its color will change to red.
 
 13. To add a category, click on the + button. It will ask you to input the category name and budget limit. Click 'Save' to add it to your tracked categories.
 
@@ -111,7 +111,7 @@ The user can add multiple bank accounts to track. It provides freedom to the use
 ![Bank Accounts Management](https://github.com/DanOlinski/Budget/blob/2c2edff110522e2fd76eeeeef8d787d161e5648b/media/BankAccountsManagement.png)
 
 ### Manage Categories
-The user lets the user create new and/or update current categories. The app tracks the institutions where the user has spent money in the past and they can be assigned to specific categories. A budget limit can be set for each category and the app lets the user know when they have reached that limit. Having multiple categories which can be modeled to the user's needs, facilitates the spending tracking.
+The manage categories lets the user create new and/or update current categories. The app tracks the institutions where the user has spent money in the past and they can be assigned to specific categories. A budget limit can be set for each category and the app lets the user know when they have reached that limit. Having multiple categories which can be modeled to the user's needs, facilitates the spending tracking.
 
 ![Categories](https://github.com/DanOlinski/Budget/blob/2c2edff110522e2fd76eeeeef8d787d161e5648b/media/Categories.png)
 
