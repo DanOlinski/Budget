@@ -25,14 +25,12 @@ git clone https://github.com/DanOlinski/Budget
 npm install
 ```
 
-3. Copy .env.example in the database folder and input your database information.
-
-4. Populate database.
+3. Setup Database.
 ```
-npm run db:reset
+Follow the README.md file from within the database folder
 ```
 
-5. Run the front-end and back-end servers.
+4. Run the front-end and back-end servers.
 
 In the database terminal, run:
 ```
@@ -51,7 +49,7 @@ Here is the information for the account used:
 Email: final.project.lhl@outlook.com
 Password: #Finalprojectlhl
 
-6. Log in with the credentials below and generate token here: https//developer.microsoft.com/en-us/graph/graph-explorer
+5. Log in with the credentials below and generate token here: https//developer.microsoft.com/en-us/graph/graph-explorer
 
 ## Usage
 

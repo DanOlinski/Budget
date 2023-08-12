@@ -1,71 +1,76 @@
-# Getting Started with Create React App
+# Budget App - Track Your Expenses
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Description
+The Budget app has been built with the primary scope of tracking your expenses and helping you create budgets. This application is able to track spending and other relevant information from any bank accounts linked. In order to provide a secure environment for the user's sensitive banking information, the application links to the email notifications received from the bank instead of requiring direct bank information access. Users can assign their regular purchases to new or existing categories and in this way, track their daily budget. They can also set maximum budgets per category in order to have a guideline of how much they should spend within a specific timeframe.
 
-## Available Scripts
+![Budget App](https://github.com/DanOlinski/Budget/blob/2c2edff110522e2fd76eeeeef8d787d161e5648b/media/BudgetApp.png)
 
-In the project directory, you can run:
+## Built With
 
-### `npm start` for serving in mac and linux
-### `npm run windowsStart` for serving in WLS
+PostGreSQL - Database
+Express.js - Back-End
+React - Front-End
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Getting Started
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Installation
 
-### `npm test`
+1. Clone the repo
+```
+git clone https://github.com/DanOlinski/Budget
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Install NPM packages
+```
+npm install
+```
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+5. Run the front-end and back-end servers.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+In the database terminal, run:
+```
+npm run local
+```
 
-### `npm run eject`
+In the front-end (budget-website) terminal, run:
+```
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The application has one use-case at the moment for testing purposes. The spending and bank account information is requested from a centralized email that contains all the bank notifications. In order to import the relevant banking data in the app, a unique access token has to be generated in Graph Explorer every time the request is sent to the email.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Here is the information for the account used:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Email: final.project.lhl@outlook.com
+Password: #Finalprojectlhl
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+6. Log in with the credentials below and generate token here: https//developer.microsoft.com/en-us/graph/graph-explorer
 
-## Learn More
+## Usage
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Filter Spending By Dates
+This feature included in the dashboard lets the user filter their spendings by a given timeframe and provides a visual of how much he has spent by category.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![Dashboard Chart](https://github.com/DanOlinski/Budget/blob/2c2edff110522e2fd76eeeeef8d787d161e5648b/media/DashboardChart.png)
 
-### Code Splitting
+### Add Multiple Bank Accounts
+The user can add multiple bank accounts to track. It provides freedom to the user to decide which accounts they want to track, as well as centralizing the information when needed.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![Bank Accounts Management](https://github.com/DanOlinski/Budget/blob/2c2edff110522e2fd76eeeeef8d787d161e5648b/media/BankAccountsManagement.png)
 
-### Analyzing the Bundle Size
+### Manage Categories
+The user lets the user create new and/or update current categories. The app tracks the institutions where the user has spent money in the past and they can be assigned to specific categories. A budget limit can be set for each category and the app lets the user know when they have reached that limit. Having multiple categories which can be modeled to the user's needs, facilitates the spending tracking.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![Categories](https://github.com/DanOlinski/Budget/blob/2c2edff110522e2fd76eeeeef8d787d161e5648b/media/Categories.png)
 
-### Making a Progressive Web App
+![Manage Categories](https://github.com/DanOlinski/Budget/blob/2c2edff110522e2fd76eeeeef8d787d161e5648b/media/ManageCategories.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Credits
 
-### Advanced Configuration
+This application has been built by Daniel Olinski Guterres and Eliza Galea.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

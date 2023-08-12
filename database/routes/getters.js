@@ -76,11 +76,15 @@ router.get('/accounts_by_user/:id', (req, res) => {
 
 //http://localhost:8000/getters/cards_by_account/:id
 router.get('/accounts_details_by_user/:id', (req, res) => {
+  //check for empty fields
 
   generalQueries.getAccountDetailsByUser(req.params.id)
   .then((accounts) => {
     // Process accounts data if needed before sending the response
     // For example, convert null card numbers to an empty array
+
+    console.log(accounts, '############')
+
     const processedAccounts = accounts.map(account => ({
       ...account,
       cards: account.cards || []  // Convert null to an empty array

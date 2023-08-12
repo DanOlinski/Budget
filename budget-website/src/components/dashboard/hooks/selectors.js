@@ -9,6 +9,7 @@ export default function useDashboardData() {
 
   const userId = localStorage.getItem('auth');
 
+  // console.log(userId)
   // const data = {
   //   user_id: 1, 
   //   start_date: '2021-01-01T00:00:00Z', 
@@ -23,8 +24,9 @@ export default function useDashboardData() {
 
   useEffect(() => {
     Promise.all([
-      axios.get('/getters/categories/' + userId),
-      axios.get('/getters/accounts_details_by_user/' + userId),
+      axios.get(`/getters/categories/${userId}`),
+      //crashing due to no account present for a given user
+      axios.get(`/getters/accounts_details_by_user/${userId}` ),
     ]).then((all) => {
         // console.log("axios request to get all cat and accounts",all);
       setSpendingState(prev => ({
