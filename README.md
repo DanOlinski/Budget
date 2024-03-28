@@ -96,16 +96,17 @@ Follow the steps below to proceed with the expected use-case scenario.
 
 7. Click on 'Manage' button in the navigation bar to see your spending details and manage your spending categories. The spending displayed are the transactions recorded during the time frame selected in the dashboard.
 
-- The application has three categories set up when first logging in: General, Food and Transportation. All the spendings will initially be set to the default category General.
+- The application has three categories set up when first logging in: General, Food and Transportation. All the spendings will initially be set to the default category "General".
 
-- The institutions box lists the different stores recorded on the banking transactions. By clicking on the box, a form opens up, which lets you set a store, to an existing category. This means that every time you make a purchase from that specific store, the purchase will be displayed in the category you selected for that store. Ex: Choose to put SAFEWAY purchases in the category Food.
-- Any store that is not set to a category will be displayed in the default category.
+- The "Institutions" box lists the different stores recorded on the banking transactions. By clicking on the box, a form opens up, which lets you set a store to an existing category. This means that every time you make a purchase from that specific store, the purchase will be displayed in the category you selected for that store. Ex: Choose to put SAFEWAY purchases in the category Food.
+- Any store that is not set to a category will be displayed in the default category "General".
+- You can create your own categories.
 
 ![Manage Categories](./media/ManageCategories.png)
 
-- Once a store is assigned to a category, all transactions will be displayed in it. To view the spending details for a given category, simply click on the desired category. This will give you an overview of the spendings tracked and the total amount spent. It also displays the maximum budget assigned to it. You can update the budget limit as you wish by changing the input field and clicking 'Save.
+- Once a store is assigned to a category, all transactions done at that store will be displayed in the category you asidned that store to. To view the spending details for a given category, simply click on the desired category. This will give you an overview of the spendings tracked and the total amount spent. It also displays the maximum budget assigned to it. You can update the budget limit as you wish by changing the input field and clicking 'Save'.
 
-- If a category has exceeded the budget limit, its color will change to red.
+- If a category has exceeded the budget limit, its color will change to red. You can change at will the budget limit for each category
 
 - To add a category, click on the + button. It will ask you to input the category name and budget limit. Click 'Save' to add it to your tracked categories. Categories can also be deleted (except for the set default category)
 
