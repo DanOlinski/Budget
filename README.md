@@ -48,11 +48,10 @@ Open two terminals for that effect. Note that the database server needs to start
 From a second terminal go to the budget-website folder and run the command `npm start`
 
 DISCLAIMER: This application is a proof of concept and has a specific use-case for displaying data.
-This website is designed to retrieve data from a single email account. To display fictitious banking data, which mimics real banking email notifications.
-Be mindful that the incoming mock data for this presentation will always be the same.
-In order to display data from other email accounts, the app would have to be slightly adjusted to handle this
+This website is designed to retrieve data from a single email account. To display banking data previously sent from a bank to the e-mail account.
+Be mindful that the incoming mock data for this presentation will always be the same. If you wish to visualize real data coming from your bank account into this app you will have to go into your bank app and set it to send spending notification to the e-mail: final.project.lhl@outlook.com (login information is located below), log into the provided outlook e-mail and set a rule so that all incoming e-mail from your bank should be automatically redirected to the Scotiabank folder (for the moment this application is only configured to scan through the scotiabank e-mail, in order to adjust this app to scan through e-mails from other banks there are minor adjustments needed to be added, since each bank has a different layout standard for their notification e-mails).
 
-Follow the steps below to proceed with the expected use-case scenario.
+Follow the steps below to proceed with the expected use-case scenario and read through the data already in the provided e-mail account.
 
 ### Use-Case Scenario
 
