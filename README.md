@@ -66,7 +66,9 @@ Follow the steps below to proceed with the expected use-case scenario.
 
 - Enter the bank name of your choice.
 
-- To retrieve a token: 
+- To retrieve a token:
+  - For this app we are using outlook e-mail service. The next upgrade for this application (comming soon) is to host it's own e-mail service, so that when a new user is created it wutomatically generates an email address for the new user. That e-mail address should then be placed in your bank app in order to sent spending notifications to the Budget app.
+  - The instructions below describe how to connect to the banking spending data that is already inside an outlook e-mail account. 
   - head to Graph Explorer: https://developer.microsoft.com/en-us/graph/graph-explorer 
   - login with the following credentials;
     - Email: `final.project.lhl@outlook.com`
