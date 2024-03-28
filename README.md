@@ -86,7 +86,7 @@ Follow the steps below to proceed with the expected use-case scenario.
 
 - The application obtains access to the account's emails and will scan each email for relevant banking information. This includes account balance, transactions, the institution where the transaction was made, the amount spent and the credit/debit card number used.
 
-- The bank account information will display the last recorded account balance and the debit/credit cards linked to the account.
+- The bank account information will display the last recorded account balance and the debit/credit cards linked to the account. The card numbers aren't sent by the bank in full for security reasons, instead the bank sends a card number that includes inly the last 4 digits of the card so that the user can recognize what card he spent on but no one else is able to have access to the full card number (ex: *******453)
 
 - The pie chart will display the total spending for the selected time frame, which is initially set between the first of the month and the current day of the month. The dates can be adjusted to display the spending within any time frame you like, as long as there is a data recorded for the selected time frame.
   - when you set a store to a category the pie chart will split into sections (each section represents a category) (check the description below (section 7) for more info on how to set up categories)
