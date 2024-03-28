@@ -7,9 +7,9 @@ This application is able to track spending and other information from any bank a
 
 ## Built With
 
-PostGreSQL - Database
-Express.js - Back-End
-React - Front-End
+- PostGreSQL - Database
+- Express.js - Back-End
+- React - Front-End
 
 ## Getting Started
 
