@@ -1,7 +1,7 @@
 # Budget App - Track Your Expenses
 
 ## Project Description
-This application is able to track spending and other information from any bank account. All banks offer a notification feature where the user inputs an e-mail address in the main bank app, all expenses are sent from the bank to the provided e-mail address, the Budget app then scans the received e-mail for information such as ammount spent and store where the purchase was conducted. These e-mail notifications coming from the bank do not contain any user information, making it a secure way of sharing user's spending information with the budget app to make it easier for the user to track and manage their spending.
+This application is able to track spending and other information from any bank account. When the user swipes a card at a store within 3 seconds the information is added to the app. All banks offer a notification feature where the user inputs an e-mail address in the main bank app, all expenses are sent from the bank to the provided e-mail address, the Budget app then scans the received e-mail for information such as ammount spent and store where the purchase was conducted. These e-mail notifications coming from the bank do not contain any user information, making it a secure way of sharing user's spending information with the budget app to make it easier for the user to track and manage their spending.
 
 ![Budget App](./media/BudgetApp.png)
 
