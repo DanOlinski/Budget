@@ -10,6 +10,10 @@ This application is able to track spending and other information from any bank a
 - PostGreSQL - Database
 - Express.js - Back-End
 - React - Front-End
+- Asure
+- Axios
+- HTML
+- SASS
 
 ## Getting Started
 
