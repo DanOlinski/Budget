@@ -115,10 +115,6 @@ Follow the steps below to proceed with the expected use-case scenario and read t
 
 ![Categories](./media/Categories.png)
 
-## Credits
-
-This application has been built by Daniel Olinski Guterres and Eliza Galea.
-
 
 
 
